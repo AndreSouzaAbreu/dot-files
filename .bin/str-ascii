@@ -1,0 +1,9 @@
+#!/bin/bash
+
+(
+	if [[ -n $@ ]]; then
+		echo $@
+	else
+		cat /dev/stdin
+	fi
+) | iconv -f utf8 -t ascii//TRANSLIT//IGNORE >&1

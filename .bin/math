@@ -1,0 +1,87 @@
+#!/usr/bin/python
+import math
+import sys
+
+def mean(array, n):
+	return sum(array) / n
+
+def var(array, n):
+	average = mean(array, n)
+	variance = 0.0
+	for number in array:
+		variance += (number - average)**2
+	return variance/(n - 1)
+
+def stddev(array, n):
+	return math.sqrt(var(array, n))
+
+def squared_sum(array):
+	sum = 0.0
+	for number in array:
+		sum += number**2
+	return sum
+
+def sqrt_list(values):
+	for i in range(len(values)):
+		values[i] = math.sqrt(values[i])
+	return values
+
+def square_list(values):
+	for i in range(len(values)):
+		values[i] = values[i]**2
+	return values
+
+def str_to_number(a):
+	if "." in a:
+		a = float(a)
+	else:
+		a = int(a)
+	return a
+
+def print_result(result):
+	if result.__class__.__name__ in ('list', 'tuple'):
+		n = len(result) - 1
+		for i in range(n):
+			print(result[i], end = " ")
+		print(result[n])
+	else:
+		print(result)
+
+### READ INPUT
+if len(sys.argv ) == 1:
+	user_input = input().split(" ")
+else:
+	user_input = sys.argv
+	user_input.pop(0)
+
+command = user_input[0]
+user_input.pop(0)
+
+### FORMAT INPUT
+length = len(user_input)
+numbers = [0] * length
+for i in range(length):
+	numbers[i] = str_to_number(user_input[i])
+
+if command == "sum":
+	result = sum(numbers)
+elif command in ["avg", "average", "mean"]:
+	result = mean(numbers, length)
+elif command in ["var", "variance"]:
+	result = var(numbers, length)
+elif command == "stddev":
+	result = stddev(numbers, length)
+elif command in ["squaredsum", "squaresum"]:
+	result = squared_sum(numbers)
+elif command == "min":
+	result = min(numbers)
+elif command == "max":
+	result = max(numbers)
+elif command == "sqrt":
+	result = sqrt_list(numbers)
+elif command == "square":
+	result = square_list(numbers)
+else:
+	result = "ERROR: command not found"
+
+print_result(result)

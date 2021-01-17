@@ -1,0 +1,17 @@
+#!/bin/bash
+
+(
+	if [[ -n $@ ]]; then
+		echo $@
+	else
+		cat /dev/stdin
+	fi
+) | sd '[\s\-]' '_' |
+	sd '([a-z])([A-Z])' '${1}_${2}' |
+	tr -s '_' |
+	sd '_?([\(\)])_?' '$1' |
+	sd '^_*' '' |
+	sd '_*$' '' |
+	tr 'A-Z' 'a-z' |
+	str-ascii >&1
+echo
