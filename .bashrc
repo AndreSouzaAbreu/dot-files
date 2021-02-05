@@ -1,19 +1,7 @@
-#
-# ~/.bashrc
-#
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-if [[ -f ~/.bash_profile ]]; then
-	. ~/.bash_profile
-fi
+# include shell configuration, if it exists 
+[ -f ~/.profile ] && source ~/.profile
 
-if [[ -f ~/.bash_aliases ]]; then
-	. ~/.bash_aliases
-fi
-
-eval "$(zoxide init bash)"
-
-export PATH=$PATH:$HOME/.bin
-export EDITOR=vim
+EXPORT HISTFILE=~/.bash_history

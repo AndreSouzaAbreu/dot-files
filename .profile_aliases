@@ -28,11 +28,12 @@ alias npublish='npm publish --access=public'
 # Laravel
 alias tinker='php artisan tinker'
 alias pam='php artisan migrate:refresh --seed'
-alias parl='php artisan r:l'
+alias parl='php artisan r:l --compact'
 alias pas='php artisan serve'
 alias pa='php artisan'
 
 # others
 alias hist="cat ~/.bash_history"
 alias hisgrep="cat ~/.bash_history | grep"
-alias i3conf='vim ~/.config/i3/config'
+alias audio-start='pulseaudio --start -D'
+alias bat='bat -pp'

@@ -1,0 +1,51 @@
+syntax on
+set autoindent
+set smartindent
+set history=5000
+set mouse=a
+set clipboard=unnamedplus
+set relativenumber
+set tabstop=2 softtabstop=2 expandtab shiftwidth=2
+
+" ao teclar a barra de espaço no modo normal, o Vim
+" irá colapsar ou expandir o bloco de código do cursor
+" foldlevel é a partir de que nível de indentação o 
+" código iniciará colapsado
+set foldmethod=syntax
+set foldlevel=99
+set encoding=utf8
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_statusline_ontop=0
+let g:airline_theme='base16_twilight'
+let g:airline#extensions#tabline#formatter = 'default'
+
+" navegação entre os buffe
+nnoremap <M-h> :bn<cr>
+nnoremap <M-l> :bp<cr>
+filetype plugin on
+
+ " Plugins
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-function'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'christoomey/vim-sort-motion'
+Plug 'mhinz/vim-startify'
+Plug 'Yggdroot/indentLine'
+Plug 'mattn/emmet-vim'
+" Plug 'itchyny/lightline.vim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'editorconfig/editorconfig-vim'
+Plug 'tomasr/molokai'
+Plug 'alvan/vim-closetag'
+call plug#end()
+
+colorscheme molokai
+
