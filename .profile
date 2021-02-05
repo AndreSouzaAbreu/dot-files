@@ -21,8 +21,8 @@ if [[ -d ~/.fzf ]]; then
   if [[ ! "$PATH" == *${HOME}/.fzf/bin* ]]; then
     export PATH="${PATH}:${HOME}/.fzf/bin"
   fi
-  source "$HOME/.fzf/shell/completion.$shell" 2> /dev/null
-  source "$HOME/.fzf/shell/key-bindings.$shell" 2> /dev/null
+  source "$HOME/.fzf/shell/completion.$shell" 
+  source "$HOME/.fzf/shell/key-bindings.$shell"
 fi
 
 ## custom shell prompt (works with bash, sh)
