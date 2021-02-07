@@ -1,51 +1,123 @@
+" syntax highlighting
 syntax on
-set autoindent
-set smartindent
-set history=5000
-set mouse=a
-set clipboard=unnamedplus
-set relativenumber
-set tabstop=2 softtabstop=2 expandtab shiftwidth=2
 
-" ao teclar a barra de espaço no modo normal, o Vim
-" irá colapsar ou expandir o bloco de código do cursor
-" foldlevel é a partir de que nível de indentação o 
-" código iniciará colapsado
-set foldmethod=syntax
-set foldlevel=99
+" command history size
+set history=5000
+
+" activate mouse
+set mouse=a
+
+" clipboard setting
+set clipboard=unnamedplus
+
+" relative line numbers
+set relativenumber
+set number
+set number relativenumber
+
+" indentation settings
+set autoindent smartindent tabstop=2 softtabstop=2 expandtab shiftwidth=2
+
+" automatic hightlight when searching
+set incsearch
+
+" menu when searching for help
+set wildmenu
+
+" confirm exiting if unsaved changes
+set confirm
+
+" folding settings (space toggles block collapsing in Normal Mode)
+set foldmethod=syntax foldlevel=99
+
+" text enconding
 set encoding=utf8
+
+"" KEYBINDINGS
+" close and save file
+nnoremap <C-s> :w<CR>
+nnoremap <C-q> :q<CR>
+
+" buffer navigation keybindings
+nnoremap <M-l> :bnext<CR>
+nnoremap <M-h> :bprevious<CR>
+nnoremap <M-d> :bdelete<CR>
+
+" easier window navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" more natural window spliting
+set splitbelow
+set splitright
+
+" file navigation keybindings 
+nnoremap <S-f> :FZF<CR>
+
+" tab navigation keybindings
+nnoremap <Tab> <C-W>w
+
+" i don't know what line below does
+filetype plugin on
+
+"" PLUGINS
+call plug#begin('~/.vim/plugged')
+  " Plug 'itchyny/lightline.vim'
+  Plug 'agude/vim-eldar'
+  Plug 'alvan/vim-closetag'
+  Plug 'bignimbus/pop-punk.vim'
+  Plug 'bluz71/vim-moonfly-colors'
+  Plug 'christoomey/vim-sort-motion'
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'kana/vim-textobj-function'
+  Plug 'kana/vim-textobj-indent'
+  Plug 'kana/vim-textobj-line'
+  Plug 'kana/vim-textobj-user'
+  Plug 'mattn/emmet-vim'
+  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+  Plug 'mhinz/vim-startify'
+  Plug 'tomasr/molokai'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-surround'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'Yggdroot/indentLine'
+call plug#end()
+
+"" Plugins config
+
+" theme
+colorscheme moonfly
+
+" editor config 
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+au FileType gitcommit let b:EditorConfig_disable = 1
+
+" sort motion
+let g:sort_motion_flags = "ui"
+
+" airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_statusline_ontop=0
 let g:airline_theme='base16_twilight'
 let g:airline#extensions#tabline#formatter = 'default'
 
-" navegação entre os buffe
-nnoremap <M-h> :bn<cr>
-nnoremap <M-l> :bp<cr>
-filetype plugin on
+"" BUG FIXING
+" Map the escape characters to their alt combinations
+" @see https://stackoverflow.com/questions/6778961/
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
+set ttimeout ttimeoutlen=50
 
- " Plugins
-call plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-line'
-Plug 'kana/vim-textobj-indent'
-Plug 'kana/vim-textobj-function'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'christoomey/vim-sort-motion'
-Plug 'mhinz/vim-startify'
-Plug 'Yggdroot/indentLine'
-Plug 'mattn/emmet-vim'
-" Plug 'itchyny/lightline.vim'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tomasr/molokai'
-Plug 'alvan/vim-closetag'
-call plug#end()
-
-colorscheme molokai
+" automatic trim trailing whitespaces in js files
+" autocmd BufWritePre *.js  :%s/\s\+$//e 
 
