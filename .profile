@@ -6,6 +6,7 @@
 export HISTSIZE=25000
 export HISTFILESIZE=25000
 export EDITOR=vim
+export BROWSER=brave
 export PATH=$PATH:$HOME/.local/bin
 export LANG=C
 export shell=${SHELL##*/}
