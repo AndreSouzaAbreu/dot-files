@@ -8,7 +8,7 @@ SAVEHIST=10000
 setopt extendedglob appendhistory hist_ignore_all_dups hist_ignore_space
 
 # PROMPT
-PROMPT="%F{#0f0}%n %F{fff}[%~] "
+PROMPT="%F{#0f0}%n %F{fff}[%~]%F{fff} "
 
 # AUTOCOMPLETION 
 # Basic auto/tab complete:
@@ -39,6 +39,13 @@ bindkey -v '^?' backward-delete-char
 # Fish-like syntax highlighting and autosuggestions
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# HIGHTLIGHT
+# ZSH_HIGHLIGHT_STYLES[alias]=fg=cyan
+# ZSH_HIGHLIGHT_STYLES[builtin]=fg=pink
+# ZSH_HIGHLIGHT_STYLES[function]=fg=yellow
+# ZSH_HIGHLIGHT_STYLES[command]=fg=brown
+
 
 # KEY BINDINGS
 # create a zkbd compatible hash;

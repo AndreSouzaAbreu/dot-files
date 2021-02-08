@@ -26,39 +26,8 @@ if [[ -d ~/.fzf ]]; then
   source "$HOME/.fzf/shell/key-bindings.$shell"
 fi
 
-## custom shell prompt (works with bash, sh)
-function customprompt() {
-  # the current number of lines in bash history:
-  history_size=$(fc -l -1)
-
-  # history_size=$(wc -l ~/.bash_history)
-  history_size=${history_size%%[^0-9]*}
-
-  # set an initial value to the number of lines
-  # in bash history stored from the last time
-  # this function was executed. This avoids bugs
-  # when running the first command in the current
-  # shell session
-
-  if [ -z "$history_lastsize" ]; then
-    history_lastsize=0
-  fi
-
-  # if the current number of lines in bash history
-  # is different from the last number of lines, then
-  # we print the user name and the current directory.
-  # otherwise, we just print >>
-  if [[ $history_size -eq $history_lastsize ]]; then
-    PS1='$ '
-  else
-    PS1='\[\033[01;32m\]\u \[\033[00m\]`pwd`:\n$ '
-  fi
-
-  # update the last value to the current value
-  history_lastsize=${history_size}
-}
-
-PROMPT_COMMAND=customprompt
+## custom prompt
+PS1='\[\033[00;32m\]\u \[\033[00;37m\][\w] '
 
 ## utility to add, edit, view, or sync aliases
 function aliases() {
