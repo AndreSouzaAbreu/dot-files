@@ -16,9 +16,9 @@ set number
 set number relativenumber
 
 " indentation settings
-set autoindent smartindent tabstop=2 softtabstop=2 expandtab shiftwidth=2
+set autoindent smartindent tabstop=2 softtabstop=2 shiftwidth=2
 
-" automatic hightlight when searching
+" automatic highlight when searching
 set incsearch
 
 " menu when searching for help
@@ -28,10 +28,13 @@ set wildmenu
 set confirm
 
 " folding settings (space toggles block collapsing in Normal Mode)
-set foldmethod=syntax foldlevel=99
+" set foldmethod=syntax foldlevel=99
 
 " text enconding
 set encoding=utf8
+
+" don't hide double quotes in json files
+set conceallevel=0
 
 "" KEYBINDINGS
 " close and save file
@@ -62,50 +65,65 @@ nnoremap <Tab> <C-W>w
 " i don't know what line below does
 filetype plugin on
 
+" auto reload vim config
+augroup myvimrchooks
+  au!
+  autocmd bufwritepost .vimrc source $MYVIMRC
+augroup END
+
 "" PLUGINS
 call plug#begin('~/.vim/plugged')
-  " Plug 'itchyny/lightline.vim'
-  Plug 'agude/vim-eldar'
-  Plug 'alvan/vim-closetag'
-  Plug 'bignimbus/pop-punk.vim'
-  Plug 'bluz71/vim-moonfly-colors'
-  Plug 'christoomey/vim-sort-motion'
-  Plug 'editorconfig/editorconfig-vim'
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'kana/vim-textobj-function'
-  Plug 'kana/vim-textobj-indent'
-  Plug 'kana/vim-textobj-line'
-  Plug 'kana/vim-textobj-user'
-  Plug 'mattn/emmet-vim'
-  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-  Plug 'mhinz/vim-startify'
-  Plug 'tomasr/molokai'
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-surround'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'Yggdroot/indentLine'
+	" Plug 'itchyny/lightline.vim'
+	Plug 'agude/vim-eldar'
+	Plug 'alvan/vim-closetag'
+	Plug 'bignimbus/pop-punk.vim'
+	Plug 'bluz71/vim-moonfly-colors'
+	Plug 'christoomey/vim-sort-motion'
+	Plug 'dunstontc/vim-vscode-theme'
+	Plug 'editorconfig/editorconfig-vim'
+	Plug 'gko/vim-coloresque'
+	Plug 'jiangmiao/auto-pairs'
+	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+	Plug 'kana/vim-textobj-function'
+	Plug 'kana/vim-textobj-indent'
+	Plug 'kana/vim-textobj-line'
+	Plug 'kana/vim-textobj-user'
+	Plug 'mattn/emmet-vim'
+	Plug 'mg979/vim-visual-multi'
+	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+	Plug 'mhinz/vim-startify'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'tomasr/molokai'
+	Plug 'tomasiser/vim-code-dark'
+	Plug 'tpope/vim-commentary'
+	Plug 'tomasiser/vim-code-dark'
+	Plug 'tpope/vim-surround'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+	Plug 'Yggdroot/indentLine'
 call plug#end()
 
 "" Plugins config
 
 " theme
-colorscheme moonfly
+colorscheme codedark
 
 " editor config 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
 
-" sort motion
+" flags for sorting
 let g:sort_motion_flags = "ui"
 
-" airline
+" status bar
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_statusline_ontop=0
 let g:airline_theme='base16_twilight'
 let g:airline#extensions#tabline#formatter = 'default'
+
+" coc config
+let g:coc_global_extensions = ['coc-css', 'coc-emmet', 'coc-html', 'coc-json', 'coc-phpls', 'coc-prettier', 'coc-python', 'coc-snippets', 'coc-tsserver', 'coc-vetur', 'coc-git', 'coc-cssmodules', 'coc-highlight']
 
 "" BUG FIXING
 " Map the escape characters to their alt combinations
@@ -117,7 +135,3 @@ while c <= 'z'
   let c = nr2char(1+char2nr(c))
 endw
 set ttimeout ttimeoutlen=50
-
-" automatic trim trailing whitespaces in js files
-" autocmd BufWritePre *.js  :%s/\s\+$//e 
-
