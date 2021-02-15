@@ -1,4 +1,5 @@
 
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -11,6 +12,19 @@ export PATH=$PATH:$HOME/.local/bin
 export LANG=C
 export shell=${SHELL##*/}
 
+## CLEAN UP HOME DIR
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+# export XINITRC="${XDG_CONFIG_HOME}/x11/xinitrc"
+export LESSHISTFILE="-"
+export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
+export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
+# export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+# export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/password-store"
+# export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+
 ## ALIASES
 [ -f ~/.profile_aliases ] && source ~/.profile_aliases
 
@@ -18,12 +32,11 @@ export shell=${SHELL##*/}
 [ -f /usr/bin/zoxide ] &&  eval "$(zoxide init $shell)"
 
 ## FZF
-if [[ -d ~/.fzf ]]; then
-  if [[ ! "$PATH" == *${HOME}/.fzf/bin* ]]; then
-    export PATH="${PATH}:${HOME}/.fzf/bin"
-  fi
-  source "$HOME/.fzf/shell/completion.$shell" 
-  source "$HOME/.fzf/shell/key-bindings.$shell"
+fzf_dir="$HOME/.local/share/fzf"
+if [[ -d $fzf_dir ]]; then
+  export PATH=$PATH:$fzf_dir/bin
+  source "$fzf_dir/shell/completion.$shell" 
+  source "$fzf_dir/shell/key-bindings.$shell"
 fi
 
 ## custom prompt

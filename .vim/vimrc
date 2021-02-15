@@ -7,6 +7,9 @@ set history=5000
 " activate mouse
 set mouse=a
 
+" fix bug in alacritty terminal
+set ttymouse=xterm2
+
 " clipboard setting
 set clipboard=unnamedplus
 
@@ -18,8 +21,9 @@ set number relativenumber
 " indentation settings
 set autoindent smartindent tabstop=2 softtabstop=2 shiftwidth=2
 
-" automatic highlight when searching
+" highlight all strings matching the search while typing
 set incsearch
+set hlsearch
 
 " menu when searching for help
 set wildmenu
@@ -35,6 +39,9 @@ set encoding=utf8
 
 " don't hide double quotes in json files
 set conceallevel=0
+
+" vim info location
+set viminfo+=n~/.vim/viminfo 
 
 "" KEYBINDINGS
 " close and save file
@@ -93,10 +100,9 @@ call plug#begin('~/.vim/plugged')
 	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 	Plug 'mhinz/vim-startify'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'tomasiser/vim-code-dark'
 	Plug 'tomasr/molokai'
-	Plug 'tomasiser/vim-code-dark'
 	Plug 'tpope/vim-commentary'
-	Plug 'tomasiser/vim-code-dark'
 	Plug 'tpope/vim-surround'
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
