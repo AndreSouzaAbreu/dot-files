@@ -1,0 +1,9 @@
+# vim: filetype=neomuttrc
+source /usr/share/mutt-wizard/mutt-wizard.muttrc
+
+# fix charset 
+charset-hook ^us-ascii$ cp1252
+charset-hook ^iso-8859-1$ cp1252
+set assumed_charset="cp1252"
+set send_charset="utf-8"
+
