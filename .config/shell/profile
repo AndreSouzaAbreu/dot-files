@@ -1,0 +1,25 @@
+## SHELL PROFILE
+
+# name of the shell (bash, zsh, or sh)
+shell=${SHELL##*/}
+
+# load shell configuration 
+SHELL_CONFIG=~/.config/shell
+[ -f $SHELL_CONFIG/env ] && source $SHELL_CONFIG/env
+[ -f $SHELL_CONFIG/aliases ] && source $SHELL_CONFIG/aliases
+[ -f $SHELL_CONFIG/functions ] && source $SHELL_CONFIG/functions
+
+# load local bin
+path_add "${HOME}/.local/bin"
+
+# load zoxide
+[ -f /usr/bin/zoxide ] &&  eval "$(zoxide init $shell)"
+
+# load fzf
+fzf_dir=${XDG_DATA_HOME}/fzf
+if [[ -d $fzf_dir ]]; then
+  path_add ${fzf_dir}/bin
+  source ${fzf_dir}/shell/completion.${shell} 
+  source ${fzf_dir}/shell/key-bindings.${shell}
+fi
+

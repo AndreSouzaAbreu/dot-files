@@ -1,0 +1,61 @@
+## SHELL ALIASES
+
+alias b='$BROWSER'
+alias e='neomutt'
+alias g='git'
+alias q='exit'
+alias r='ranger'
+alias v='vim'
+
+# files
+alias bat='bat -pp'
+
+# history
+alias hist='cat $HISTFILE'
+alias histgrep='cat $HISTFILE | grep'
+
+# directories
+alias l='ls'
+alias la='LC_ALL=C ls -lc --human-readable --group-directories-first --almost-all'
+alias lh='LC_ALL=C ls -lc --human-readable --group-directories-first'
+alias ll='LC_ALL=C ls -1'
+
+# file renaming
+alias rename-ascii='rename-files str-ascii'
+alias rename-kebab='rename-files str-kebab'
+alias rename-snake='rename-files str-snake'
+
+# GIT
+alias ga='git add'
+alias gc='git commit'
+alias gs='git status --short'
+alias gl='git log --oneline'
+alias glg='git log --graph --full-history --all --oneline'
+
+# NPM
+alias naudit='npm audit'
+alias nauditf='npm audit fix'
+alias nbuild='npm run build'
+alias npublish='npm publish --access=public'
+alias nserve='npm run serve'
+alias ndev='npm run dev'
+alias ndev-js='npm run dev-js'
+alias ndev-css='npm run dev-css'
+alias nprod='npm run prod'
+alias nprod-js='npm run prod-js'
+alias nprod-css='npm run prod-css'
+alias nwatch='npm run watch'
+alias nwatch-js='npm run watch-js'
+alias nwatch-css='npm run watch-css'
+
+# LARAVEL
+alias pa='php artisan'
+alias pam='php artisan migrate'
+alias pam:s='php artisan migrate:refresh --seed'
+alias par:l='php artisan route:list --compact'
+alias tinker='php artisan tinker'
+
+# mixed
+alias mbsync='mbsync -c ${XDG_CONFIG_HOME}/mbsync/mbsyncrc'
+alias startx='startx "${XDG_CONFIG_HOME}/X11/xinitrc" -- "${XDG_CONFIG_HOME}/X11/xserverrc" vt1'
+

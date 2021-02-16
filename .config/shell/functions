@@ -1,0 +1,73 @@
+## SHELL FUNCTIONS
+
+# add directory to path if not included already
+function path_add() {
+  if [ -d "$1"  ] && [[ ":${PATH}:" != *":$1:"*  ]]; then
+    export PATH="${PATH}:$1"
+	fi						
+	return 0
+}
+
+# utility to add, edit, view, or sync aliases
+function aliases() {
+  aliases_file=${XDG_CONFIG_HOME}/shell/aliases
+  case "$1" in
+    edit) $EDITOR $aliases_file ;;
+    sync) source $aliases_file ;;
+    add)
+      shift
+      name=$1
+      shift
+      echo "alias $name='$@'" >> $aliases_file
+      ;;
+    rm)
+      name=$1
+      sed -i "alias $1/d"  $aliases_file
+      ;;
+    *) alias ;;
+  esac
+  return 0
+}
+
+# utility to edit, view, or sync profile
+function profile() {
+  profile_file=${XDG_CONFIG_HOME}/shell/profile
+  case "$1" in
+    edit) $EDITOR $profile_file ;;
+    sync) source $profile_file ;;
+    *) bat $profile_file ;;
+  esac
+  return 0
+}
+
+# Go back to the parent directory n times
+function up() {
+  number="${1:-1}"
+  for i in $(seq $number); do
+    cd ..
+  done
+  return 0
+}
+
+# Make a directory and cd into it
+function mkcd() {
+  mkdir -p "$1" && cd "$1"
+  return 0
+}
+
+# Run a command n times
+function repeat() {
+  number="${1:-1}"
+  shift
+  command=$@
+  for i in $(seq $number); do
+    $command
+  done
+  return 0
+}
+
+# append new line to the output of perl-lorem command
+function lorem() {
+  /usr/bin/vendor_perl/lorem $@ && echo
+}
+
