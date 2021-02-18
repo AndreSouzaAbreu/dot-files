@@ -1,55 +1,53 @@
-#!/bin/bash
-
+#!/bin/sh
 dir=/sys/class/backlight/intel_backlight
 brightness_file="$dir/brightness"
-
 brightness=$(cat $brightness_file)
 maxbrightness=$(cat "$dir/max_brightness")
 
 help() {
-	echo -e "Description: Control screen brightness\n"
-	echo -e "Usage: backlight [COMMAND] [ARG]\n"
-	echo -e "Examples:\n"
-	echo -e "\tDecrease brightness by 5%: backlight dec 5"
-	echo -e "\tIncrease brightness by 5%: backlight inc 5"
-	echo -e "\tSet brightness to 60%: backlight set 60"
+  echo -e "Description: Control screen brightness\n"
+  echo -e "Usage: backlight [COMMAND] [ARG]\n"
+  echo -e "Examples:\n"
+  echo -e "\tDecrease brightness by 5%: backlight dec 5"
+  echo -e "\tIncrease brightness by 5%: backlight inc 5"
+  echo -e "\tSet brightness to 60%: backlight set 60"
 }
 
 inc() {
-	new=$(($brightness + $maxbrightness / 100 * $1))
-	if (($maxbrightness > $new)); then
-		echo $new >$brightness_file
-	fi
+  new=$(($brightness + $maxbrightness / 100 * $1))
+  if (($maxbrightness > $new)); then
+    echo $new >$brightness_file
+  fi
 }
 
 dec() {
-	new=$(($brightness - $maxbrightness / 100 * $1))
-	if (($new > 0)); then
-		echo $new >$brightness_file
-	fi
+  new=$(($brightness - $maxbrightness / 100 * $1))
+  if (($new > 0)); then
+    echo $new >$brightness_file
+  fi
 }
 
 set() {
-	new=$(($maxbrightness / 100 * $1))
-	if (($new > 0)) && (($maxbrightness > $new)); then
-		echo $new >$brightness_file
-	fi
+  new=$(($maxbrightness / 100 * $1))
+  if (($new > 0)) && (($maxbrightness > $new)); then
+    echo $new >$brightness_file
+  fi
 }
 
 case $1 in
 "inc")
-	inc $2
-	;;
+  inc $2
+  ;;
 "dec")
-	dec $2
-	;;
+  dec $2
+  ;;
 "set")
-	set $2
-	;;
+  set $2
+  ;;
 *)
-	help
-	return 1
-	;;
+  help
+  exit 1
+  ;;
 esac
 
-return 0
+exit 0

@@ -1,0 +1,6 @@
+#!/bin/sh
+while [ -n "$1" ]; do
+  mv "$1" "$(str-ascii $1 | str-snake)"
+  shift
+done
+exit 0
