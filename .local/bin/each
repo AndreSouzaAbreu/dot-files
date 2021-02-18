@@ -1,0 +1,13 @@
+#!/bin/sh
+file="$1"
+shift
+
+line_counter=0
+
+cat $file | while read line; do
+  let line_counter+=1
+  i="$line_counter"
+  command=$(echo $@ | sed "s/%{l}/$line/g" | sed "s/%{lc}/$i/g")
+  $command
+done
+exit 0

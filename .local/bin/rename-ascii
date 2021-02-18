@@ -1,6 +1,12 @@
 #!/bin/sh
 while [ -n "$1" ]; do
-  mv "$1" "$(str-ascii $1)"
+  file="$1"
+  dir=${file%/*}
+  basename=${file##*/}
+  newname=$(str-ascii $basename)
+  if [ "$basename" != "$newname" ]; then
+    mv "$file" "$dir/$newname"
+  fi
   shift
 done
 exit 0
