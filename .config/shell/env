@@ -38,7 +38,11 @@ export MBSYNCRC=${XDG_CONFIG_HOME}/mbsync/mbsyncrc
 export NOTMUCH_CONFIG=${XDG_CONFIG_HOME}/notmuch/notmuchrc
 export NMBGIT=${XDG_DATA_HOME}/notmuch/nmbug
 
-# development
-export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME}/npm/npmrc
-# export VIMINIT='source "${XDG_CONFIG_HOME}/vim/vimrc"'
+# crypto
+export ELECTRUMDIR=${XDG_DATA_HOME}/electrum
 
+# development related
+export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME}/npm/npmrc
+export PYLINTHOME=${XDG_CACHE_HOME}/pylint
+#export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
