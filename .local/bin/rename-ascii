@@ -4,9 +4,8 @@ while [ -n "$1" ]; do
   dir=${file%/*}
   basename=${file##*/}
   newname=$(str-ascii $basename)
-  if [ "$basename" != "$newname" ]; then
-    mv "$file" "$dir/$newname"
-  fi
+  [ "$dir" != "$file" ] && newname=$dir/$newname
+  [ "$basename" != "$newname" ] && mv "$file" "$newname"
   shift
 done
 exit 0

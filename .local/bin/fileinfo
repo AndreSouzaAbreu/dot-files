@@ -12,27 +12,45 @@ fi
 
 case $option in
   --extension|-e)
-    echo ${file##*\.}
+    basename=${file##*/}
+    extension=${basename##*\.}
+    [ "$extension" != "$basename" ] && echo $extension
     ;;
   --base-name|-N)
     echo ${file##*/}
     ;;
   --directory|-D)
-    echo ${file%/*}
+    dir=${file%/*}
+    if [ "$file" == "$dir" ]; then
+      echo '.'
+    else
+      echo $dir
+    fi
     ;;
   --base-directory|-d)
     dir=${file%/*}
-    echo ${dir##*/}
+    basedir=${dir##*/}
+    if [ "$file" == "$basedir" ]; then
+      echo '.'
+    else
+      echo $basedir
+    fi
     ;;
   --filename|-n)
     basename=${file##*/}
     echo ${basename%.*}
     ;;
   --all|-a)
-    extension=${file##*\.}
     basename=${file##*/}
     filename=${basename%.*}
+    extension=${basename##*\.}
+    if [ "$extension" == "$basename" ]; then
+      extension=""
+    fi
     dir=${file%/*}
+    if [ "$dir" == "$file" ]; then
+      dir=.
+    fi
     basedir=${dir##*/}
     echo path: $file
     echo directory: $dir
