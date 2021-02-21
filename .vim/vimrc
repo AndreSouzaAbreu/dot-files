@@ -1,3 +1,70 @@
+"""" PLUGINS
+
+filetype plugin on
+
+" if ! filereadable(system('echo -n "${HOME}/.vim/autoload/plug.vim"'))
+"   echo "Downloading junegunn/vim-plug to manage plugins"
+"   silent !mkdir -p ${HOME}/vim/autoload/
+"   silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${HOME}/.vim/autoload/plug.vim
+"   autocmd VimEnter * PlugInstall
+" endif
+
+call plug#begin('~/.vim/plugged')
+  " Plug 'itchyny/lightline.vim'
+  Plug 'agude/vim-eldar'
+  Plug 'alvan/vim-closetag'
+  Plug 'bignimbus/pop-punk.vim'
+  Plug 'bluz71/vim-moonfly-colors'
+  Plug 'christoomey/vim-sort-motion'
+  Plug 'dunstontc/vim-vscode-theme'
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'gko/vim-coloresque'
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf' }
+  Plug 'kana/vim-textobj-function'
+  Plug 'kana/vim-textobj-indent'
+  Plug 'kana/vim-textobj-line'
+  Plug 'kana/vim-textobj-user'
+  Plug 'mattn/emmet-vim'
+  Plug 'mg979/vim-visual-multi'
+  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+  Plug 'mhinz/vim-startify'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'pangloss/vim-javascript'
+  Plug 'posva/vim-vue'
+  Plug 'tomasiser/vim-code-dark'
+  Plug 'tomasr/molokai'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-surround'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'Yggdroot/indentLine'
+call plug#end()
+
+""" PLUGINS CONFIG
+
+" theme
+colorscheme codedark
+
+" editor config 
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+au FileType gitcommit let b:EditorConfig_disable = 1
+
+" sorting flags
+let g:sort_motion_flags = "ui"
+
+" status bar
+let g:airline_powerline_fonts = 1
+let g:airline_statusline_ontop=0
+let g:airline_theme='base16_twilight'
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#enabled = 1
+
+" coc config
+let g:coc_global_extensions = ['coc-css', 'coc-emmet', 'coc-html', 'coc-json', 'coc-phpls', 'coc-prettier', 'coc-python', 'coc-snippets', 'coc-tsserver', 'coc-vetur', 'coc-git', 'coc-cssmodules', 'coc-highlight']
+
+"" BASIC SETTINGS
+
 " syntax highlighting
 syntax on
 
@@ -7,32 +74,27 @@ set history=5000
 " activate mouse
 set mouse=a
 
-" fix bug in alacritty terminal
-set ttymouse=xterm2
-
 " clipboard setting
 set clipboard=unnamedplus
 
 " relative line numbers
-set relativenumber
-set number
 set number relativenumber
 
 " indentation settings
-set autoindent smartindent tabstop=2 softtabstop=2 shiftwidth=2
+set autoindent smartindent tabstop=2 expandtab shiftwidth=2
 
 " highlight all strings matching the search while typing
 set incsearch
-set hlsearch
+" set hlsearch " this causes hightlight to remain after search
 
-" menu when searching for help
+" show menu when searching for help
 set wildmenu
 
 " confirm exiting if unsaved changes
 set confirm
 
 " folding settings (space toggles block collapsing in Normal Mode)
-" set foldmethod=syntax foldlevel=99
+set foldmethod=syntax foldlevel=99
 
 " text enconding
 set encoding=utf8
@@ -43,8 +105,9 @@ set conceallevel=0
 " vim info location
 set viminfo+=n~/.vim/viminfo 
 
-"" KEYBINDINGS
-" close and save file
+""" KEYBIDINGS
+
+" close and save file easily
 nnoremap <C-s> :w<CR>
 nnoremap <C-q> :q<CR>
 
@@ -69,8 +132,10 @@ nnoremap <S-f> :FZF<CR>
 " tab navigation keybindings
 nnoremap <Tab> <C-W>w
 
-" i don't know what line below does
-filetype plugin on
+" toggle word-wrap
+nnoremap <M-z> :set wrap!<CR>
+
+""" AUTOLOAD
 
 " auto reload vim config
 augroup myvimrchooks
@@ -78,60 +143,8 @@ augroup myvimrchooks
   autocmd bufwritepost .vimrc source $MYVIMRC
 augroup END
 
-"" PLUGINS
-call plug#begin('~/.vim/plugged')
-	" Plug 'itchyny/lightline.vim'
-	Plug 'agude/vim-eldar'
-	Plug 'alvan/vim-closetag'
-	Plug 'bignimbus/pop-punk.vim'
-	Plug 'bluz71/vim-moonfly-colors'
-	Plug 'christoomey/vim-sort-motion'
-	Plug 'dunstontc/vim-vscode-theme'
-	Plug 'editorconfig/editorconfig-vim'
-	Plug 'gko/vim-coloresque'
-	Plug 'jiangmiao/auto-pairs'
-	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-	Plug 'kana/vim-textobj-function'
-	Plug 'kana/vim-textobj-indent'
-	Plug 'kana/vim-textobj-line'
-	Plug 'kana/vim-textobj-user'
-	Plug 'mattn/emmet-vim'
-	Plug 'mg979/vim-visual-multi'
-	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-	Plug 'mhinz/vim-startify'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'tomasiser/vim-code-dark'
-	Plug 'tomasr/molokai'
-	Plug 'tpope/vim-commentary'
-	Plug 'tpope/vim-surround'
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'Yggdroot/indentLine'
-call plug#end()
+""" BUG FIXING
 
-"" Plugins config
-
-" theme
-colorscheme codedark
-
-" editor config 
-let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
-au FileType gitcommit let b:EditorConfig_disable = 1
-
-" flags for sorting
-let g:sort_motion_flags = "ui"
-
-" status bar
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline_statusline_ontop=0
-let g:airline_theme='base16_twilight'
-let g:airline#extensions#tabline#formatter = 'default'
-
-" coc config
-let g:coc_global_extensions = ['coc-css', 'coc-emmet', 'coc-html', 'coc-json', 'coc-phpls', 'coc-prettier', 'coc-python', 'coc-snippets', 'coc-tsserver', 'coc-vetur', 'coc-git', 'coc-cssmodules', 'coc-highlight']
-
-"" BUG FIXING
 " Map the escape characters to their alt combinations
 " @see https://stackoverflow.com/questions/6778961/
 let c='a'
@@ -141,3 +154,7 @@ while c <= 'z'
   let c = nr2char(1+char2nr(c))
 endw
 set ttimeout ttimeoutlen=50
+
+" fix mouse bug in alacritty terminal
+set ttymouse=xterm2
+
