@@ -1,56 +1,63 @@
-"""" PLUGINS
+"""""""""""""""""""""
+" LOAD PLUGINS      "
+"""""""""""""""""""""
 
-filetype plugin on
+	" turn on plugins
+	filetype plugin on
 
-" if ! filereadable(system('echo -n "${HOME}/.vim/autoload/plug.vim"'))
-"   echo "Downloading junegunn/vim-plug to manage plugins"
-"   silent !mkdir -p ${HOME}/vim/autoload/
-"   silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${HOME}/.vim/autoload/plug.vim
-"   autocmd VimEnter * PlugInstall
-" endif
+	" download Vim Plug if not installed
+	if ! filereadable(system('echo -n "${HOME}/.vim/autoload/plug.vim"'))
+		echo "Downloading junegunn/vim-plug to manage plugins"
+		silent !mkdir -p ${HOME}/vim/autoload/
+		silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${HOME}/.vim/autoload/plug.vim
+	autocmd VimEnter * PlugInstall
+endif
 
+" define used plugins
 call plug#begin('~/.vim/plugged')
-  " Plug 'itchyny/lightline.vim'
-  Plug 'agude/vim-eldar'
-  Plug 'alvan/vim-closetag'
-  Plug 'bignimbus/pop-punk.vim'
-  Plug 'bluz71/vim-moonfly-colors'
-  Plug 'christoomey/vim-sort-motion'
-  Plug 'dunstontc/vim-vscode-theme'
-  Plug 'editorconfig/editorconfig-vim'
-  Plug 'gko/vim-coloresque'
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf' }
-  Plug 'kana/vim-textobj-function'
-  Plug 'kana/vim-textobj-indent'
-  Plug 'kana/vim-textobj-line'
-  Plug 'kana/vim-textobj-user'
-  Plug 'mattn/emmet-vim'
-  Plug 'mg979/vim-visual-multi'
-  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-  Plug 'mhinz/vim-startify'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'pangloss/vim-javascript'
-  Plug 'posva/vim-vue'
-  Plug 'tomasiser/vim-code-dark'
-  Plug 'tomasr/molokai'
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-surround'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'Yggdroot/indentLine'
+	Plug 'agude/vim-eldar'
+	Plug 'alvan/vim-closetag'
+	Plug 'bignimbus/pop-punk.vim'
+	Plug 'bluz71/vim-moonfly-colors'
+	Plug 'christoomey/vim-sort-motion'
+	Plug 'dunstontc/vim-vscode-theme'
+	Plug 'editorconfig/editorconfig-vim'
+	Plug 'gko/vim-coloresque'
+	Plug 'jiangmiao/auto-pairs'
+	Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf' }
+	Plug 'kana/vim-textobj-function'
+	Plug 'kana/vim-textobj-indent'
+	Plug 'kana/vim-textobj-line'
+	Plug 'kana/vim-textobj-user'
+	Plug 'mattn/emmet-vim'
+	Plug 'mg979/vim-visual-multi'
+	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+	Plug 'mhinz/vim-startify'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'pangloss/vim-javascript'
+	Plug 'posva/vim-vue'
+	Plug 'tomasiser/vim-code-dark'
+	Plug 'tomasr/molokai'
+	Plug 'tpope/vim-commentary'
+	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-abolish'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+	Plug 'Yggdroot/indentLine'
 call plug#end()
 
-""" PLUGINS CONFIG
+"""""""""""""""""""""
+" PLUGIN SETTINGS   "
+"""""""""""""""""""""
 
 " theme
 colorscheme codedark
 
-" editor config 
+" editor config
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
 
-" sorting flags
+" perform insensitive sorting
 let g:sort_motion_flags = "ui"
 
 " status bar
@@ -63,7 +70,9 @@ let g:airline#extensions#tabline#enabled = 1
 " coc config
 let g:coc_global_extensions = ['coc-css', 'coc-emmet', 'coc-html', 'coc-json', 'coc-phpls', 'coc-prettier', 'coc-python', 'coc-snippets', 'coc-tsserver', 'coc-vetur', 'coc-git', 'coc-cssmodules', 'coc-highlight']
 
-"" BASIC SETTINGS
+"""""""""""""""""""""
+" BASIC SETTINGS    "
+"""""""""""""""""""""
 
 " syntax highlighting
 syntax on
@@ -81,80 +90,195 @@ set clipboard=unnamedplus
 set number relativenumber
 
 " indentation settings
-set autoindent smartindent tabstop=2 expandtab shiftwidth=2
+set autoindent smartindent softtabstop=2 tabstop=2 shiftwidth=2 noexpandtab
 
-" highlight all strings matching the search while typing
+" highlight search while typing
 set incsearch
-" set hlsearch " this causes hightlight to remain after search
 
-" show menu when searching for help
+" highlight all strings matching the search pattern
+set hlsearch
+
+" show menu when searching for help, selecting themes, and so on
 set wildmenu
 
 " confirm exiting if unsaved changes
 set confirm
 
 " folding settings (space toggles block collapsing in Normal Mode)
-set foldmethod=syntax foldlevel=99
+set foldmethod=syntax foldlevel=1
 
-" text enconding
+" set text enconding
 set encoding=utf8
 
 " don't hide double quotes in json files
 set conceallevel=0
 
 " vim info location
-set viminfo+=n~/.vim/viminfo 
+set viminfo+=n~/.vim/viminfo
 
-""" KEYBIDINGS
+" show at least one line below/above the cursor
+set scrolloff=1
+
+" autoload file changes
+set autoread
+
+" limit file search to the current directory
+set nocompatible
+
+" make path include current directory, directory of current file, and subdirectories
+set path=.,,**
+
+" ignore some directories when searching files
+set wildignore+=**/node_modules/** 
+set wildignore+=**/vendor/** 
+set wildignore+=**/.git/** 
+set wildignore+=**/.cache/** 
+
+" list
+set listchars=eol:$,tab:↳\ ,trail:~,extends:>,precedes:<,space:·
+
+" Char Unicode
+" ↲ u21b2
+" ↳ u21b3
+" → u2192
+" • u2022
+" ◦ u25e6
+" ‧ u2027
+" ▪ u25aa
+
+" @see https://www.w3schools.com/charsets/ref_utf_punctuation.asp
+" @note press <C-v> in Insert Mode then type the unicode to insert a UTF-8 char
+
+"""""""""""""""""""""
+" FILE MANAGER      "
+"""""""""""""""""""""
+
+" turn off top banner
+let g:netrw_banner=0
+
+" set default style view
+let g:netrw_liststyle=3
+
+" n style
+" 0 show default layout
+" 1 show details layout
+" 2 show column layout
+" 3 show tree layout
+
+" open splits to the right of the tree
+let g:netrw_preview=1
+
+"""""""""""""""""""""
+" KEYBINDINGS       "
+"""""""""""""""""""""
+
+" leader key
+let mapleader=","
+
+" since 'ç' is useless in vim, map it to ':'
+nmap ç :
+
+" coc format
+vnoremap <leader>f	<Plug>(coc-format-selected)
+nnoremap <leader>f	<Plug>(coc-format-selected)
+
+" clear highlight from previous searc
+nnoremap <C-l> :noh<CR>
 
 " close and save file easily
-nnoremap <C-s> :w<CR>
-nnoremap <C-q> :q<CR>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
 
 " buffer navigation keybindings
-nnoremap <M-l> :bnext<CR>
-nnoremap <M-h> :bprevious<CR>
-nnoremap <M-d> :bdelete<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprev<CR>
+nnoremap <Bslash>d :bdelete<CR>
 
 " easier window navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <Bslash>h :wincmd h<CR>
+nnoremap <Bslash>l :wincmd l<CR>
+nnoremap <Bslash>j :wincmd j<CR>
+nnoremap <Bslash>k :wincmd k<CR>
+nnoremap <Bslash>H :wincmd H<CR>
+nnoremap <Bslash>L :wincmd L<CR>
+nnoremap <Bslash>o :wincmd o<CR>
+nnoremap <M-j> :resize -5<cr>
+nnoremap <M-k> :resize +5<cr>
+nnoremap <M-h> :vertical resize -5<cr>
+nnoremap <M-l> :vertical resize +5<cr>
+
+" easier window split
+nnoremap <leader>s :sp<CR>
+nnoremap <leader>v :vsp<CR>
+nnoremap <leader>r :wincmd r<CR>
 
 " more natural window spliting
 set splitbelow
 set splitright
 
-" file navigation keybindings 
-nnoremap <S-f> :FZF<CR>
+" file navigation keybindings
+nnoremap <leader>f :FZF<CR>
 
-" tab navigation keybindings
-nnoremap <Tab> <C-W>w
+" tab keybindings
+nnoremap <leader><Tab> :tabn<CR>
+nnoremap <leader>t :tab new<CR>
+
+" toggle three
+nnoremap <Bslash>f :Vex<CR>
 
 " toggle word-wrap
-nnoremap <M-z> :set wrap!<CR>
+nnoremap <M-w> :set wrap!<CR>
 
-""" AUTOLOAD
+" toggle display of invisible chars
+nnoremap <leader>l :set list!<CR>
+
+" toggle line numbers
+nnoremap <Bslash>n :set number! relativenumber!<CR>
+
+"""""""""""""""""""""
+" AUTOMATED SCRIPTS "
+"""""""""""""""""""""
 
 " auto reload vim config
 augroup myvimrchooks
-  au!
-  autocmd bufwritepost .vimrc source $MYVIMRC
+	au!
+	autocmd bufwritepost .vimrc source $MYVIMRC
 augroup END
 
-""" BUG FIXING
+" hide everything but airline
+let s:hidden_all=0
+function! ToggleHiddenAll()
+	if s:hidden_all == 0
+		let s:hidden_all=1
+		set noshowmode
+		set noruler
+		set laststatus=0
+		set noshowcmd
+	else
+		let s:hidden_all=0
+		set showmode
+		set ruler
+		set laststatus=2
+		set showcmd
+	endif
+endfunction
+
+nnoremap <M-t> :call ToggleHiddenAll()<CR>
+nnoremap <M-a> :AirlineToggle<CR>
+
+"""""""""""""""""""""
+" BUG FIXING        "
+"""""""""""""""""""""
 
 " Map the escape characters to their alt combinations
 " @see https://stackoverflow.com/questions/6778961/
 let c='a'
 while c <= 'z'
-  exec "set <A-".c.">=\e".c
-  exec "imap \e".c." <A-".c.">"
-  let c = nr2char(1+char2nr(c))
+	exec "set <A-".c.">=\e".c
+	exec "imap \e".c." <A-".c.">"
+	let c = nr2char(1+char2nr(c))
 endw
 set ttimeout ttimeoutlen=50
 
-" fix mouse bug in alacritty terminal
+" fix mouse bug in alacritty terminal  
 set ttymouse=xterm2
-
