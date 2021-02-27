@@ -165,8 +165,14 @@ let g:netrw_liststyle=3
 " 2 show column layout
 " 3 show tree layout
 
-" open splits to the right of the tree
+" open preview of files to the right
 let g:netrw_preview=1
+
+" initial size of the file menu (percentage of the window)
+let g:netrw_winsize=20
+
+" open files to the right
+let g:netrw_altv=1
 
 """""""""""""""""""""
 " KEYBINDINGS       "
@@ -224,7 +230,7 @@ nnoremap <leader><Tab> :tabn<CR>
 nnoremap <leader>t :tab new<CR>
 
 " toggle three
-nnoremap <Bslash>f :Vex<CR>
+nnoremap <leader>d :Lexplore<CR>
 
 " toggle word-wrap
 nnoremap <M-w> :set wrap!<CR>
