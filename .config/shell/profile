@@ -23,3 +23,5 @@ if [[ -d $fzf_dir ]]; then
   source ${fzf_dir}/shell/key-bindings.${shell}
 fi
 
+# set tabsize to 2
+tabs -2

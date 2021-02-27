@@ -20,7 +20,7 @@ alias hgrep='cat $HISTFILE | grep'
 alias l='ls'
 alias la='LC_ALL=C ls -lc --human-readable --group-directories-first --almost-all'
 alias lh='LC_ALL=C ls -lc --human-readable --group-directories-first'
-alias ll='ls -1'
+alias ll='LC_ALL=C ls -1'
 
 # GIT
 alias ga='git add'
@@ -73,5 +73,5 @@ alias startx='startx "${XDG_CONFIG_HOME}/X11/xinitrc" -- "${XDG_CONFIG_HOME}/X11
 
 # others
 alias rename='perl-rename'
-alias cbcopy='xclip -selection clipboard'
-alias cbpaste='xclip -out -selection clipboard'
+alias xcopy='xclip -selection clipboard'
+alias xpaste='xclip -out -selection clipboard'

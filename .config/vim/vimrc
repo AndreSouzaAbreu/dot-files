@@ -1,20 +1,114 @@
 """""""""""""""""""""
-" LOAD PLUGINS      "
+" BASIC SETTINGS    "
 """""""""""""""""""""
 
-	" turn on plugins
-	filetype plugin on
+" go to the 21st century
+set nocompatible
 
-	" download Vim Plug if not installed
-	if ! filereadable(system('echo -n "${HOME}/.vim/autoload/plug.vim"'))
-		echo "Downloading junegunn/vim-plug to manage plugins"
-		silent !mkdir -p ${HOME}/vim/autoload/
-		silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${HOME}/.vim/autoload/plug.vim
-	autocmd VimEnter * PlugInstall
+" syntax highlighting
+syntax on
+
+" command history size
+set history=5000
+
+" activate mouse
+set mouse=a
+
+" clipboard setting
+set clipboard=unnamedplus
+
+" relative line numbers
+set number relativenumber
+
+" indentation settings
+set autoindent smartindent softtabstop=2 tabstop=2 shiftwidth=2 noexpandtab
+
+" highlight search while typing
+set incsearch
+
+" highlight all strings matching the search pattern
+set hlsearch
+
+" show menu when searching for help, selecting themes, and so on
+set wildmenu
+
+" confirm exiting if unsaved changes
+set confirm
+
+" folding settings (space toggles block collapsing in Normal Mode)
+set foldmethod=syntax foldlevel=1
+
+" set text enconding
+set encoding=utf8
+
+" don't hide double quotes in json files
+set conceallevel=0
+
+" show at least one line below/above the cursor
+set scrolloff=1
+
+" autoload file changes
+set autoread
+
+" make path include current directory, directory of current file, and subdirectories
+set path=.,,**
+
+" ignore some directories when searching files
+set wildignore+=**/node_modules/** 
+set wildignore+=**/vendor/** 
+set wildignore+=**/.git/** 
+set wildignore+=**/.cache/** 
+
+" list
+set listchars=eol:$,tab:↳\ ,trail:~,extends:>,precedes:<,space:·
+
+" Char Unicode
+" ↲ u21b2
+" ↳ u21b3
+" → u2192
+" • u2022
+" ◦ u25e6
+" ‧ u2027
+" ▪ u25aa
+
+" more at: https://www.w3schools.com/charsets/ref_utf_punctuation.asp
+" press <C-v> in Insert Mode then type the unicode to insert a UTF-8 char
+
+"""""""""""""""""""""
+"  XDG CONFIG       "
+"""""""""""""""""""""
+
+set runtimepath^=$XDG_CONFIG_HOME/vim
+set runtimepath+=$XDG_DATA_HOME/vim
+set runtimepath+=$XDG_CONFIG_HOME/vim/after
+
+set packpath^=$XDG_DATA_HOME/vim,$XDG_CONFIG_HOME/vim
+set packpath+=$XDG_CONFIG_HOME/vim/after,$XDG_DATA_HOME/vim/after
+set viminfo+=n$XDG_CONFIG_HOME/vim/viminfo
+
+call mkdir($XDG_DATA_HOME."/vim/spell", 'p')
+
+set viewdir=$XDG_DATA_HOME/vim/view | call mkdir(&viewdir, 'p')
+set backupdir=$XDG_CACHE_HOME/vim/backup | call mkdir(&backupdir, 'p')
+set directory=$XDG_CACHE_HOME/vim/swap   | call mkdir(&directory, 'p')
+set undodir=$XDG_CACHE_HOME/vim/undo     | call mkdir(&undodir,   'p')
+
+"""""""""""""""""""""
+"  LOAD PLUGINS     "
+"""""""""""""""""""""
+
+" turn on plugins
+filetype plugin on
+
+" download Vim Plug if not installed
+if empty(glob('~/.config/vim/autoload/plug.vim'))
+	echo "Downloading Vim Plug to manage plugins" 
+	silent !curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " define used plugins
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/vim/plugged')
 	Plug 'agude/vim-eldar'
 	Plug 'alvan/vim-closetag'
 	Plug 'bignimbus/pop-punk.vim'
@@ -71,87 +165,11 @@ let g:airline#extensions#tabline#enabled = 1
 let g:coc_global_extensions = ['coc-css', 'coc-emmet', 'coc-html', 'coc-json', 'coc-phpls', 'coc-prettier', 'coc-python', 'coc-snippets', 'coc-tsserver', 'coc-vetur', 'coc-git', 'coc-cssmodules', 'coc-highlight']
 
 """""""""""""""""""""
-" BASIC SETTINGS    "
-"""""""""""""""""""""
-
-" syntax highlighting
-syntax on
-
-" command history size
-set history=5000
-
-" activate mouse
-set mouse=a
-
-" clipboard setting
-set clipboard=unnamedplus
-
-" relative line numbers
-set number relativenumber
-
-" indentation settings
-set autoindent smartindent softtabstop=2 tabstop=2 shiftwidth=2 noexpandtab
-
-" highlight search while typing
-set incsearch
-
-" highlight all strings matching the search pattern
-set hlsearch
-
-" show menu when searching for help, selecting themes, and so on
-set wildmenu
-
-" confirm exiting if unsaved changes
-set confirm
-
-" folding settings (space toggles block collapsing in Normal Mode)
-set foldmethod=syntax foldlevel=1
-
-" set text enconding
-set encoding=utf8
-
-" don't hide double quotes in json files
-set conceallevel=0
-
-" vim info location
-set viminfo+=n~/.vim/viminfo
-
-" show at least one line below/above the cursor
-set scrolloff=1
-
-" autoload file changes
-set autoread
-
-" limit file search to the current directory
-set nocompatible
-
-" make path include current directory, directory of current file, and subdirectories
-set path=.,,**
-
-" ignore some directories when searching files
-set wildignore+=**/node_modules/** 
-set wildignore+=**/vendor/** 
-set wildignore+=**/.git/** 
-set wildignore+=**/.cache/** 
-
-" list
-set listchars=eol:$,tab:↳\ ,trail:~,extends:>,precedes:<,space:·
-
-" Char Unicode
-" ↲ u21b2
-" ↳ u21b3
-" → u2192
-" • u2022
-" ◦ u25e6
-" ‧ u2027
-" ▪ u25aa
-
-" @see https://www.w3schools.com/charsets/ref_utf_punctuation.asp
-" @note press <C-v> in Insert Mode then type the unicode to insert a UTF-8 char
-
-"""""""""""""""""""""
 " FILE MANAGER      "
 """""""""""""""""""""
+
+" xdg data home
+let g:netrw_home = $XDG_DATA_HOME."/vim"
 
 " turn off top banner
 let g:netrw_banner=0
@@ -241,6 +259,11 @@ nnoremap <leader>l :set list!<CR>
 " toggle line numbers
 nnoremap <Bslash>n :set number! relativenumber!<CR>
 
+" copy, paste, and cut in visual mode
+vnoremap <C-c> :!xclip -i -selection clipboard && xclip -o -selection clipboard<CR>
+vnoremap <C-v> :!xclip -o -selection clipboard<CR>
+vnoremap <C-x> :!xclip -i -selection clipboard<CR>
+
 """""""""""""""""""""
 " AUTOMATED SCRIPTS "
 """""""""""""""""""""
@@ -286,5 +309,5 @@ while c <= 'z'
 endw
 set ttimeout ttimeoutlen=50
 
-" fix mouse bug in alacritty terminal  
+" fix mouse bug in some terminal emulators
 set ttymouse=xterm2

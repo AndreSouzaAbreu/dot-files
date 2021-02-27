@@ -49,10 +49,7 @@ export ELECTRUMDIR=${XDG_DATA_HOME}/electrum
 # development related starts here:
 export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME}/npm/npmrc
 export PYLINTHOME=${XDG_CACHE_HOME}/pylint
-
-# vim
-export VIMRC=${HOME}/.vim/vimrc
-#export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
-
+export VIMRC=${XDG_CONFIG_HOME}/vim/vimrc
+export VIMINIT='source ~/.config/vim/vimrc'
 export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git'
