@@ -2,16 +2,21 @@
 
 # programs
 export EDITOR=vim
+export VISUAL=vim
 export BROWSER=qutebrowser
 
 # history
 export SAVEHIST=25000
 export HISTSIZE=25000
 export HISTFILESIZE=25000
+# export HISTORY_IGNORE="(ls|cd|pwd|exit)"
 
 # language
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+
+# man pager
+export MANPAGER="sh -c 'col -bx | bat --language=man --plain'"
 
 # xdg
 export XDG_CONFIG_HOME=${HOME}/.config
@@ -41,8 +46,13 @@ export NMBGIT=${XDG_DATA_HOME}/notmuch/nmbug
 # crypto
 export ELECTRUMDIR=${XDG_DATA_HOME}/electrum
 
-# development related
+# development related starts here:
 export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME}/npm/npmrc
 export PYLINTHOME=${XDG_CACHE_HOME}/pylint
+
+# vim
+export VIMRC=${HOME}/.vim/vimrc
 #export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+
 export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
+export FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git'

@@ -6,6 +6,7 @@ alias g='git'
 alias q='exit'
 alias r='ranger'
 alias v='vim'
+alias vv='vim $VIMRC'
 
 # files
 alias bat='bat -pp'
@@ -66,8 +67,11 @@ alias tinker='php artisan tinker'
 
 # XDG
 alias ssh='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
+alias scp='scp -F ${XDG_CONFIG_HOME}/ssh/config'
 alias mbsync='mbsync -c ${XDG_CONFIG_HOME}/mbsync/mbsyncrc'
 alias startx='startx "${XDG_CONFIG_HOME}/X11/xinitrc" -- "${XDG_CONFIG_HOME}/X11/xserverrc" vt1'
 
 # others
 alias rename='perl-rename'
+alias cbcopy='xclip -selection clipboard'
+alias cbpaste='xclip -out -selection clipboard'
