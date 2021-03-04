@@ -10,13 +10,13 @@ This is a collection of my personal configuration files for several applications
 - alacritty
 - shell
 
-Most, if not all, configuration files are under a directory called `'~'` in this git repo. This directory mimics the `$HOME` directory. That means that you can simply copy the configuration files with command below:
+Most, if not all, configuration files are under a directory called `HOME` in this git repo. This directory mimics the `$HOME` directory. That means that you can simply copy the configuration files with command below:
 
 ```shell
-cp -r './~/*' ~/
+cp -r './HOME/*' ~/
 ```
 
-This will copy all configuration files to your home directory. Don't forget to use quotes when referencing the directory `'~'`
+This will copy all configuration files to your home directory. 
 
 ## LICENSE
 
