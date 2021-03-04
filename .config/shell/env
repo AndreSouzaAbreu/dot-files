@@ -12,6 +12,7 @@ export HISTFILESIZE=25000
 # export HISTORY_IGNORE="(ls|cd|pwd|exit)"
 
 # language
+export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
@@ -50,6 +51,6 @@ export ELECTRUMDIR=${XDG_DATA_HOME}/electrum
 export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME}/npm/npmrc
 export PYLINTHOME=${XDG_CACHE_HOME}/pylint
 export VIMRC=${XDG_CONFIG_HOME}/vim/vimrc
-export VIMINIT='source ~/.config/vim/vimrc'
+export VIMINIT='source $VIMRC'
 export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git'
