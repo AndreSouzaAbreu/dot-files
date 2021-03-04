@@ -36,7 +36,7 @@ set wildmenu
 set confirm
 
 " folding settings (space toggles block collapsing in Normal Mode)
-set foldmethod=syntax foldlevel=1
+set foldmethod=syntax foldlevel=99
 
 " set text enconding
 set encoding=utf8
@@ -49,6 +49,9 @@ set scrolloff=1
 
 " autoload file changes
 set autoread
+
+" hide statusline by default
+set noshowcmd noruler laststatus=0
 
 " make path include current directory, directory of current file, and subdirectories
 set path=.,,**
@@ -104,7 +107,7 @@ filetype plugin on
 if empty(glob('~/.config/vim/autoload/plug.vim'))
 	echo "Downloading Vim Plug to manage plugins" 
 	silent !curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	autocmd VimEnter * PlugInstall --sync | source $VIMRC
 endif
 
 " define used plugins
@@ -147,17 +150,36 @@ call plug#end()
 " theme
 colorscheme codedark
 
+" startify
+let g:startify_custom_header = []
+let g:startify_lists = [
+	\ { 'type': 'bookmarks', 'header': ["\tBookmarks"]},
+	\ { 'type': 'files',     'header': ["\tFiles"]},
+	\ { 'type': 'dir',       'header': ["\tFiles in " . getcwd()]},
+	\ { 'type': 'sessions',  'header': ["\tSessions"]},
+	\ { 'type': 'commands',  'header': ["\tCommands"]},
+\ ]
+let g:startify_bookmarks = [
+	\ { 'vimrc' : '~/.config/vim/vimrc' },
+	\ { 'shell': '~/.config/shell' },
+	\ { 'dwm': '~/.config/dwm' },
+	\ { 'dwmblocks': '~/.config/dwmblocks' }, 
+	\ { 'websites': '~/code/websites' }
+\ ]
+
+
 " editor config
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 au FileType gitcommit let b:EditorConfig_disable = 1
 
-" perform insensitive sorting
+" sort motion
 let g:sort_motion_flags = "ui"
 
-" status bar
+" airline
 let g:airline_powerline_fonts = 1
 let g:airline_statusline_ontop=0
 let g:airline_theme='base16_twilight'
+let g:airline_disable_statusline=1
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#enabled = 1
 
@@ -219,13 +241,13 @@ nnoremap <S-Tab> :bprev<CR>
 nnoremap <Bslash>d :bdelete<CR>
 
 " easier window navigation
-nnoremap <Bslash>h :wincmd h<CR>
-nnoremap <Bslash>l :wincmd l<CR>
-nnoremap <Bslash>j :wincmd j<CR>
-nnoremap <Bslash>k :wincmd k<CR>
-nnoremap <Bslash>H :wincmd H<CR>
-nnoremap <Bslash>L :wincmd L<CR>
-nnoremap <Bslash>o :wincmd o<CR>
+nmap <Bslash>h :wincmd h<CR><Bslash>
+nmap <Bslash>l :wincmd l<CR><Bslash>
+nmap <Bslash>j :wincmd j<CR><Bslash>
+nmap <Bslash>k :wincmd k<CR><Bslash>
+nmap <Bslash>H :wincmd H<CR><Bslash>
+nmap <Bslash>L :wincmd L<CR><Bslash>
+nmap <Bslash>o :wincmd o<CR><Bslash>
 nnoremap <M-j> :resize -5<cr>
 nnoremap <M-k> :resize +5<cr>
 nnoremap <M-h> :vertical resize -5<cr>
@@ -239,6 +261,9 @@ nnoremap <leader>r :wincmd r<CR>
 " more natural window spliting
 set splitbelow
 set splitright
+
+" startify
+nnoremap <leader>h :Startify<CR>
 
 " file navigation keybindings
 nnoremap <leader>f :FZF<CR>
@@ -261,8 +286,8 @@ nnoremap <Bslash>n :set number! relativenumber!<CR>
 
 " copy, paste, and cut in visual mode
 vnoremap <C-c> :!xclip -i -selection clipboard && xclip -o -selection clipboard<CR>
-vnoremap <C-v> :!xclip -o -selection clipboard<CR>
 vnoremap <C-x> :!xclip -i -selection clipboard<CR>
+vnoremap <C-v> :!xclip -o -selection clipboard<CR>
 
 """""""""""""""""""""
 " AUTOMATED SCRIPTS "
@@ -271,21 +296,24 @@ vnoremap <C-x> :!xclip -i -selection clipboard<CR>
 " auto reload vim config
 augroup myvimrchooks
 	au!
-	autocmd bufwritepost .vimrc source $MYVIMRC
+	autocmd bufwritepost $VIMRC source $VIMRC
 augroup END
 
+" disable Coc in git commits
+autocmd BufRead,BufNewFile COMMIT_EDITMSG let b:coc_enabled=0
+
 " hide everything but airline
-let s:hidden_all=0
+let s:hidden_all=1
 function! ToggleHiddenAll()
 	if s:hidden_all == 0
 		let s:hidden_all=1
-		set noshowmode
+		let g:airline_disable_statusline=1
 		set noruler
 		set laststatus=0
 		set noshowcmd
 	else
 		let s:hidden_all=0
-		set showmode
+		let g:airline_disable_statusline=0
 		set ruler
 		set laststatus=2
 		set showcmd
@@ -293,7 +321,6 @@ function! ToggleHiddenAll()
 endfunction
 
 nnoremap <M-t> :call ToggleHiddenAll()<CR>
-nnoremap <M-a> :AirlineToggle<CR>
 
 """""""""""""""""""""
 " BUG FIXING        "
@@ -306,7 +333,7 @@ while c <= 'z'
 	exec "set <A-".c.">=\e".c
 	exec "imap \e".c." <A-".c.">"
 	let c = nr2char(1+char2nr(c))
-endw
+endwhile
 set ttimeout ttimeoutlen=50
 
 " fix mouse bug in some terminal emulators
