@@ -16,20 +16,27 @@ COMMANDS
 	-a, add PATH
 		Start tracking one or more files.
 
+	-e, edit
+		Edit the list of files being tracked manually.
+
 	-r, rm PATH FLAGS
 		Stop tracking the given files. If the flag '--all' is present, remove all files from the track list.
 
 	-l, list, ls
-		List which files are being tracked
+		List files  being tracked
 
 	-L, ln, link DIR FLAGS
-		Create links of all files being tracked to DIR.If the flag '--symbolic' is present, then it will create symbolic links. Otherwise, it will create hard links
+		Create links of tracked files from \$HOME to DIR. If flag '--symbolic' is present, then it will create symbolic links. Otherwise, it will create hard links
 
 	-c, cp, copy DIR
-		Copy all files being tracked to the specified directory.
+		Copy all files being trackedi from \$HOME to DIR.
 
-	-s, sync DIR
-		Copy all files in DIR whose relative path to DIR is in the list of tracked files.
+	-s, sync DIR FLAGS
+		Sync dot files from DIR to the HOME directory. If flag '--copy' is present, the files will be copied. If flag '--symbolic' is present, it will create symbolic links. Otherwise, it will create hard links.
+
+	-S, sync-dirs TARGET DEST FLAGS
+		Sync dot files from TARGET to DEST. Syntax is the same as for the command sync. 
+		
 
 EXAMPLES
 	Add single file to track list
@@ -66,8 +73,8 @@ EXAMPLES
 		dtm sync my-projects/github/dotfiles 
 
 ENVIRONMENT VARIABLES
-	DTM_DATA_HOME
-		The path where to store data files, such as the list of tracked files. By default it is \$XDG_DATA_HOME/dtm. If \$XDG_DATA_HOME is unset, then \$DTM_DATA_HOME default to \$HOME/.local/share/dtm.
+	DTM_CONFIG_HOME
+		The path where to store data files, such as the list of tracked files. By default it is \$XDG_CONFIG_HOME/dtm. If \$XDG_CONFIG_HOME is unset, then \$DTM_CONFIG_HOME default to \$HOME/.local/share/dtm.
 	DTM_GIT_DIR
 		The path of the default git directory. This is used as a fallback if DIR is not specified for the dtm's commands ln, cp, and sync.
 
@@ -80,19 +87,19 @@ EOF
 }
 
 # variables
-if [[ -z $DTM_DATA_HOME  ]]; then
-	if [[ -n ${XDG_DATA_HOME} ]]; then
-		DTM_DATA_HOME=${XDG_DATA_HOME}/dtm
+if [[ -z $DTM_CONFIG_HOME  ]]; then
+	if [[ -n ${XDG_CONFIG_HOME} ]]; then
+		DTM_CONFIG_HOME=${XDG_CONFIG_HOME}/dtm
 	else
-		DTM_DATA_HOME=${HOME}/.local/share/dtm
+		DTM_CONFIG_HOME=${HOME}/.config/dtm
 	fi
 fi
 
-DTM_TRACKED_FILES_LIST=${DTM_DATA_HOME}/tracked-files.txt
+DTM_TRACKED_FILES_LIST=${DTM_CONFIG_HOME}/tracked-files.txt
 
 # create files that DTM will use to track dot files
 function createDataFiles() {
-	mkdir -p ${DTM_DATA_HOME}
+	mkdir -p ${DTM_CONFIG_HOME}
 	touch $DTM_TRACKED_FILES_LIST
 }
 
@@ -113,11 +120,12 @@ function trackFiles() {
 		filename=$1
 		shift
 		if ! [ -f "$filename" ]; then
-			echo "ERROR: file \"$filename\" does not exist. Skipping it"
+			echo "file \"$filename\" does not exist. Skipping it"
 			continue
 		fi
 		getPathRelativeToHome $filename >> ${DTM_TRACKED_FILES_LIST}
 	done
+
 	# remove duplicated files
 	LC_ALL=C sort -i $DTM_TRACKED_FILES_LIST | uniq > $DTM_TRACKED_FILES_LIST.tmp
 	mv $DTM_TRACKED_FILES_LIST.tmp $DTM_TRACKED_FILES_LIST
@@ -139,11 +147,11 @@ function untrackFiles() {
 	[[ "$1" == "--all" ]] && untrackAll
 
 	# we could use 'sed' to delete the line containing the name
-  # of the file to untrack. However, this would cause bugs with
+	# of the file to untrack. However, this would cause bugs with
 	# file names that have special characters. Therefore, it is
 	# safer to do this manually using shell script.
 
-  #	create a copy of files being tracked
+	# create a copy of files being tracked
 	tmpfile=${DTM_TRACKED_FILES_LIST}.tmp
 	cp $DTM_TRACKED_FILES_LIST $tmpfile
 
@@ -166,73 +174,55 @@ function untrackFiles() {
 	rm $tmpfile
 }
 
-function createLinks() {
-	destdir=$1
-	[[ -z $destdir ]] && destdir=${DTM_GIT_DIR}
-	[[ -z $destdir ]] && echo 'ERROR: destination directory not specified.' && exit 1
-	[[ ! -d "$destdir" ]] && echo 'ERROR: invalid directory.' && exit 1
-
-	# whether to create symbolic links
-	[[ "$2" == "--symbolic" ]] && symbolic=1
-
-	# do not create links. Instead, copy the file
-	[[ "$2" == "--copy" ]] && copy=1
-
-	# create 
-
-	while read file; do
-		fullpath=$HOME/$file
-
-		if [[ ! -f $fullpath ]]; then
-			echo "File $fullpath does not exist. Skipping it"
-			continue
-		fi
-
-		dir=${file%/*}
-		[[ "$dir" == "$file" ]] && dir=
-
-		mkdir -p "$destdir/$dir"
-		if [[ -n $symbolic ]]; then
-			ln -s "$fullpath" "$destdir/$dir"
-		elif [[ -n $copy ]]; then
-			cp "$fullpath" "$destdir/$dir"
-		else
-			ln "$fullpath" "$destdir/$dir"
-		fi
-
-	done < $DTM_TRACKED_FILES_LIST
+function throwError() {
+	echo "ERROR: $@"
+	exit 1
 }
 
-function syncFrom() {
-	destdir=$1
-	[[ -z $destdir ]] && destdir=${DTM_GIT_DIR}
-	[[ -z $destdir ]] && echo 'ERROR: destination directory not specified.' && exit 1
-	[[ ! -d "$destdir" ]] && echo 'ERROR: invalid directory.' && exit 1
+function syncDotFiles() {
+	source_dir=$1
+	target_dir=$2
+	[[ -z $source_dir ]] && throwError 'source directory not specified'
+	[[ -z $target_dir ]] && throwError 'target directory not specified'
+	[[ ! -d "$source_dir" ]] && throwError 'invalid source directory'
+	[[ ! -d "$target_dir" ]] && throwError 'invalid target directory '
 
-	# whether to create symbolic links
-	[[ "$2" == "--symbolic" ]] && symbolic=1
-
-	# do not create links. Instead, copy the file
-	[[ "$2" == "--copy" ]] && copy=1
+	# flags
+	flag=$3
+	[[ "$flag" == "--symbolic" ]] && symbolic=1
+	[[ "$flag" == "--copy" ]] && copy=1
 
 	while read file; do
-		fullpath=$destdir/$file
+		fullpath=${source_dir}/$file
 
-		if [[ ! -f $fullpath ]]; then
+		if [[ ! -f "$fullpath" ]]; then
 			echo "File $fullpath does not exist. Skipping it"
 			continue
 		fi
 
 		dir=${file%/*}
-		[[ "$dir" == "$file" ]] && dir=
+		basename=${file##*/}
 
-		mkdir -p "$HOME/$dir"
-		if [[ -n $symbolic ]]; then
-			ln -s "$fullpath" "$HOME/$dir"
-		elif [[ -n $copy ]]; then
-			cp "$fullpath" "$HOME/$dir"
+		if [[ "$file" == "$dir" ]]; then
+			destination="$target_dir/$basename"
+			dir=
 		else
-			ln "$fullpath" "$HOME/$dir"
+			destination="$target_dir/$dir/$basename"
+		fi
+
+		if [[ -f "$destination"  ]]; then
+			echo "Skipping $file because file already exists"
+			continue
+		fi
+
+		mkdir -p "$target_dir/$dir"
+
+		if [[ -n $copy ]]; then
+			cp "$fullpath" "$destination"
+		elif [[ -n $symbolic ]]; then
+			ln -s "$fullpath" "$destination"
+		else
+			ln "$fullpath" "$destination"
 		fi
 
 	done < $DTM_TRACKED_FILES_LIST
@@ -240,6 +230,15 @@ function syncFrom() {
 
 createDataFiles
 
+# custom configuration file
+if [[ "$1" == "--config" ]]; then
+	shift
+	[[ ! -f $1 ]] && throwError "File $1 does not exist"
+	DTM_TRACKED_FILES_LIST=$1
+	shift
+fi
+
+# start script
 action=$1
 (( $# > 0 )) && shift
 
@@ -250,19 +249,41 @@ case $action in
 	add|-a)
 		trackFiles $@
 		;;
+	edit|-e)
+		$EDITOR $DTM_TRACKED_FILES_LIST
+		;;
 	rm|-r)
 		untrackFiles $@
 		;;
 	link|ln|-L)
-		createLinks $@
+		syncDotFiles $HOME $@
 		;;
 	copy|cp|-c)
-		createLinks "$1" --copy
+		if [[ -n $1 ]]; then
+			dest=$1
+			shift
+		else
+			dest=${DTM_GIT_DIR}
+		fi
+		syncDotFiles $HOME $dest --copy
 		;;
 	sync|-s)
-		syncFrom $@
+		if [[ -n $1 ]]; then
+			dest=$1
+			shift
+			flags=$@
+		else
+			dest=${DTM_GIT_DIR}
+		fi
+		syncDotFiles $dest $HOME $flags
+		;;
+	sync-dirs|-S)
+		syncDotFiles $@
+		;;
+	help|-h|--help)
+		showHelp
 		;;
 	*)
-		showHelp
+		getTrackedFiles
 		;;
 esac
