@@ -203,11 +203,17 @@ function createLinks() {
 	done < $DTM_TRACKED_FILES_LIST
 }
 
-function syncFromRepo() {
+function syncFrom() {
 	destdir=$1
 	[[ -z $destdir ]] && destdir=${DTM_GIT_DIR}
 	[[ -z $destdir ]] && echo 'ERROR: destination directory not specified.' && exit 1
 	[[ ! -d "$destdir" ]] && echo 'ERROR: invalid directory.' && exit 1
+
+	# whether to create symbolic links
+	[[ "$2" == "--symbolic" ]] && symbolic=1
+
+	# do not create links. Instead, copy the file
+	[[ "$2" == "--copy" ]] && copy=1
 
 	while read file; do
 		fullpath=$destdir/$file
@@ -254,7 +260,7 @@ case $action in
 		createLinks "$1" --copy
 		;;
 	sync|-s)
-		syncFromRepo $@
+		syncFrom $@
 		;;
 	*)
 		showHelp
