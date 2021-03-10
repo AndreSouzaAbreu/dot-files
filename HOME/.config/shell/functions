@@ -1,26 +1,34 @@
-## SHELL FUNCTIONS
+#!/bin/sh
+
+#############################
+##     SHELL FUNCTIONS     ##
+#############################
 
 # add directory to path if not included already
 function path_add() {
-  if [ -d "$1"  ] && [[ ":${PATH}:" != *":$1:"*  ]]; then
-    export PATH="${PATH}:$1"
-	fi						
+	while [[ -n $1 ]]; do
+		dir=$1
+	  if [[ -d "${dir}"  ]] && [[ ":${PATH}:" != *":${dir}:"*  ]]; then
+			export PATH="${PATH}:${dir}"
+		fi
+		shift
+	done
 	return 0
 }
 
-# utility to add, edit, view, or sync aliases
+# utility to add, edit, view, or sync shell aliases
 function aliases() {
   aliases_file=${XDG_CONFIG_HOME}/shell/aliases
   case "$1" in
-    edit) $EDITOR $aliases_file ;;
-    sync) source $aliases_file ;;
-    add)
+    edit|-e) $EDITOR $aliases_file ;;
+    sync|-s) source $aliases_file ;;
+    add|-a)
       shift
       name=$1
       shift
       echo "alias $name='$@'" >> $aliases_file
       ;;
-    rm)
+    rm|-r)
       name=$1
       sed -i "alias $1/d"  $aliases_file
       ;;
@@ -29,13 +37,25 @@ function aliases() {
   return 0
 }
 
-# utility to edit, view, or sync profile
+# utility to edit, view, or sync shell profile
 function profile() {
   profile_file=${XDG_CONFIG_HOME}/shell/profile
   case "$1" in
-    edit) $EDITOR $profile_file ;;
-    sync) source $profile_file ;;
-    *) bat $profile_file ;;
+    edit|-e) $EDITOR $profile_file ;;
+    sync|-s) source $profile_file ;;
+    *) $PAGER $profile_file ;;
+  esac
+  return 0
+}
+
+# utility to edit, view, or syn environment variables
+function envs() {
+  env_file=${XDG_CONFIG_HOME}/shell/env
+  case "$1" in
+    edit|-e) $EDITOR $env_file ;;
+    sync|-s) source $env_file ;;
+    view|-v) $PAGER $env_file ;;
+    *) env ;;
   esac
   return 0
 }
@@ -64,10 +84,5 @@ function repeat() {
     $command
   done
   return 0
-}
-
-# append new line to the output of perl-lorem command
-function lorem() {
-  /usr/bin/vendor_perl/lorem $@ && echo
 }
 

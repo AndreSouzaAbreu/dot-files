@@ -5,6 +5,5 @@ colors:
 cursor:
   style:
     shape: Beam
-
 font:
-  size: 12
+  size: 13

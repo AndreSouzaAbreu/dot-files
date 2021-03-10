@@ -161,10 +161,10 @@ let g:startify_lists = [
 \ ]
 let g:startify_bookmarks = [
 	\ { 'vimrc' : '~/.config/vim/vimrc' },
+	\ { 'quterc' : '~/.config/qutebrowser/config.py' },
 	\ { 'shell': '~/.config/shell' },
 	\ { 'dwm': '~/.config/dwm' },
 	\ { 'dwmblocks': '~/.config/dwmblocks' }, 
-	\ { 'websites': '~/code/websites' }
 \ ]
 
 
@@ -338,3 +338,9 @@ set ttimeout ttimeoutlen=50
 
 " fix mouse bug in some terminal emulators
 set ttymouse=xterm2
+
+" restore cursor shape to beam on exit
+augroup restore_cursor_shape
+  autocmd!
+  au VimLeave * set guicursor=a:ver10-blinkoff0
+augroup END

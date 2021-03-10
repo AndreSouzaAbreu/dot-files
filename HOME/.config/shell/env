@@ -1,23 +1,25 @@
-## ENVIRONMENT VARIABLES
+#!/bin/sh
+
+#############################
+##  ENVIRONMENT VARIABLES  ##
+#############################
 
 # programs
+export BROWSER=qutebrowser
 export EDITOR=vim
 export VISUAL=vim
-export BROWSER=qutebrowser
+export PAGER='bat -p'
+export MANPAGER="sh -c 'col -bx | bat -p -l man'"
 
 # history
 export SAVEHIST=25000
 export HISTSIZE=25000
 export HISTFILESIZE=25000
-# export HISTORY_IGNORE="(ls|cd|pwd|exit)"
 
 # language
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-
-# man pager
-export MANPAGER="sh -c 'col -bx | bat --language=man --plain'"
 
 # xdg
 export XDG_CONFIG_HOME=${HOME}/.config
@@ -44,13 +46,21 @@ export MBSYNCRC=${XDG_CONFIG_HOME}/mbsync/mbsyncrc
 export NOTMUCH_CONFIG=${XDG_CONFIG_HOME}/notmuch/notmuchrc
 export NMBGIT=${XDG_DATA_HOME}/notmuch/nmbug
 
+# clipmenu
+export CM_DIR=${XDG_CACHE_HOME/clipmenu}
+export CM_HISTLENGTH=8
+export CM_LAUNCHER=dmenu
+export CM_OUTPUT_CLIP=0
+export CM_MAX_CLIPS=20
+
 # crypto
 export ELECTRUMDIR=${XDG_DATA_HOME}/electrum
 
-# development related starts here:
+# development
 export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME}/npm/npmrc
 export PYLINTHOME=${XDG_CACHE_HOME}/pylint
 export VIMRC=${XDG_CONFIG_HOME}/vim/vimrc
 export VIMINIT='source $VIMRC'
 export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git'
+

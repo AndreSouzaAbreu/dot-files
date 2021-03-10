@@ -1,7 +1,3 @@
-import os
-ENV = os.environ
-HOME = ENV['HOME']
-
 # load default configuration
 config.load_autoconfig()
 
@@ -32,14 +28,22 @@ c.url.searchengines = {
   'gh': 'https://github.com/search?q={}'
 }
 
-# whether to enable canvas
+# geolocation
+c.content.geolocation = False
+
+# canvas
 c.content.canvas_reading = False
 
-# whether to enable webgl
+# webgl
 c.content.webgl = False
 
-# which cookies to accept
+# wbrtc
+c.content.webrtc_ip_handling_policy = 'default-public-interface-only'
+
+# cookies
 c.content.cookies.accept = 'no-3rdparty'
+
+c.editor.command = ['vim', '{}']
 
 ### BINDINGS
 
@@ -47,17 +51,28 @@ c.content.cookies.accept = 'no-3rdparty'
 config.bind('l', 'tab-next')
 config.bind('h', 'tab-prev')
 
+# zoom
+config.bind('<ctrl-=>', 'zoom-in')
+config.bind('<ctrl-->', 'zoom-out')
+
+# js
+
 # open pages
 config.bind(',,', 'open -t about:blank')
 config.bind(',gm', 'open https://gmail.com')
 config.bind(',gh', 'open https://github.com')
 config.bind(',gl', 'open https://gitlab.com')
+config.bind(',do', 'open https://cloud.digitalocean.com')
 config.bind(',t', 'open https://web.telegram.org')
 config.bind(',w', 'open https://web.whatsapp.com')
-config.bind(',i', 'open https://api.invidious.tube')
 config.bind(',y', 'open https://yewtu.be')
-config.bind(',h', f'open {HOME}')
+config.bind(',i', 'open https://api.invidious.io')
 
 # open videos in mpv
-config.bind(',m', 'spawn mpv {url}')
+config.bind(',m', 'spawn mpv {clipboard}')
 config.bind(',M', 'hint links spawn mpv {hint-url}')
+
+# load private config
+import config_private
+config_private.load_config(c, config)
+

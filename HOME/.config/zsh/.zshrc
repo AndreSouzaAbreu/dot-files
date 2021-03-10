@@ -1,18 +1,25 @@
 #!/bin/zsh
 
+#####################
+# ZSH CONFIGURATION #
+#####################
+
 # include shell configuration, if it exists
 # this loads all environment variables, aliases, and functions
 shell_profile=~/.config/shell/profile
 [ -f $shell_profile ] && source $shell_profile
 
-## HISTORY ##
+## HISTORY #####################################################
+
 export HISTFILE="${XDG_DATA_HOME}/zsh/history"
 setopt extendedglob appendhistory hist_ignore_all_dups hist_ignore_space
 
-## PROMPT ##
-PROMPT="%F{#0f0}%n %F{fff}[%~]%F{fff} "
+## PROMPT ######################################################
 
-## AUTOCOMPLETION ##
+PROMPT="%F{#0f0}%n%F{#fff}@%F{#0f0}%m %F{fff}[%~]%F{fff} "
+
+## AUTO COMPLETION #############################################
+
 # Basic auto/tab complete:
 autoload -U compinit
 compinit
@@ -27,10 +34,12 @@ zmodload zsh/complist
 # Include hidden files.
 _comp_options+=(globdots)   
 
-## CACHE
+## CACHE #######################################################
+
 compinit -d ${XDG_CACHE_HOME}/zsh/zcompdump-${ZSH_VERSION}
 
-## VIM ##
+## VIM #########################################################
+
 bindkey -v
 export KEYTIMEOUT=1
 
@@ -45,17 +54,24 @@ bindkey -v '^?' backward-delete-char
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-## PLUGINS ##
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+## PLUGINS #####################################################
 
-## HIGHTLIGHT ##
+zsh_plugin_dir=/usr/share/zsh/plugins
+zsh_plugin_suggestion=${zsh_plugin_dir}/zsh-autosuggestions/zsh-autosuggestions.zsh
+zsh_plugin_highlight=${zsh_plugin_dir}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+[[ -f $zsh_plugin_suggestion ]] && source $zsh_plugin_suggestion
+[[ -f $zsh_plugin_highlight ]] && source $zsh_plugin_highlight
+
+## HIGHLIGHT ###################################################
+
 # ZSH_HIGHLIGHT_STYLES[alias]=fg=cyan
 # ZSH_HIGHLIGHT_STYLES[builtin]=fg=pink
 # ZSH_HIGHLIGHT_STYLES[function]=fg=yellow
 # ZSH_HIGHLIGHT_STYLES[command]=fg=brown
 
-## KEY BINDINGS ##
+## KEY BINDINGS ################################################
+
 # create a zkbd compatible hash
 # to add other keys to this hash, see: man 5 terminfo
 typeset -g -A key
@@ -96,7 +112,8 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
   add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
-## HISTORY SEARCH ##
+## HISTORY SEARCH ##############################################
+
 # only the past commands matching the current line up to the current
 # cursor position will be shown when Up or Down keys are pressed
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
@@ -105,10 +122,10 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
-## COMMAND LINE NAVIGATION ##
+## COMMAND LINE NAVIGATION #####################################
+
 # Shift, Alt, Ctrl and Meta modifiers
 key[Control-Left]="${terminfo[kLFT5]}"
 key[Control-Right]="${terminfo[kRIT5]}"
 [[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
 [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
-
