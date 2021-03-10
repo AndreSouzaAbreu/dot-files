@@ -1,10 +1,11 @@
 #!/bin/sh
-if [[ -n $@ ]]; then
-	files=$@
-else
-	files=/dev/stdin
-fi
-cat $files | 
+(
+	if [[ -n $@ ]]; then
+		echo $@
+	else
+		cat /dev/stdin
+	fi
+) | 
 sed 's/[ -]/_/g' | # replace space or hyphen with underline
 sed 's/\([a-z]\)\([A-Z]\)/\1_\2/g' | # split camel/pascal case words
 sed 's/[_]\+/_/g' | # supress consecutive underline characters
