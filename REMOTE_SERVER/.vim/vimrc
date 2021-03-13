@@ -1,0 +1,182 @@
+"""""""""""""""""""""
+" BASIC SETTINGS    "
+"""""""""""""""""""""
+
+" tell vim to not mind being compatible with
+set nocompatible
+
+" syntax highlighting
+syntax on
+
+" command history size
+set history=50
+
+" use system's clipboard
+set clipboard=unnamedplus
+
+" relative line numbers
+set number relativenumber
+
+" indentation settings
+set autoindent smartindent softtabstop=2 tabstop=2 shiftwidth=2 noexpandtab
+
+" highlight search while typing
+set incsearch
+
+" highlight all strings matching the search pattern
+set hlsearch
+
+" don't redraw the screen when using macros
+set lazyredraw
+
+" show menu when searching for help, selecting themes, and so on
+set wildmenu
+
+" confirm exiting if unsaved changes
+set confirm
+
+" folding settings (space toggles block collapsing in Normal Mode)
+set foldmethod=syntax foldlevel=99
+
+" set text enconding
+set encoding=utf8
+
+" don't hide double quotes in json files
+set conceallevel=0
+
+" show at least one line below/above the cursor
+set scrolloff=1
+
+" autoload file changes
+set autoread
+
+" cursor hightlight
+set cursorline
+
+" make path include current directory, directory of current file, and subdirectories
+set path=.,,**
+
+" ignore some directories when searching files
+set wildignore+=**/node_modules/** 
+set wildignore+=**/vendor/** 
+set wildignore+=**/.git/** 
+set wildignore+=**/.cache/** 
+
+" list
+set listchars=eol:$,tab:↳\ ,trail:~,extends:>,precedes:<,space:·
+
+"""""""""""""""""""""
+" FILE MANAGER      "
+"""""""""""""""""""""
+let g:netrw_home = "~/.vim"
+
+" turn off top banner
+let g:netrw_banner=0
+
+" set default style view
+let g:netrw_liststyle=3
+
+" open preview of files to the right
+let g:netrw_preview=1
+
+" initial size of the file menu (percentage of the window)
+let g:netrw_winsize=20
+
+" open files to the right
+let g:netrw_altv=1
+
+"""""""""""""""""""""
+" KEYBINDINGS       "
+"""""""""""""""""""""
+
+" leader key
+let mapleader=","
+
+" clear highlight from previous searc
+nnoremap <C-l> :noh<CR>
+
+" close and save file easily
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+
+" buffer navigation keybindings
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprev<CR>
+nnoremap <Bslash>d :bdelete<CR>
+
+" easier window navigation
+nmap <Bslash>h :wincmd h<CR><Bslash>
+nmap <Bslash>l :wincmd l<CR><Bslash>
+nmap <Bslash>j :wincmd j<CR><Bslash>
+nmap <Bslash>k :wincmd k<CR><Bslash>
+nmap <Bslash>H :wincmd H<CR><Bslash>
+nmap <Bslash>L :wincmd L<CR><Bslash>
+nmap <Bslash>o :wincmd o<CR><Bslash>
+nnoremap <Bslash><Bslash> <Esc>
+nnoremap <M-j> :resize -5<cr>
+nnoremap <M-k> :resize +5<cr>
+nnoremap <M-h> :vertical resize -5<cr>
+nnoremap <M-l> :vertical resize +5<cr>
+
+" easier window split
+nnoremap <leader>s :sp<CR>
+nnoremap <leader>v :vsp<CR>
+nnoremap <leader>r :wincmd r<CR>
+
+" more natural window spliting
+set splitbelow
+set splitright
+
+" tab keybindings
+nnoremap <leader><Tab> :tabn<CR>
+nnoremap <leader>t :tab new<CR>
+
+" toggle three
+nnoremap <leader>d :Lexplore<CR>
+
+" toggle word-wrap
+nnoremap <M-w> :set wrap!<CR>
+
+" toggle display of invisible chars
+nnoremap <leader>l :set list!<CR>
+
+" toggle line numbers
+nnoremap <Bslash>n :set number! relativenumber!<CR>
+
+"toggle automatic comments
+nnoremap <leader>c :setlocal formatoptions=ql<CR>
+nnoremap <leader>C :setlocal formatoptions=qlcro<CR>
+
+"""""""""""""""""""""
+" AUTOMATED CMD     "
+"""""""""""""""""""""
+
+autocmd BufNewFile,BufRead .env.* set syntax=sh
+
+"""""""""""""""""""""
+" ABBREVIATIONS     "
+"""""""""""""""""""""
+
+" fix misspelling in command mode
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+
+"""""""""""""""""""""
+" BUG FIXING        "
+"""""""""""""""""""""
+
+" Map the escape characters to their alt combinations
+" @see https://stackoverflow.com/questions/6778961/
+let c='a'
+while c <= 'z'
+	exec "set <A-".c.">=\e".c
+	exec "imap \e".c." <A-".c.">"
+	let c = nr2char(1+char2nr(c))
+endwhile
+set ttimeout ttimeoutlen=50
+
