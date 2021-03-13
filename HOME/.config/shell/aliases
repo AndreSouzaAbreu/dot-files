@@ -32,8 +32,8 @@ alias l1='LC_ALL=C ls -1'
 
 # exa
 alias exa='exa --color=never'
-alias la='exa -lhg --group-directories-first --all'
-alias ll='exa -lhg --group-directories-first'
+alias la='exa -lhgH --group-directories-first --all'
+alias ll='exa -lhgH --group-directories-first'
 
 # git
 alias ga='git add'
@@ -103,7 +103,7 @@ alias xcopy='xclip -selection clipboard'
 alias xpaste='xclip -out -selection clipboard'
 alias xx='startx'
 alias vv='vim $VIMRC'
+alias dv='dvtm'
 
 # other stuff
 alias notification-daemon='/usr/lib/notification-daemon-1.0/notification-daemon'
-alias passmenu='clipctl disable && passmenu; clipctl enable'
