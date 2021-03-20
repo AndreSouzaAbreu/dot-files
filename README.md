@@ -2,21 +2,30 @@
 
 This is a collection of my personal configuration files for several applications, such as:
 
-- vim
-- ranger
-- qutebrowser
-- zsh
-- i3
 - alacritty
+- bash
+- dtm
+- i3
+- npm
+- qutebrowser
+- ranger
 - shell
+- termite
+- vim
+- X11
+- zsh
 
-Most, if not all, configuration files are under a directory called `HOME` in this git repo. This directory mimics the `$HOME` directory. That means that you can simply copy the configuration files with command below:
+It also includes my personal scripts in `~/.local/bin`.
+
+Most of the configuration files are under a directory called `HOME` in this git repo. This directory mimics the `$HOME` directory. That means that you can simply copy the configuration files with command below:
 
 ```shell
 cp -r './HOME/*' ~/
 ```
 
 This will copy all configuration files to your home directory. 
+
+There is also a directory called `REMOTE`, which has the dot files I use on remote servers via ssh. 
 
 ## LICENSE
 
