@@ -1,8 +1,0 @@
-#!/bin/sh
-video=$1
-ffmpeg -i "$video" 2>&1 | 
-  grep Duration | 
-  cut -d ' ' -f 4 | 
-  sed 's/,//' | 
-  awk -F ':' '{print $1 * 3600 + $2 * 60 + $3}'  >&1
-exit 0
