@@ -1,0 +1,3 @@
+#!/bin/sh
+rm -rf ~/tmp/* ~/tmp/.* ~/.*_history
+exit 0

@@ -1,0 +1,4 @@
+#!/bin/sh
+temperature=$(seq 2000 500 6500 | rofi -dmenu -window-title 'select temperature')
+redshift -PO $temperature
+exit 0

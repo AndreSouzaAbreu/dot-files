@@ -1,0 +1,5 @@
+#!/bin/sh
+applications='brave electrum qutebrowser trezor-suite termite'
+application=$(echo $applications | tr ' ' '\n' | sort | rofi -dmenu -window-title 'application')
+$application
+exit 0

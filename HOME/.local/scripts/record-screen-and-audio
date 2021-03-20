@@ -1,0 +1,5 @@
+#!/bin/sh
+output_file=$1
+screen_resolution=$(xrandr | grep \* | awk '{ printf $1 }')
+ffmpeg -f x11grab -s $screen_resolution -i :0.0 -f pulse -i default $output_file
+exit 0

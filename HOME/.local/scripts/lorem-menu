@@ -1,0 +1,5 @@
+#!/bin/sh
+options='-s 1|-s 3|-s 5|-s 10|-p 1|-p 3|-p 5|-p 10|-p 15'
+args=$(echo $options | rofi -dmenu -sep '|' -p 'lorem' -lines 9)
+lorem $args | xclip -in -selection clipboard
+exit 0
