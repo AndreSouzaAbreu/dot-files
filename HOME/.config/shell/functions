@@ -4,16 +4,28 @@
 ##     SHELL FUNCTIONS     ##
 #############################
 
-# add directory to path if not included already
-function path_add() {
-	while [[ -n $1 ]]; do
-		dir=$1
-	  if [[ -d "${dir}"  ]] && [[ ":${PATH}:" != *":${dir}:"*  ]]; then
-			export PATH="${PATH}:${dir}"
-		fi
-		shift
-	done
-	return 0
+# append directory to path if not included already
+function path_append() {
+  while [[ -n $1 ]]; do
+    dir=$1
+    if [[ -d "${dir}"  ]] && [[ ":${PATH}:" != *":${dir}:"*  ]]; then
+      export PATH="${PATH}:${dir}"
+    fi
+    shift
+  done
+  return 0
+}
+
+# prepend directory to path if not included already
+function path_prepend() {
+  while [[ -n $1 ]]; do
+    dir=$1
+    if [[ -d "${dir}"  ]] && [[ ":${PATH}:" != *":${dir}:"*  ]]; then
+      export PATH="${dir}:${PATH}"
+    fi
+    shift
+  done
+  return 0
 }
 
 # utility to add, edit, view, or sync shell aliases
@@ -84,5 +96,22 @@ function repeat() {
     $command
   done
   return 0
+}
+
+# utility to 
+function ratex() {
+  case $1 in
+    -c|--currency)
+      shift
+      currency=$1
+			shift
+      curl "$currency.rate.sx/$@"
+      return 0
+      ;;
+    *)
+      curl "rate.sx/$@"
+      return 0
+      ;;
+  esac
 }
 

@@ -48,8 +48,8 @@ export NMBGIT=${XDG_DATA_HOME}/notmuch/nmbug
 
 # clipmenu
 export CM_DIR=${XDG_CACHE_HOME}/clipmenu
-export CM_HISTLENGTH=55
-export CM_LAUNCHER=dmenu
+export CM_HISTLENGTH=8
+export CM_LAUNCHER=rofi
 export CM_OUTPUT_CLIP=0
 export CM_MAX_CLIPS=50
 

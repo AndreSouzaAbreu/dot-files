@@ -17,8 +17,8 @@ alias v='vim'
 alias y='yay'
 
 # files
-alias bat='bat -pp'
 alias rename='perl-rename'
+alias open='xdg-open'
 
 # history
 alias hist='cat $HISTFILE'
@@ -98,12 +98,15 @@ alias scp='scp -F ${XDG_CONFIG_HOME}/ssh/config'
 alias mbsync='mbsync -c ${XDG_CONFIG_HOME}/mbsync/mbsyncrc'
 alias startx='startx "${XDG_CONFIG_HOME}/X11/xinitrc" -- "${XDG_CONFIG_HOME}/X11/xserverrc" vt1'
 
-# more shortcuts
+# clipboard
 alias xcopy='xclip -selection clipboard'
 alias xpaste='xclip -out -selection clipboard'
-alias xx='startx'
+
+# more shortcuts
+alias xx='(pidof dwm && pkill dwm; exit) || startx'
 alias vv='vim $VIMRC'
 alias dv='dvtm'
+alias py='python'
 
 # other stuff
 alias notification-daemon='/usr/lib/notification-daemon-1.0/notification-daemon'

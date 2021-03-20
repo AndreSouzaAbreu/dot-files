@@ -13,21 +13,17 @@ SHELL_CONFIG=~/.config/shell
 [[ -f $SHELL_CONFIG/aliases ]] && source $SHELL_CONFIG/aliases
 [[ -f $SHELL_CONFIG/functions ]] && source $SHELL_CONFIG/functions
 
-# load local bin
-local_bin=${HOME}/.local/bin
-[[ -d ${local_bin} ]] && path_add ${local_bin}
-[[ -d ${local_bin}/AppImages ]] && path_add ${local_bin}/AppImages
+# load local scripts
+path_append ~/.local/scripts ~/.local/bin  ~/.local/bin/AppImages
 
 # load zoxide
 [[ -f /usr/bin/zoxide ]] && eval "$(zoxide init $shell)"
 
 # load fzf
-fzf_dir=${XDG_DATA_HOME}/fzf
-fzf_bin=${fzf_dir}/bin
+fzf_dir=/usr/share/fzf
 fzf_bindings=${fzf_dir}/shell/key-bindings.${shell}
 fzf_completion=${fzf_dir}/shell/completion.${shell}
 
-[[ -d $fzf_bin ]] && path_add $fzf_binf
 [[ -f $fzf_bindings ]] && source $fzf_bindings
 [[ -f $fzf_completion ]] && source $fzf_completion
 
