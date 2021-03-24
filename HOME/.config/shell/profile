@@ -21,8 +21,8 @@ path_append ~/.local/scripts ~/.local/bin  ~/.local/bin/AppImages
 
 # load fzf
 fzf_dir=/usr/share/fzf
-fzf_bindings=${fzf_dir}/shell/key-bindings.${shell}
-fzf_completion=${fzf_dir}/shell/completion.${shell}
+fzf_bindings=${fzf_dir}/key-bindings.${shell}
+fzf_completion=${fzf_dir}/completion.${shell}
 
 [[ -f $fzf_bindings ]] && source $fzf_bindings
 [[ -f $fzf_completion ]] && source $fzf_completion

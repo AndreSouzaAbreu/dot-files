@@ -12,13 +12,13 @@ alias m='neomutt'
 alias g='git'
 alias p='pacman'
 alias q='exit'
-alias r='ranger'
 alias v='vim'
 alias y='yay'
 
 # files
 alias rename='perl-rename'
 alias open='xdg-open'
+alias tree='tree --charset=ascii'
 
 # history
 alias hist='cat $HISTFILE'
@@ -104,7 +104,7 @@ alias xpaste='xclip -out -selection clipboard'
 
 # more shortcuts
 alias xx='(pidof dwm && pkill dwm; exit) || startx'
-alias vv='vim $VIMRC'
+alias vv='vim ~/.config/vim'
 alias dv='dvtm'
 alias py='python'
 
