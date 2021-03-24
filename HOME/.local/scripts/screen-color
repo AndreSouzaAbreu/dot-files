@@ -1,4 +1,84 @@
 #!/bin/sh
-temperature=$(seq 2000 500 6500 | rofi -dmenu -window-title 'select temperature')
-redshift -PO $temperature
+data_file=/tmp/current-screen-temperature
+max_temperature=6500
+min_temperature=1800
+
+if [[ -f $data_file ]]; then
+  current_temperature=$(cat $data_file)
+else
+  current_temperature=$max_temperature
+fi
+
+function showHelp() {
+  cat<<EOF
+SCREEN COLOR
+
+Description:
+  control screen temperature color.
+
+Usage:
+  screen-color [COMMAND] [ARG]
+
+Command:
+  set [AMMOUNT]:
+    set screen temperature color to AMMOUNT.
+
+  dec [AMMOUNT]
+    decrease screen temperature color by AMMOUNT
+
+  inc [AMMOUNT]
+    increase screen temperature color by AMMOUNT
+
+  NOTE: AMMOUNT is measured in Kelvin
+
+Examples:
+  Decrease screen color by 500K:
+    screen-color dec 500
+
+  Increase screen color by 500
+    screen-color inc 500
+
+  Set screen color to 3500
+    screen-color set 3500
+EOF
+}
+
+inc() {
+  new=$(($current_temperature + $1))
+  if (($max_temperature > $new)); then
+    redshift -PO $new && echo $new > $data_file
+  fi
+}
+
+dec() {
+  new=$(($current_temperature - $1))
+  if (($new > $min_temperature)); then
+    redshift -PO $new && echo $new > $data_file
+  fi
+}
+
+set_temperature() {
+  new=$1
+  if (($new > $min_temperature)) && (($max_temperature > $new)); then
+    redshift -PO $new && echo $new > $data_file
+  fi
+}
+
+case $1 in
+"inc")
+  inc $2
+  ;;
+"dec")
+  dec $2
+  ;;
+"set")
+  set_temperature $2
+  ;;
+*)
+  showHelp
+  exit 1
+  ;;
+esac
+
 exit 0
+

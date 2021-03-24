@@ -1,0 +1,5 @@
+#!/bin/sh
+pamixer --mute
+slock
+pamixer --unmute
+exit 0
