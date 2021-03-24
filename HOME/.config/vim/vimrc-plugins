@@ -1,0 +1,137 @@
+"""""""""""""""""""""
+" PLUGINS           "
+"""""""""""""""""""""
+
+" turn on plugins
+filetype plugin on
+
+" download Vim Plug if not installed
+if empty(glob('~/.config/vim/autoload/plug.vim'))
+	echo "downloading Vim Plug to manage plugins" 
+	silent !curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs \
+	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $VIMRC
+endif
+
+" define used plugins
+call plug#begin('~/.config/vim/plugged')
+	" themes
+	Plug 'agude/vim-eldar'
+	Plug 'bignimbus/pop-punk.vim'
+	Plug 'bluz71/vim-moonfly-colors'
+	Plug 'tomasiser/vim-code-dark'
+  Plug 'morhetz/gruvbox'
+  Plug 'ayu-theme/ayu-vim' 
+
+	" sort motion
+	Plug 'christoomey/vim-sort-motion'
+
+	" enable use of editorconfig
+	Plug 'editorconfig/editorconfig-vim'
+
+	" fuzzy finder
+	" Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf' }
+  Plug 'junegunn/fzf.vim'
+
+	" code completion
+  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+	" text objects
+	Plug 'kana/vim-textobj-function'
+	Plug 'kana/vim-textobj-indent'
+	Plug 'kana/vim-textobj-line'
+	Plug 'kana/vim-textobj-user'
+
+	" emmet plugin
+	Plug 'mattn/emmet-vim'
+	Plug 'mg979/vim-visual-multi'
+
+	" home view
+	Plug 'mhinz/vim-startify'
+
+	" specific  syntax hightlight
+	Plug 'ekalinin/dockerfile.vim'
+	Plug 'pangloss/vim-javascript'
+	Plug 'posva/vim-vue'
+	Plug 'chr4/nginx.vim'
+
+	" linting
+	" Plug 'dense-analysis/ale'
+
+	" automatically change html tags
+	Plug 'AndrewRadev/tagalong.vim'
+
+	" replace case (kebab/snake/camal)
+	Plug 'tpope/vim-abolish'
+
+	" comments 
+	Plug 'tpope/vim-commentary'
+
+  " manipulate surroundings
+	Plug 'tpope/vim-surround'
+
+	" git integration
+	Plug 'tpope/vim-fugitive'
+
+	" status line
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+
+	" snippets engine
+	Plug 'SirVer/ultisnips'
+
+	" collection of snippets 
+	Plug 'honza/vim-snippets'
+
+call plug#end()
+
+"""""""""""""""""""""
+" PLUGIN SETTINGS   "
+"""""""""""""""""""""
+
+" startify
+let g:startify_custom_header = []
+let g:startify_lists = [
+	\ { 'type': 'bookmarks', 'header': ["\tBookmarks"]},
+	\ { 'type': 'files',     'header': ["\tFiles"]},
+	\ { 'type': 'dir',       'header': ["\tFiles in " . getcwd()]},
+	\ { 'type': 'sessions',  'header': ["\tSessions"]},
+	\ { 'type': 'commands',  'header': ["\tCommands"]},
+\ ]
+let g:startify_bookmarks = [
+	\ { 'vimrc' : '~/.config/vim/vimrc' },
+	\ { 'quterc' : '~/.config/qutebrowser/config.py' },
+	\ { 'shell': '~/.config/shell' },
+	\ { 'dwm': '~/.config/dwm' },
+	\ { 'dwmblocks': '~/.config/dwmblocks' }, 
+\ ]
+
+
+" editor config
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
+" sort motion
+let g:sort_motion_flags = "ui"
+
+" airline  
+let g:airline_powerline_fonts = 1
+let g:airline_statusline_ontop=0
+let g:airline_theme='base16_twilight'
+let g:airline_disable_statusline=1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#enabled = 1
+
+" coc
+let g:coc_global_extensions = ['coc-css', 'coc-emmet', 'coc-html', 'coc-phpls', 'coc-prettier', 'coc-python', 'coc-snippets', 'coc-vetur', 'coc-git']
+set updatetime=600
+
+" snippets
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+
+" favorite themes: ayu, eldar, pop-punk, moonfly, codedark
+colorscheme ayu
+
+" for some weird reason ayu only works after adding line below
+:colorscheme ayu

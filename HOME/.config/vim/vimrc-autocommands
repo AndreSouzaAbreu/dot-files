@@ -1,0 +1,15 @@
+"""""""""""""""""""""
+" AUTOMATED SCRIPTS "
+"""""""""""""""""""""
+
+" auto reload vim config
+" autocmd bufwritepost $VIMRC source $VIMRC
+
+" disable editor config in git commit files
+au FileType gitcommit let b:EditorConfig_disable=1
+
+" disable Coc in git commits
+au FileType gitcommit let b:coc_enabled=0
+
+" custom syntax for some file types
+autocmd BufNewFile,BufRead .env.* set syntax=sh

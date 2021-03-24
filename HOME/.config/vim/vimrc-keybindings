@@ -1,0 +1,92 @@
+"""""""""""""""""""""
+" KEYBINDINGS       "
+"""""""""""""""""""""
+
+" leader key
+let mapleader=","
+
+" since 'ç' is useless in vim, map it to ':'
+nmap ç :
+vmap ç :
+
+" clear highlight from previous searc
+nnoremap <Bslash>l :noh<CR>
+
+" close and save file easily
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>a :qall<CR>
+
+" move lines up/down without using clipboard
+nnoremap K :m .-2<CR>==
+nnoremap J :m .+1<CR>==
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" buffer navigation keybindings
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprev<CR>
+nnoremap <Bslash>d :bdelete<CR>
+
+" easier window navigation
+nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-l> :wincmd l<CR>
+nnoremap <C-j> :wincmd j<CR>
+nnoremap <C-k> :wincmd k<CR>
+nnoremap <M-j> :resize -5<cr>
+nnoremap <M-k> :resize +5<cr>
+nnoremap <M-h> :vertical resize -5<cr>
+nnoremap <M-l> :vertical resize +5<cr>
+nmap <Bslash>H :wincmd H<CR>
+nmap <Bslash>L :wincmd L<CR>
+nmap <Bslash>o :wincmd o<CR>
+
+" window navigation in terminal mode
+tmap <M-w>h <C-w>:wincmd h<CR><M-w>
+tmap <M-w>l <C-w>:wincmd l<CR><M-w>
+tmap <M-w>j <C-w>:wincmd j<CR><M-w>
+tmap <M-w>k <C-w>:wincmd k<CR><M-w>
+tnoremap <M-j> <C-w>:resize -5<cr>
+tnoremap <M-k> <C-w>:resize +5<cr>
+tnoremap <M-h> <C-w>:vertical resize -5<cr>
+tnoremap <M-l> <C-w>:vertical resize +5<cr>
+" tnoremap <M-j> <C-w>:term<cr>
+" tnoremap <M-k> <C-w>:vert term<cr>
+" tnoremap <M-q> <C-w>:q!<cr>
+
+" easier window split
+nnoremap <leader>s :sp<CR>
+nnoremap <leader>v :vsp<CR>
+nnoremap <leader>r :wincmd r<CR>
+nnoremap <Bslash>s :term ++rows=3<CR>
+
+" more natural window spliting
+set splitbelow
+set splitright
+
+" go to home page
+nnoremap <leader>h :Startify<CR>
+
+" open new file
+nnoremap <leader>f :FZF<CR>
+
+" toggle three
+nnoremap <leader>d :Lexplore<CR>
+
+" toggle line wrap
+nnoremap <M-w> :set wrap!<CR>
+
+" toggle display of invisible chars
+nnoremap <leader>l :set list!<CR>
+
+" toggle line numbers
+nnoremap <Bslash>n :set number! relativenumber!<CR>
+
+" toggle automatic comments
+nnoremap <leader>c :set formatoptions=ql<CR>
+nnoremap <leader>C :set formatoptions=qlcro<CR>
+
+" copy, paste, and cut in visual mode
+vnoremap <C-c> :!xclip -i -selection clipboard && xclip -o -selection clipboard<CR>
+vnoremap <C-x> :!xclip -i -selection clipboard<CR>
+vnoremap <C-v> :!xclip -o -selection clipboard<CR>

@@ -1,0 +1,13 @@
+"""""""""""""""""""""
+" ABBREVIATIONS     "
+"""""""""""""""""""""
+
+" fix misspelling in command mode
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+

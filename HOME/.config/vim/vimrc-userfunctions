@@ -1,0 +1,17 @@
+" toggle statusbar
+let s:hidden_all=1
+
+function! ToggleStatusBar()
+	if s:hidden_all == 0
+		let s:hidden_all=1
+		let g:airline_disable_statusline=1
+		set laststatus=0
+	else
+		let s:hidden_all=0
+		let g:airline_disable_statusline=0
+		set laststatus=2
+	endif
+endfunction
+
+nnoremap <Bslash>b :call ToggleStatusBar()<CR>
+
