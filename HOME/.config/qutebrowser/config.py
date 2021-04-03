@@ -13,7 +13,7 @@ c.statusbar.position = 'bottom'
 c.tabs.show = 'multiple'
 
 # open pdf with pdfjs
-c.content.pdfjs = True
+c.content.pdfjs = False
 
 # show blank page when opening new page
 c.url.default_page = 'about:blank'
@@ -22,10 +22,12 @@ c.url.default_page = 'about:blank'
 c.url.searchengines = {
   'DEFAULT': 'https://duckduckgo.com/?q={}',
   'aw': 'https://wiki.archlinux.org/?search={}',
+  'ak': 'https://wiki.archlinux.org/?search={}',
   'ddg': 'https://duckduckgo.com/?q={}',
   'sp': 'https://www.startpage.com/do/asearch?query={}.',
   'wi': 'https://en.wikipedia.org/w/index.php?search={}&title=Special:Search',
-  'gh': 'https://github.com/search?q={}'
+  'wk': 'https://en.wikipedia.org/w/index.php?search={}&title=Special:Search',
+  'gh': 'https://github.com/search?q={}',
 }
 
 # geolocation
@@ -55,18 +57,8 @@ config.bind('h', 'tab-prev')
 config.bind('<ctrl-=>', 'zoom-in')
 config.bind('<ctrl-->', 'zoom-out')
 
-# js
-
 # open pages
 config.bind(',,', 'open -t about:blank')
-config.bind(',gm', 'open https://gmail.com')
-config.bind(',gh', 'open https://github.com')
-config.bind(',gl', 'open https://gitlab.com')
-config.bind(',do', 'open https://cloud.digitalocean.com')
-config.bind(',t', 'open https://web.telegram.org')
-config.bind(',w', 'open https://web.whatsapp.com')
-config.bind(',y', 'open https://yewtu.be')
-config.bind(',i', 'open https://api.invidious.io')
 
 # open videos in mpv
 config.bind(',m', 'spawn mpv {clipboard}')
@@ -75,4 +67,3 @@ config.bind(',M', 'hint links spawn mpv {hint-url}')
 # load private config
 import config_private
 config_private.load_config(c, config)
-
