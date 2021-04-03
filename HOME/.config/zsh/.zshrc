@@ -4,10 +4,6 @@
 # ZSH CONFIGURATION #
 #####################
 
-# include shell configuration, if it exists
-# this loads all environment variables, aliases, and functions
-shell_profile=~/.config/shell/profile
-[ -f $shell_profile ] && source $shell_profile
 
 ## HISTORY #####################################################
 
@@ -159,3 +155,13 @@ key[Control-Left]="${terminfo[kLFT5]}"
 key[Control-Right]="${terminfo[kRIT5]}"
 [[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
 [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
+
+## SHELL PROFILE ###############################################
+
+# Disable the bultin 'repeat' to overwrite it
+disable -r repeat
+
+# load shell aliases, functions, and env vars
+shell_profile=~/.config/shell/profile
+[[ -f $shell_profile ]] && source $shell_profile
+

@@ -14,7 +14,7 @@ SHELL_CONFIG=~/.config/shell
 [[ -f $SHELL_CONFIG/functions ]] && source $SHELL_CONFIG/functions
 
 # load local scripts
-path_append ~/.local/scripts ~/.local/bin  ~/.local/bin/AppImages
+path_append ~/.local/scripts ~/.local/bin
 
 # load zoxide
 [[ -f /usr/bin/zoxide ]] && eval "$(zoxide init $shell)"
@@ -26,6 +26,9 @@ fzf_completion=${fzf_dir}/completion.${shell}
 
 [[ -f $fzf_bindings ]] && source $fzf_bindings
 [[ -f $fzf_completion ]] && source $fzf_completion
+
+# load qpdf
+[[ -f /usr/bin/qpdf ]] && eval "$(qpdf --completion-${shell})"
 
 # set tabsize to 2
 tabs -2

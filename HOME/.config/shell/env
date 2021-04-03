@@ -8,7 +8,7 @@
 export BROWSER=qutebrowser
 export EDITOR=vim
 export VISUAL=vim
-export PAGER='bat -p'
+export PAGER=bat
 export MANPAGER="sh -c 'col -bx | bat -p -l man'"
 
 # history
@@ -63,4 +63,3 @@ export VIMRC=${XDG_CONFIG_HOME}/vim/vimrc
 export VIMINIT='source $VIMRC'
 export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git'
-

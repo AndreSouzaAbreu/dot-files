@@ -60,6 +60,17 @@ function profile() {
   return 0
 }
 
+# utility to edit, view, or sync shell functions
+function fn() {
+  file=${XDG_CONFIG_HOME}/shell/functions
+  case "$1" in
+    edit|-e) $EDITOR $file ;;
+    sync|-s) source $file ;;
+    *) $PAGER $file ;;
+  esac
+  return 0
+}
+
 # utility to edit, view, or syn environment variables
 function envs() {
   env_file=${XDG_CONFIG_HOME}/shell/env
@@ -87,18 +98,19 @@ function mkcd() {
   return 0
 }
 
+
 # Run a command n times
 function repeat() {
-  number="${1:-1}"
+  n="${1:-1}"
   shift
-  command=$@
-  for i in $(seq $number); do
-    $command
+  command="$@"
+  for i in $(seq $n); do
+    sh -c "$command"
   done
   return 0
 }
 
-# utility to 
+# utility to view cryptocurrency market
 function ratex() {
   case $1 in
     -c|--currency)
@@ -114,4 +126,3 @@ function ratex() {
       ;;
   esac
 }
-
