@@ -1,6 +1,7 @@
 {
   "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
   "suggest.noselect": false,
+  "suggest.autoTrigger": "none",
   "coc.preferences.formatOnSaveFiletypes": ["json"],
   "explorer.quitOnOpen": true,
   "explorer.position": "left",

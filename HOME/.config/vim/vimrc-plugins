@@ -33,8 +33,11 @@ call plug#begin('~/.config/vim/plugged')
 	" Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf' }
   Plug 'junegunn/fzf.vim'
 
+  " show available keybindings
+  Plug 'liuchengxu/vim-which-key'
+
 	" code completion
-  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 	" text objects
 	Plug 'kana/vim-textobj-function'
@@ -54,6 +57,7 @@ call plug#begin('~/.config/vim/plugged')
 	Plug 'pangloss/vim-javascript'
 	Plug 'posva/vim-vue'
 	Plug 'chr4/nginx.vim'
+  Plug 'cespare/vim-toml'
 
 	" linting
 	" Plug 'dense-analysis/ale'
@@ -99,11 +103,11 @@ let g:startify_lists = [
 	\ { 'type': 'commands',  'header': ["\tCommands"]},
 \ ]
 let g:startify_bookmarks = [
-	\ { 'vimrc' : '~/.config/vim/vimrc' },
-	\ { 'quterc' : '~/.config/qutebrowser/config.py' },
-	\ { 'shell': '~/.config/shell' },
-	\ { 'dwm': '~/.config/dwm' },
-	\ { 'dwmblocks': '~/.config/dwmblocks' }, 
+	\ { 'vv' : '~/.config/vim/vimrc' },
+	\ { 'qq' : '~/.config/qutebrowser/config.py' },
+	\ { 'ss': '~/.config/shell' },
+	\ { 'db': '~/.config/dwm' },
+	\ { 'db': '~/.config/dwmblocks' }, 
 \ ]
 
 
@@ -122,7 +126,21 @@ let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#enabled = 1
 
 " coc
-let g:coc_global_extensions = ['coc-css', 'coc-emmet', 'coc-html', 'coc-phpls', 'coc-prettier', 'coc-python', 'coc-snippets', 'coc-vetur', 'coc-git']
+let g:coc_global_extensions = [
+  \ 'coc-clangd',
+  \ 'coc-css',
+  \ 'coc-cssmodules',
+  \ 'coc-emmet',
+  \ 'coc-git',
+  \ 'coc-html',
+  \ 'coc-phpls',
+  \ 'coc-prettier',
+  \ 'coc-python',
+  \ 'coc-sh',
+  \ 'coc-snippets',
+  \ 'coc-tsserver',
+  \ 'coc-vetur'
+\ ]
 set updatetime=600
 
 " snippets
@@ -131,7 +149,7 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
 " favorite themes: ayu, eldar, pop-punk, moonfly, codedark
-colorscheme ayu
+colorscheme pop-punk
 
 " for some weird reason ayu only works after adding line below
-:colorscheme ayu
+" :colorscheme ayu

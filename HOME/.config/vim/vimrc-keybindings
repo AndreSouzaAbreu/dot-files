@@ -1,13 +1,21 @@
-"""""""""""""""""""""
 " KEYBINDINGS       "
+"""""""""""""""""""""
 """""""""""""""""""""
 
 " leader key
 let mapleader=","
+let maplocalleader="\\"
 
 " since 'ç' is useless in vim, map it to ':'
 nmap ç :
 vmap ç :
+
+" vim which key
+nmap <leader> :WhichKey mapleader<CR>
+nmap <Bslash> :WhichKey '\'<CR>
+
+" source
+nnoremap <leader>S :source $VIMRC<CR>
 
 " clear highlight from previous searc
 nnoremap <Bslash>l :noh<CR>
@@ -15,7 +23,7 @@ nnoremap <Bslash>l :noh<CR>
 " close and save file easily
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
-nnoremap <leader>a :qall<CR>
+nnoremap <leader>a :qall!<CR>
 
 " move lines up/down without using clipboard
 nnoremap K :m .-2<CR>==
@@ -90,3 +98,9 @@ nnoremap <leader>C :set formatoptions=qlcro<CR>
 vnoremap <C-c> :!xclip -i -selection clipboard && xclip -o -selection clipboard<CR>
 vnoremap <C-x> :!xclip -i -selection clipboard<CR>
 vnoremap <C-v> :!xclip -o -selection clipboard<CR>
+
+" coc
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" 
+inoremap <M-i> <Esc>
