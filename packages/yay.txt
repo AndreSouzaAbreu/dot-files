@@ -1,0 +1,8 @@
+cointop-bin
+light-git
+mutt-wizard
+perl-text-lorem
+simple-mtpfs
+yay
+ytfzf
+zoxide-bin
