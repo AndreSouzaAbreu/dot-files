@@ -1,7 +1,7 @@
 [options]
 scrollback_lines = 10000
 dynamic_title = false
-font = Monospace 16
+font = Monospace 15
 cursor_shape = block
 cursor_blink = off
 
