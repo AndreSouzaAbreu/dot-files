@@ -38,6 +38,10 @@ alias exa='exa --color=never'
 alias la='exa -lhgH --group-directories-first --all'
 alias ll='exa -lhgH --group-directories-first'
 
+# SHELL
+alias bash='SHELL=/bin/bash bash'
+alias zsh='SHELL=/bin/zsh zsh'
+
 # git
 alias ga='git add'
 alias gc='git commit'

@@ -9,6 +9,7 @@ export BROWSER=qutebrowser
 export EDITOR=vim
 export VISUAL=vim
 export PAGER=bat
+export TERMINAL=termite
 export MANPAGER="sh -c 'col -bx | bat -p -l man'"
 
 # history

@@ -78,7 +78,7 @@ function envs() {
     edit|-e) $EDITOR $env_file ;;
     sync|-s) source $env_file ;;
     view|-v) $PAGER $env_file ;;
-    *) env ;;
+    *) env | sort ;;
   esac
   return 0
 }
