@@ -1,7 +1,7 @@
 #!/bin/sh
 data_file=/tmp/current-screen-temperature
 max_temperature=6500
-min_temperature=1800
+min_temperature=1500
 
 if [[ -f $data_file ]]; then
   current_temperature=$(cat $data_file)
@@ -20,26 +20,26 @@ Usage:
   screen-color [COMMAND] [ARG]
 
 Command:
-  set [AMMOUNT]:
+  --set, -s AMMOUNT:
     set screen temperature color to AMMOUNT.
 
-  dec [AMMOUNT]
+  --dec, -d AMMOUNT:
     decrease screen temperature color by AMMOUNT
 
-  inc [AMMOUNT]
+  --inc, -i AMMOUNT:
     increase screen temperature color by AMMOUNT
 
   NOTE: AMMOUNT is measured in Kelvin
 
 Examples:
   Decrease screen color by 500K:
-    screen-color dec 500
+    screen-color --dec 500
 
-  Increase screen color by 500
-    screen-color inc 500
+  Increase screen color by 500K:
+    screen-color --inc 500
 
-  Set screen color to 3500
-    screen-color set 3500
+  Set screen color to 3500K:
+    screen-color --set 3500
 EOF
 }
 
@@ -65,19 +65,19 @@ set_temperature() {
 }
 
 case $1 in
-"inc")
-  inc $2
-  ;;
-"dec")
-  dec $2
-  ;;
-"set")
-  set_temperature $2
-  ;;
-*)
-  showHelp
-  exit 1
-  ;;
+  inc|--inc|-i)
+    inc $2
+    ;;
+  dec|--dec|-d)
+    dec $2
+    ;;
+  set|--set|-s)
+    set_temperature $2
+    ;;
+  *)
+    showHelp
+    exit 1
+    ;;
 esac
 
 exit 0
