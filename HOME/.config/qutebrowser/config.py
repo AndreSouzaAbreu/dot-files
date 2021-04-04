@@ -1,7 +1,15 @@
-# load default configuration
-config.load_autoconfig()
+import os
+
+### ENVIRONMENT VARIABLES
+
+ENV = os.environ
+TERMINAL = ENV['TERMINAL']
+EDITOR = ENV['EDITOR']
 
 ### CONFIGURATION
+
+# load default configuration
+config.load_autoconfig()
 
 # show status bar only if not in normal mode
 c.statusbar.show = 'in-mode'
@@ -45,13 +53,10 @@ c.content.webrtc_ip_handling_policy = 'default-public-interface-only'
 # cookies
 c.content.cookies.accept = 'no-3rdparty'
 
-c.editor.command = ['vim', '{}']
+# command
+c.editor.command = [TERMINAL, "-e", EDITOR + " {file}"]
 
 ### BINDINGS
-
-# tab navigation
-config.bind('l', 'tab-next')
-config.bind('h', 'tab-prev')
 
 # zoom
 config.bind('<ctrl-=>', 'zoom-in')
