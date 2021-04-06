@@ -1,0 +1,67 @@
+#!/bin/sh
+
+# rotate an image by specified degrees
+function rotate() {
+  degrees=$1
+  sourceImg=$2
+  destImg=$2
+  convert -rotate $degrees $sourceImg $destImg
+}
+
+# flop image
+function flop() {
+  sourceImg=$1
+  destImg=$1
+  convert -flop $sourceImg $destImg
+}
+
+# open a dialog to ask
+function ask() {
+  rofi -dmenu -location 2 -window-title $@ >&1
+}
+
+# notify
+function notify() {
+  notify-send "$1" "$2" --icon dialog-information -t 1000
+}
+
+# opens a dialog to move img to
+function move() {
+  dirs="~/pictures ~/pictures/photos ~/pictures/phone ~/downloads"
+  path=$(find $HOME/pictures -type d | ask "move to"| sed "s#^~#$HOME#")
+  files=$@
+  if [[ -d $path && -n $path ]]; then
+    mv $files $path
+    notify "Images moved" "$files moved to $path."
+  fi
+}
+
+# runs an operation on each of the images from standard input
+function forEachImg() {
+  operation=$@
+  while read img; do
+    $operation $img
+  done < /dev/stdin
+}
+
+key=$1
+case "$key" in
+  C-x|x) # delete
+    mv $(cat /dev/stdin) ~/tmp/
+    ;;
+  m) # move
+    move $(cat /dev/stdin)
+    ;;
+  greater|period) # rotate right
+    forEachImg rotate 90
+    ;;
+  less|comma|C-comma) # rotate left
+    forEachImg rotate 270
+    ;;
+  colon|semicolon|C-semicolon) # vertical flip
+    forEachImg rotate 180
+    ;;
+  question|slash|C-slash) # horizontal flip
+    forEachImg flop
+    ;;
+esac
