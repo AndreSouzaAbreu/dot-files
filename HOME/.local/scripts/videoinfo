@@ -1,0 +1,18 @@
+#!/bin/sh
+
+function length() {
+  video=$1
+  ffmpeg -i "$video" 2>&1 | 
+    grep Duration | 
+    awk '{ print $2}' | 
+    sed 's/,//' | 
+    awk -F ':' '{print $1 * 3600 + $2 * 60 + $3}' >&1
+}
+
+case $1 in
+  *|-l|--length)
+    length $1
+    ;;
+esac
+
+exit 0

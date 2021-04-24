@@ -1,0 +1,19 @@
+#!/bin/sh
+rsa_dir=~/.local/share/ssh
+cd $rsa_dir
+for file in id_rsa*; do
+  if [[ "$file" =~ .pub$ ]]; then
+    continue
+  fi
+  # if file == id_rsa_gitlab -> keyname == rsa/gitlab
+  key_name=${file/id_rsa_/rsa/}
+  password=$(pass $key_name)
+expect>/dev/null <<EOF
+  set timeout -1
+  spawn ssh-add $file
+  match_max 100000
+  expect -exact "Enter passphrase for $file: "
+  send -- "$password\r"
+  expect eof
+EOF
+done
