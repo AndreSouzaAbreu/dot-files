@@ -25,6 +25,12 @@ function notify() {
   notify-send "$1" "$2" --icon dialog-information -t 1000
 }
 
+#
+function crop() {
+  display $1
+}
+
+
 # opens a dialog to move img to
 function move() {
   dirs="~/pictures ~/pictures/photos ~/pictures/phone ~/downloads"
@@ -63,5 +69,8 @@ case "$key" in
     ;;
   question|slash|C-slash) # horizontal flip
     forEachImg flop
+    ;;
+  C-c|c)
+    forEachImg crop
     ;;
 esac
