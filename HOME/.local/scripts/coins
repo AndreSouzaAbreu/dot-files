@@ -1,0 +1,16 @@
+#!/bin/sh
+config_dir=${XDG_CONFIG_HOME}/cointop
+compact_config=$config_dir/config-compact.toml
+default_config=$config_dir/config.toml
+
+option=$1
+[[  -n $1 ]] && shift
+
+case $option in
+  --compact|-c)
+    cointop --config $compact_config --only-table
+    ;;
+  *)
+    cointop 
+    ;;
+esac

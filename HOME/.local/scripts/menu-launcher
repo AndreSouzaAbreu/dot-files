@@ -1,0 +1,5 @@
+#!/bin/sh
+applications_list=$HOME/.config/applications.list
+application=$(sort $applications_list | rofi -dmenu -window-title 'application')
+$application
+exit 0

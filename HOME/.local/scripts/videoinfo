@@ -1,5 +1,11 @@
 #!/bin/sh
 
+function showHelp() {
+cat << EOF
+videoinfo [command] [video]
+EOF
+}
+
 function length() {
   video=$1
   ffmpeg -i "$video" 2>&1 | 
@@ -9,10 +15,16 @@ function length() {
     awk -F ':' '{print $1 * 3600 + $2 * 60 + $3}' >&1
 }
 
-case $1 in
-  *|-l|--length)
-    length $1
-    ;;
-esac
+option=$1
+(( $# > 0 )) && shift
+
+while (( $# > 0 )); do
+  case $option in
+    -l|--length)
+      length $1
+      ;;
+  esac
+  shift
+done 
 
 exit 0
