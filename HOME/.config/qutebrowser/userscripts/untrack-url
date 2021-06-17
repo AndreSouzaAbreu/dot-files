@@ -1,0 +1,28 @@
+#!/bin/sh
+args=""
+qute_cmd="open"
+
+while (( $# > 0)); do
+  case $1 in
+    -y)
+      qute_cmd="yank"
+      ;;
+    -Y)
+      qute_cmd="yank-primary"
+      ;;
+    -o)
+      qute_cmd="open"
+      ;;
+    -O)
+      qute_cmd="open -t"
+      ;;
+    *)
+      args="$args $1"
+      ;;
+  esac
+  shift
+done
+
+untracked_url=$(untrack-url $args)
+echo $qute_cmd $untracked_url >> $QUTE_FIFO
+
