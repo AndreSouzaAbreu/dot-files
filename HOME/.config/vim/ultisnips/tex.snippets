@@ -1,0 +1,347 @@
+#########################################
+### PYTHON HELPERS ######################
+
+global !p
+
+def is_surrounded_by(text, index, before, after):
+	"""
+	Checks if the character at position {index} of string {text} is
+	preceded by string {before} and followed by string {after}.
+	"""
+
+	# check if string {after} is after index
+	i = index
+	j = 0
+	max_index = len(text)
+	max_j = len(after)
+	should_continue = False
+
+	while i < max_index:
+		if text[i] != after[j]:
+			j = 0
+		else :
+			j += 1
+			if (j == max_j):
+				should_continue = True
+				break
+		i += 1
+
+	# return false if {after} is not after the index
+	if not should_continue:
+		return False
+
+	# check if string {before} is before index
+	i = index - 1
+	max_j = len(before) - 1
+	j = 0
+
+	while i >= 0:
+		if text[i] != before[j]:
+			j = max_j
+		else :
+			j -= 1
+			if (j == 0):
+				return True
+		i -= 1
+
+	# return false if {before} is not before index
+	return False
+
+### CONTEXT ##########################################
+
+def math_eval():
+	line = snip.buffer[snip.line]
+	return is_surrounded_by(line, snip.column, "eval", "endeval")
+
+def math():
+	return (vim.eval('vimtex#syntax#in_mathzone()') == '1') and not math_eval()
+
+def not_math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '0'
+
+def comment(): 
+	return vim.eval('vimtex#syntax#in_comment()') == '1'
+
+endglobal
+
+######################################################
+### BASIC SNIPPETS ###################################
+
+snippet box "Box"
+`!p snip.rv = '┌' + '─' * (len(t[1]) + 2) + '┐'`
+│ $1 │
+`!p snip.rv = '└' + '─' * (len(t[1]) + 2) + '┘'`
+$0
+endsnippet
+
+snippet bb "begin{} / end{}" bA
+\begin{$1}
+	$0
+\end{$1}
+endsnippet
+
+context "not_math()"
+snippet m "inline math" w
+\$$1\$ $0
+endsnippet
+
+context "not_math()"
+snippet " mm" "inline math" rA
+\$$1\$$0
+endsnippet
+
+context "not_math()"
+snippet mm "math block" bA
+\$\$ $1 \$\$
+
+$0
+endsnippet
+
+snippet eq "equation" b
+\begin{equation*}
+	$0
+\end{equation*}
+endsnippet
+
+snippet align "align" b
+\begin{align*}
+$1 &= $2 \\\\$0
+\end{align*}
+endsnippet
+
+snippet epislon "fix often-misspelled greek letter" A
+epsilon
+endsnippet
+
+######################################################
+### MATH MODE SNIPPETS ###############################
+
+context "math()"
+snippet p "parenthesis" i
+($1)$0
+endsnippet
+
+context "math()"
+snippet "([^(\[{])x" "multiplication" wr
+`!p snip.rv = match.group(1)`\cdot $0
+endsnippet
+
+context "math()"
+snippet dd "dots" w
+\dots
+endsnippet
+
+context "math()"
+snippet tt "triangle" w
+\triangle
+endsnippet
+
+context "math()"
+snippet ss "square" w
+\square
+endsnippet
+
+context "math()"
+snippet "([0-9]+)x([0-9]+)" "multiplication" wr
+`!p snip.rv = match.group(1)` \cdot `!p snip.rv = match.group(2)` $0
+endsnippet
+
+context "math()"
+snippet "(f|g|h|log)" "wrap function" wr
+`!p snip.rv = match.group(1)`($1)$0
+endsnippet
+
+context "math()"
+snippet "([fghp])([xy])" "wrap function" wr
+`!p snip.rv = match.group(1)`(`!p snip.rv = match.group(2)`)$0
+endsnippet
+
+context "math()"
+snippet _ "subscript" iA
+_{$1}$0
+endsnippet
+
+context "math()"
+snippet ^ "superscript" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet "(x|y|f)([0-9]+) " "automatic subscript" wrA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`} $0
+endsnippet
+
+context "math()"
+snippet "(x|y|f)([0-9]+)" "automatic subscript" wr
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}$0
+endsnippet
+
+context "math()"
+snippet ë "superscript (alt+k)" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet ê "subscript (alt+j)" iA
+_{$1}$0
+endsnippet
+
+context "math()"
+snippet fç "fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet sqrt "square root" wA
+\\sqrt{$1}$0
+endsnippet
+
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+context "math()"
+priority 1000
+snippet '^.*\)/' "() fraction" wrA
+`!p
+stripped = match.string[:-1]
+depth = 0
+i = len(stripped) - 1
+while True:
+	if stripped[i] == ')': depth += 1
+	if stripped[i] == '(': depth -= 1
+	if depth == 0: break;
+	i -= 1
+snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+`{$1}$0
+endsnippet
+
+context "math()"
+snippet ssum "sum" wA
+\\sum_{$1}^{$2} $0
+endsnippet
+
+context "math()"
+snippet sum "sum" wA
+\\sum $0
+endsnippet
+
+context "math()"
+snippet sprod "prod" wA
+\\prod_{$1}^{$2} $0
+endsnippet
+
+context "math()"
+snippet prod "prod" wA
+\\prod $0
+endsnippet
+
+context "math()"
+snippet iint "integral" w
+\\int_{$1}^{$2} $0
+endsnippet
+
+context "math()"
+snippet int "integral" w
+\\int $0
+endsnippet
+
+context "math()"
+snippet exp "exponential" wA
+e^{$1}$0
+endsnippet
+
+context "math()"
+snippet log2 "logaritmic" wA
+log_2($1)$0
+endsnippet
+
+context "math()"
+snippet log10 "logaritmic" wA
+log_{10}($1)$0
+endsnippet
+
+context "math()"
+snippet binom "binomial" wA
+\binom{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet "(a?sin|a?cos|ln|a?tan)" "common functions" wrA
+`!p snip.rv = match.group(1)`($1)$0
+endsnippet
+
+######################################################
+### MATH EVAL SNIPPETS ###############################
+
+context "math()"
+snippet eval "begin eval block" w
+eval $1 endeval$0
+endsnippet
+
+context "math()"
+snippet "eval (.*) endeval" "evaluate math expression symbocally" rw
+`!p
+from sympy import *
+import re
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer=True)
+f, g, h = symbols('f g h', cls=Function)
+expression = match.group(1)
+expression = expression.replace("^", "**")
+expression = re.sub(r"([0-9]+)\s?([a-z])([^o]?[^r]?)", r"\1*\2\3", expression)
+expression = re.sub(r"([a-z0-9]+)!", r"factorial(\1)", expression)
+snip.rv = eval(f"latex({expression})")
+`
+endsnippet
+
+context "math()"
+snippet neval "begin numerical eval block" w
+neval $1 nendeval$0
+endsnippet
+
+context "math()"
+snippet "neval (.*) nendeval" "numerically evaluate a math expression" rw
+`!p
+from statistics import *
+from math import *
+import re
+ln = log
+expression = match.group(1)
+expression = expression.replace("^", "**")
+expression = re.sub(r"([0-9]+)\s?([a-z])([^o]?[^r]?)", r"\1*\2\3", expression)
+expression = re.sub(r"([a-z0-9]+)!", r"factorial(\1)", expression)
+snip.rv = eval(expression)
+`
+endsnippet
+
+context "math_eval()"
+snippet int "integrate" wA
+integrate($1)$0
+endsnippet
+
+context "math_eval()"
+snippet diff "derivative" wA
+diff($1)$0
+endsnippet
+
+context "math_eval()"
+snippet fact "factorial" wA
+factorial($1)$0
+endsnippet
+
+context "math_eval()"
+snippet sum "sum" wA
+sum([$1])$0
+endsnippet
+
+context "math_eval()"
+snippet mean "mean" wA
+mean([$1])$0
+endsnippet
+
+context "math_eval()"
+snippet "(a?sin|a?cos|log|a?tan|exp|sqrt)" "common functions" wrA
+`!p snip.rv = match.group(1)`($1)$0
+endsnippet

@@ -1,0 +1,407 @@
+snippet a "inline link" w
+<a href="$1">$2</a>
+endsnippet
+
+snippet aa "link" w
+<a href="$1">
+	$2
+</a>
+$0
+endsnippet
+
+snippet abbr "<abbr>" w
+<abbr title="$1">$2</abbr>
+endsnippet
+
+snippet article "<article>"
+<article>
+	$1
+</article>
+endsnippet
+
+snippet aside "<aside>"
+<aside>
+	$1
+</aside>
+endsnippet
+
+snippet b "<b>" w
+<b>$1</b>$0
+endsnippet
+
+snippet blockquote "<blockquote>"
+<blockquote>$1</blockquote>
+endsnippet
+
+snippet body "<body>"
+<body>
+	${0:${VISUAL}}
+</body>
+endsnippet
+
+snippet br "<br>" w
+<br/>
+endsnippet
+
+snippet button "<button>"
+<button>$1</button>
+endsnippet
+
+snippet caption "<caption>"
+<caption>$1</caption>
+endsnippet
+
+snippet cite "<cite>" w
+<cite>$1</cite>
+endsnippet
+
+snippet class "class global attribute"
+class="$1"
+endsnippet
+
+snippet code "<code>" w
+<code>$1</code>$0
+endsnippet
+
+snippet div "<div>" w
+<div>
+	${0:${VISUAL}}
+</div>
+endsnippet
+
+snippet div# "<div> with ID"  w
+<div id="$1">
+	${0:${VISUAL}}
+</div>
+endsnippet
+
+snippet div. "<div> with class" w
+<div class="$1">
+	${0:${VISUAL}}
+</div>
+endsnippet
+
+snippet dl "<dl>"
+<dl>
+	${1:Definition list}
+</dl>
+endsnippet
+
+snippet dt "<dt>"
+<dt>$1</dt>
+endsnippet
+
+snippet em "<em>" w
+<em>$1</em>
+endsnippet
+
+snippet fieldset "Fieldset" w
+<fieldset id="$1">
+	<legend>$2</legend>
+	${0:${VISUAL}}
+</fieldset>
+endsnippet
+
+snippet figure "<figure>"
+<figure>
+$1
+<figcaption>$2</figcaption>
+</figure>
+endsnippet
+
+snippet figcaption "<figcaption>"
+<figcaption>$1</figcaption>
+$0
+endsnippet
+
+snippet footer "<footer>"
+<footer>
+	$1
+</footer>
+endsnippet
+
+snippet form "HTML <form>" w
+<form>
+	${0:${VISUAL}}
+</form>
+endsnippet
+
+snippet "(h[1-6])" "HTML <h4>" wr
+<`!p snip.rv = match.group(1)`>${1:${VISUAL}}</`!p snip.rv=match.group(1)`>
+$0
+endsnippet
+
+snippet header "<header>"
+<header>
+	$1
+</header>
+endsnippet
+
+snippet hr "<hr>"
+<hr>
+endsnippet
+
+snippet html "HTML basic structure" b
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>$1</title>
+	</head>
+	<body>
+		$0
+	</body>
+</html>
+endsnippet
+
+snippet htmll "HTML basic structure with the lang attribute" b
+<!DOCTYPE html>
+<html lang="${1:es}">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>$2</title>
+	</head>
+	<body>
+		$0
+	</body>
+</html>
+endsnippet
+
+snippet i "<i>" w
+<i>$1</i>$0
+endsnippet
+
+snippet id "id global attribute"
+id="$1"$0
+endsnippet
+
+snippet img "<img>"
+<img src="$1" alt="$2">
+$0
+endsnippet
+
+snippet inputl "Input with Label" w
+<label for="${2:${1/[[:alpha:]]+|( )/(?1:_:\L$0)/g}}">$1</label>
+<input type="${3:text}" name="${4:$2}" id="${7:$2}"/>$0
+endsnippet
+
+snippet input "HTML <input>" w
+<input type="${1:text}" name="${2:some_name}" id="${5:$2}"/>
+$0
+endsnippet
+
+snippet kbd "<kbd>" w
+<kbd>$1</kbd>$0
+endsnippet
+
+snippet label "<label>"
+<label>$1</label>
+$0
+endsnippet
+
+snippet legend "<legend>"
+<legend>$1</legend>
+$0
+endsnippet
+
+snippet li "list item" w
+<li>${1:${VISUAL}}</li>
+$0
+endsnippet
+
+snippet link "HTML <link>" w
+<link rel="${1:stylesheet}" href="${2:/css/}" type="text/css"/>
+endsnippet
+
+snippet mailto "HTML <a mailto: >" w
+<a href="mailto:${1:joe@example.com}">$2</a>$0
+endsnippet
+
+snippet main "<main>"
+<main>
+	${1:main content}
+</main>
+endsnippet
+
+snippet mark "<mark>"
+<mark>$1</mark>$0
+endsnippet
+
+snippet meta "HTML <meta>" w
+<meta name="$1" content="$2"/>
+$0
+endsnippet
+
+snippet nav "<nav>"
+<nav>
+	$1
+</nav>
+endsnippet
+
+snippet noscript "<noscript>"
+<noscript>$1</noscript>
+endsnippet
+
+snippet ol "<ol>"
+<ol>
+	$1
+</ol>
+endsnippet
+
+snippet optgroup "<optgroup>"
+<optgroup label="$1">
+	$2
+</optgroup>
+$0
+endsnippet
+
+snippet output "<output>"
+<output for="$1" name="$2">$3</output>$0
+endsnippet
+
+snippet option "Option" w
+<option value="$1">$2</option>
+$0
+endsnippet
+
+snippet p "paragraph" w
+<p>${1:${VISUAL}}</p>
+$0
+endsnippet
+
+snippet picture "<picture>"
+<picture>
+	$1
+</picture>
+endsnippet
+
+snippet pre "<pre>"
+<pre>$1</pre> $0
+endsnippet
+
+snippet progress "<progress>"
+<progress>$1</progress>
+$0
+endsnippet
+
+snippet q "<q>" w
+<q>$1</q> $0
+endsnippet
+
+snippet s "<s>" w
+<s>$1</s> $0
+endsnippet
+
+snippet script "HTML <script>" w
+<script>
+	${0:${VISUAL}}
+</script>
+endsnippet
+
+snippet scriptsrc "HTML <script src...>" w
+<script src="$1"></script>
+$0
+endsnippet
+
+snippet select "Select Box" w
+<select name="$1" id="${2:$1}">
+	${0:${VISUAL}}
+</select>
+endsnippet
+
+snippet small "<small>" w
+<small>$1</small>$0
+endsnippet
+
+snippet span "<span>" w
+<span>${1:${VISUAL}}</span>$0
+endsnippet
+
+snippet strong "<strong>" w
+<strong>$1</strong>$0
+endsnippet
+
+snippet style "HTML <style>" w
+<style type="text/css">
+	${0:${VISUAL}}
+</style>
+endsnippet
+
+snippet sub "<sub>" w
+<sub>$1</sub> $0
+endsnippet
+
+snippet sup "<sup>" w
+<sup>$1</sup> $0
+endsnippet
+
+snippet table "HTML <table>" w
+<table>
+	${0:${VISUAL}}
+</table>
+endsnippet
+
+snippet tbody "<tbody>"
+<tbody>
+	$1
+</tbody>
+$0
+endsnippet
+
+snippet td "table cell" w
+<td>${0:${VISUAL}}</td>
+endsnippet
+
+snippet template "<template>"
+<template>
+	${0:${VISUAL}}
+</template>
+endsnippet
+
+snippet textarea "HTML <textarea>" w
+<textarea name="$1"></textarea>
+endsnippet
+
+snippet tfoot "<tfoot>"
+<tfoot>$1</tfoot>
+endsnippet
+
+snippet th "table header" w
+<th>${0:${VISUAL}}</th>
+endsnippet
+
+snippet thead "<thead>"
+<thead>
+	$1
+</thead>
+$0
+endsnippet
+
+snippet time "<time>" w
+<time datetime="$2">$1</time>
+endsnippet
+
+snippet title "HTML <title>" w
+<title>${1:`!p snip.rv = snip.basename or "Page Title"`}</title>
+endsnippet
+
+snippet tr "table row" w
+<tr>${1:${VISUAL}}</tr>
+$0
+endsnippet
+
+snippet ul "unordered list" w
+<ul>
+	${0:${VISUAL}}
+</ul>
+endsnippet
+
+snippet var "<var>" w
+<var>$1</var>$0
+endsnippet
+
+snippet viewport "Responsive viewport meta" w
+<meta name="viewport" content="width=device-width, initial-scale=1">
+endsnippet

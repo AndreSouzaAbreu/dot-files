@@ -1,0 +1,103 @@
+extends tex
+
+#########################################
+### PYTHON HELPERS ######################
+
+global !p
+
+def create_table_snippet(rows, columns):
+	# intialize empty snippet
+	table_snippet = ""
+	table_column_delimiter = "|"
+	table_column_alignment = ":---:"
+	current_placeholder_index = 1
+
+	# create table header
+	for column in range(columns):
+		table_snippet += "%s ${%d} " % (table_column_delimiter, current_placeholder_index)
+		current_placeholder_index += 1
+	table_snippet += table_column_delimiter + "\n"
+
+	# create line separating header and body
+	for column in range(columns):
+		table_snippet += table_column_delimiter + table_column_alignment
+		current_placeholder_index += 1
+	table_snippet += table_column_delimiter + "\n"
+
+	# create table body
+	for row in range(rows):
+		for column in range(columns):
+			table_snippet += "%s ${%d} " % (table_column_delimiter, current_placeholder_index)
+			current_placeholder_index += 1
+		table_snippet += table_column_delimiter + "\n"
+
+	# return final table snippet
+	table_snippet += "\n$0"
+	return table_snippet
+
+def create_table(snip):
+	# get table dimensions
+	dimensions_delimiter = "x"
+	dimensions = snip.buffer[snip.line].split(dimensions_delimiter)
+
+	rows = int(dimensions[0])
+	columns = int(dimensions[1])
+
+	# generate snippet
+	snippet = create_table_snippet(rows, columns)
+
+	# erase current line before expanding snippet
+	snip.buffer[snip.line] = ""
+
+	# expand snippet
+	snip.expand_anon(snippet)
+
+def create_ordered_list_snippet(n):
+	snippet = ""
+	for i in range(1, n+1):
+		snippet += "%d. ${%d}\n" % (i, i)
+	snippet += "\n$0"
+	return snippet
+
+endglobal
+
+################################################
+### SNIPPETS ###################################
+
+snippet l "link" w
+[$1]($2) $0
+endsnippet
+
+snippet im "image" b
+![$1]($2)
+$0
+endsnippet
+
+snippet cc "code snippet" bA
+\`\`\`$1
+$2
+\`\`\`
+
+$0
+endsnippet
+
+snippet c "inline Code" w
+\`$1\`$0
+endsnippet
+
+snippet i "italic" w
+*$1*$0
+endsnippet
+
+snippet b "bold" w
+**$1**$0
+endsnippet
+
+snippet "(h+) " "header" brA
+`!p snip.rv = match.group(1).replace('h', '#')` $0
+endsnippet
+
+post_jump "create_table(snip)"
+snippet "table([1-9]+x[1-9]+)" "automatic generated table" br
+`!p snip.rv = match.group(1)`
+endsnippet
