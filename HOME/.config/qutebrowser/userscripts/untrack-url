@@ -25,4 +25,3 @@ done
 
 untracked_url=$(untrack-url $args)
 echo $qute_cmd $untracked_url >> $QUTE_FIFO
-
