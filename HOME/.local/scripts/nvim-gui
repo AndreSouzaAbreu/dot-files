@@ -1,0 +1,2 @@
+#!/bin/sh
+VIMINIT="" nvim-qt --nofork $@

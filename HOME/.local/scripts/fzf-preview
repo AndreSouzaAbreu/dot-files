@@ -1,8 +1,0 @@
-#!/bin/sh
-f=$1
-if [[ -d $f ]]; then
-  tree -a -L 3 --charset ascii $f
-elif [[ -f $f ]]; then
-  (file $f | grep 'ASCII text')>/dev/null && bat -p --color always $f
-fi
-exit 0
