@@ -4,30 +4,36 @@
 ##      SHELL PROFILE      ##
 #############################
 
-# name of the shell (bash, zsh, or sh)
+# handy helper
+function source_files()
+{
+  while (($# > 0)); do
+    local file=$1
+    [[ -f $file ]] && source $file
+    shift
+  done
+  return 0
+}
+
+# name of the current shell: (bash, zsh, sh, or other)
 shell=${SHELL##*/}
 
-# load shell configuration 
+# load environment variables, aliases, and user funtions.
 SHELL_CONFIG=~/.config/shell
-[[ -f $SHELL_CONFIG/env ]] && source $SHELL_CONFIG/env
-[[ -f $SHELL_CONFIG/aliases ]] && source $SHELL_CONFIG/aliases
-[[ -f $SHELL_CONFIG/functions ]] && source $SHELL_CONFIG/functions
+source_files $SHELL_CONFIG/{env,aliases,functions}
 
-# load local scripts
-path_append ~/.local/scripts ~/.local/bin
+# load local scripts and local bin
+path_append ~/.local/{bin,scripts}
 
-# load zoxide
+##### SHELL COMPLETION ######
+
+# source custom shell completion and keybindings
+source_files $SHELL_CONFIG/{keybindings,completion}/*.$shell
+
+# zoxide completion
 [[ -f /usr/bin/zoxide ]] && eval "$(zoxide init $shell)"
 
-# load fzf
-fzf_dir=/usr/share/fzf
-fzf_bindings=${fzf_dir}/key-bindings.${shell}
-fzf_completion=${fzf_dir}/completion.${shell}
-
-[[ -f $fzf_bindings ]] && source $fzf_bindings
-[[ -f $fzf_completion ]] && source $fzf_completion
-
-# load qpdf
+# qpdf completion
 [[ -f /usr/bin/qpdf ]] && eval "$(qpdf --completion-${shell})"
 
 # set tabsize to 2

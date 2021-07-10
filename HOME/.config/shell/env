@@ -6,11 +6,11 @@
 
 # programs
 export BROWSER=qutebrowser
-export EDITOR=vim
-export VISUAL=vim
-export PAGER=bat
+export EDITOR=nvim-gui
+export VISUAL=nvim-gui
+export PAGER=less
 export TERMINAL=termite
-export MANPAGER="sh -c 'col -bx | bat -p -l man'"
+export MANPAGER=less
 
 # history
 export SAVEHIST=25000
@@ -22,10 +22,19 @@ export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+#############################
+# CLEANING UP HOME DIRECTORY
+#############################
+
 # xdg
 export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_CACHE_HOME=${HOME}/.cache
+
+# xdg_dirs=$XDG_CONFIG_HOME/user-dirs.dirs
+# xdg_locale=$XDG_CONFIG_HOME/user-dirs.locale
+# [[ -f $xdg_dirs ]] && source $xdg_dirs
+# [[ -f $xdg_locale ]] && source $xdg_locale
 
 # xorg
 export XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority
@@ -34,6 +43,7 @@ export XSERVERRC=${XDG_CONFIG_HOME}/X11/xserverrc
 
 # shell
 export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
+export BASHRC=${XDG_CONFIG_HOME}/bash/.bashrc
 
 # less
 export LESSHISTFILE=-
@@ -57,10 +67,46 @@ export CM_MAX_CLIPS=50
 # crypto
 export ELECTRUMDIR=${XDG_DATA_HOME}/electrum
 
-# development
+# javascript 
 export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME}/npm/npmrc
+
+# rust
+export CARGO_HOME=${XDG_DATA_HOME}/cargo
+
+# python stuff
 export PYLINTHOME=${XDG_CACHE_HOME}/pylint
+export IPYTHONDIR=${XDG_CONFIG_HOME}/jupyter
+export JUPYTER_CONFIG_DIR=${XDG_CONFIG_HOME}/jupyter
+
+# sage math
+export DOT_SAGE=${XDG_CONFIG_HOME}/sage
+
+# maxima
+export MAXIMA_USERDIR=${XDG_CONFIG_HOME}/maxima
+
+# octave
+export OCTAVE_HISTFILE=${XDG_CACHE_HOME}/octave-hsts
+export OCTAVE_SITE_INITFILE=${XDG_CONFIG_HOME}/octave/octaverc
+
+# r
+export R_PROFILE_USER=${XDG_CONFIG_HOME}/r/.Rprofile
+export R_LIBS_USER=${XDG_DATA_HOME}/r/lib
+export R_HISTFILE=${XDG_DATA_HOME}/r/.Rhistory
+
+# vim
+export NVIMRC=${XDG_CONFIG_HOME}/nvim/init.vim
 export VIMRC=${XDG_CONFIG_HOME}/vim/vimrc
-export VIMINIT='source $VIMRC'
+#export VIMINIT='source $VIMRC'
+
+# java algs4
+PRINCETON=$HOME/.local/share/algs4
+export PATH=$PATH:$PRINCETON/bin
+export LIFT_INSTALL=$PRINCETON/lift
+export CLASSPATH=$PRINCETON
+
+#############################
+## COMMANDS                ##
+#############################
+
 export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git'

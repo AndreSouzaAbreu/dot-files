@@ -7,15 +7,16 @@
 # shortcuts
 alias a='aliases'
 alias b='$BROWSER'
-alias c='cointop'
+alias c='coins'
 alias e='envs'
-alias f='fn'
+alias f='myfunctions'
 alias g='git'
 alias m='neomutt'
+alias n='nvim'
 alias o='open'
 alias p='profile'
 alias q='exit'
-alias v='vim'
+alias v='$EDITOR'
 alias y='yay'
 
 # files
@@ -26,17 +27,23 @@ alias tree='tree --charset=ascii'
 # history
 alias hist='cat $HISTFILE'
 alias hgrep='cat $HISTFILE | grep'
+alias histedit='$EDTIOR $HISTFILE'
 
 # ls
-alias l='ls'
-alias la='LC_ALL=C ls -lh --human-readable --group-directories-first --almost-all'
-alias lh='LC_ALL=C ls -lh --human-readable --group-directories-first'
-alias l1='LC_ALL=C ls -1'
+# alias l='LC_ALL=C ls -1'
+# alias la='LC_ALL=C ls -lh --human-readable --group-directories-first --almost-all'
+# alias lh='LC_ALL=C ls -lh --human-readable --group-directories-first'
 
 # exa
 alias exa='exa --color=never'
+alias l='exa'
+alias ls='exa'
 alias la='exa -lhgH --group-directories-first --all'
 alias ll='exa -lhgH --group-directories-first'
+alias l1='ll'
+
+# other stuff
+alias path='echo $PATH'
 
 # SHELL
 alias bash='SHELL=/bin/bash bash'
@@ -44,10 +51,12 @@ alias zsh='SHELL=/bin/zsh zsh'
 
 # git
 alias ga='git add'
+alias gb='git branch'
 alias gc='git commit'
+alias gC='git clone'
 alias gd='git diff'
-alias gf='git fuzzy'
 alias gs='git status --short'
+alias gk='git checkout'
 alias gl='git log --oneline'
 alias gg='git log --oneline --graph --full-history --all'
 
@@ -55,21 +64,23 @@ alias gg='git log --oneline --graph --full-history --all'
 alias pqeq='pacman -Qeq'
 alias pss='pacman -Ss'
 alias ppr='doas pacman -Rsn'
+alias pS='doas pacman -S'
 alias pp='doas pacman -Syu'
 
 # yay
 alias yqeq='yay -Qeq'
 alias yss='yay -Ss'
 alias yyr='yay -Rsn'
+alias yS='yay -S'
 alias yy='yay -Syu'
 
 # docker
 alias dk='docker'
+alias dkps='docker ps'
 alias dke='docker exec'
 alias dkei='docker exec -it'
 alias dker='docker exec --user root'
 alias dkeir='docker exec -it --user root'
-alias dkps="docker ps --format '{{.Names}} {{.Image}}'"
 
 # docker compose
 alias dup='docker-compose up -d'
@@ -93,27 +104,35 @@ alias nwatch='npm run watch'
 alias nwatch-js='npm run watch-js'
 alias nwatch-css='npm run watch-css'
 
-# LARAVEL
+# laravel
 alias pa='php artisan'
 alias pam='php artisan migrate'
 alias par='php artisan route:list --compact'
 alias tinker='php artisan tinker'
 
-# XDG
+# JAVA
+alias ja='java-algs4'
+alias jac='javac-algs4'
+
+# mpv
+alias mpvx='mpv "$(xclip -o -selection clipboard)"'
+
+# make some fucking programs abide to XDG
 alias ssh='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
 alias scp='scp -F ${XDG_CONFIG_HOME}/ssh/config'
 alias mbsync='mbsync -c ${XDG_CONFIG_HOME}/mbsync/mbsyncrc'
-alias startx='startx "${XDG_CONFIG_HOME}/X11/xinitrc" -- "${XDG_CONFIG_HOME}/X11/xserverrc" vt1'
+alias claws-mail='claws-mail --alternate-config-dir ${XDG_DATA_HOME}/claws-mail'
+alias startx='startx ${XDG_CONFIG_HOME}/X11/xinitrc -- ${XDG_CONFIG_HOME}/X11/xserverrc vt1'
+alias jupyter='HOME=${XDG_DATA_HOME}/jupyter jupyter'
+alias monerod='HOME=${XDG_DATA_HOME}/monero monerod'
+alias monero-wallet-gui='HOME=${XDG_DATA_HOME}/monero monero-wallet-gui'
 
 # clipboard
 alias xcopy='xclip -selection clipboard'
 alias xpaste='xclip -out -selection clipboard'
 
 # more shortcuts
-alias xx='(pidof dwm && pkill dwm; exit) || startx'
-alias vv='vim ~/.config/vim'
-alias dv='dvtm'
-alias py='python'
-
-# other stuff
-alias notification-daemon='/usr/lib/notification-daemon-1.0/notification-daemon'
+alias vv='v ~/.config/vim'
+alias v.='v .'
+alias py='HOME=/tmp python'
+alias xx='startx'
