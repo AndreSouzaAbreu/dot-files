@@ -1,106 +1,190 @@
-" KEYBINDINGS       "
-"""""""""""""""""""""
-"""""""""""""""""""""
+" ---------------------------------------------------------------------------
+" KEYBINDINGS
+" ---------------------------------------------------------------------------
 
-" leader key
+" the leader key
 let mapleader=","
-let maplocalleader="\\"
 
-" since 'ç' is useless in vim, map it to ':'
-nmap ç :
-vmap ç :
+" do nothing when pressing space or \ twice
+nnoremap <space> <nop>
+nnoremap <Bslash><Bslash> <Nop>
 
-" vim which key
-nmap <leader> :WhichKey mapleader<CR>
-nmap <Bslash> :WhichKey '\'<CR>
+" ---------------------------------------------------------------------------
+" BUFFERS
+" ---------------------------------------------------------------------------
 
-" source
-nnoremap <leader>S :source $VIMRC<CR>
-
-" clear highlight from previous searc
-nnoremap <Bslash>l :noh<CR>
+" buffer navigation keybindings
+nnoremap <Bslash>bn :bn<CR>
+nnoremap <Bslash>bp :bp<CR>
+nnoremap <Bslash>bd :bd<CR>
+nnoremap <M-1> :bn<CR>
+nnoremap <M-2> :bp<CR>
+nnoremap gb :b<space>
 
 " close and save file easily
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>a :qall!<CR>
 
+" ---------------------------------------------------------------------------
+" WINDOW
+" ---------------------------------------------------------------------------
+
+" window split
+nnoremap <leader>v <C-w>v
+nnoremap <leader>s <C-w>s
+
+" window resize
+nnoremap <silent> <M-S-j> :resize -5<cr>
+nnoremap <silent> <M-S-k> :resize +5<cr>
+nnoremap <silent> <M-S-h> :vertical resize -5<cr>
+nnoremap <silent> <M-S-l> :vertical resize +5<cr>
+
+" window navigation
+nnoremap <M-h> <C-W>h
+nnoremap <M-j> <C-W>j
+nnoremap <M-k> <C-W>k
+nnoremap <M-l> <C-W>l
+
+" ---------------------------------------------------------------------------
+" TERMINAL
+" ---------------------------------------------------------------------------
+
+" open term to the bottom
+nnoremap <silent> <Bslash>s :term ++rows=5<CR>
+
+" resize terminal
+tnoremap <silent> <C-[> <C-w>:resize +1<CR>
+tnoremap <silent> <C-]> <C-w>:resize -1<CR>
+
+" turn the terminal into a normal buffer
+tnoremap <silent> <C-Bslash> <C-w><S-n>:set nonumber norelativenumber<CR>
+
+" ---------------------------------------------------------------------------
+" CLIPBOARD
+" ---------------------------------------------------------------------------
+
+" paste from clipboard in insert mode
+inoremap <C-S-v> <esc>"+pi
+
+" copy, paste, and cut t clipboard in visual mode
+vnoremap <Bslash>c "+y<CR>
+vnoremap <Bslash>x "+d<CR>
+vnoremap <Bslash>v "+p<CR>
+
+" ---------------------------------------------------------------------------
+" MISCELLANEOUS
+" ---------------------------------------------------------------------------
+
+" map ç to :
+nnoremap çç :
+nnoremap ç :
+vnoremap ç :
+
+" source vimrc
+nnoremap <leader>S :source $VIMRC<CR>
+
+" clear highlight from previous searc
+nnoremap <silent> <Bslash>l :noh<CR>
+
+" search and replace word under cursor
+nnoremap <space>w :%s/<C-r><C-w>/
+
 " move lines up/down without using clipboard
-nnoremap K :m .-2<CR>==
-nnoremap J :m .+1<CR>==
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+nnoremap <M-o> :m .-2<CR>==
+nnoremap <M-i> :m .+1<CR>==
+vnoremap <M-i> :m '>+1<CR>gv=gv
+vnoremap <M-o> :m '<-2<CR>gv=gv
 
-" buffer navigation keybindings
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprev<CR>
-nnoremap <Bslash>d :bdelete<CR>
-
-" easier window navigation
-nnoremap <C-h> :wincmd h<CR>
-nnoremap <C-l> :wincmd l<CR>
-nnoremap <C-j> :wincmd j<CR>
-nnoremap <C-k> :wincmd k<CR>
-nnoremap <M-j> :resize -5<cr>
-nnoremap <M-k> :resize +5<cr>
-nnoremap <M-h> :vertical resize -5<cr>
-nnoremap <M-l> :vertical resize +5<cr>
-nmap <Bslash>H :wincmd H<CR>
-nmap <Bslash>L :wincmd L<CR>
-nmap <Bslash>o :wincmd o<CR>
-
-" window navigation in terminal mode
-tmap <M-w>h <C-w>:wincmd h<CR><M-w>
-tmap <M-w>l <C-w>:wincmd l<CR><M-w>
-tmap <M-w>j <C-w>:wincmd j<CR><M-w>
-tmap <M-w>k <C-w>:wincmd k<CR><M-w>
-tnoremap <M-j> <C-w>:resize -5<cr>
-tnoremap <M-k> <C-w>:resize +5<cr>
-tnoremap <M-h> <C-w>:vertical resize -5<cr>
-tnoremap <M-l> <C-w>:vertical resize +5<cr>
-" tnoremap <M-j> <C-w>:term<cr>
-" tnoremap <M-k> <C-w>:vert term<cr>
-" tnoremap <M-q> <C-w>:q!<cr>
-
-" easier window split
-nnoremap <leader>s :sp<CR>
-nnoremap <leader>v :vsp<CR>
-nnoremap <leader>r :wincmd r<CR>
-nnoremap <Bslash>s :term ++rows=3<CR>
-
-" more natural window spliting
-set splitbelow
-set splitright
-
-" go to home page
-nnoremap <leader>h :Startify<CR>
-
-" open new file
-nnoremap <leader>f :FZF<CR>
-
-" toggle three
-nnoremap <leader>d :Lexplore<CR>
+" navigate between methods of a class
+nnoremap <Bslash>, ]m
+nnoremap <Bslash>. [m
 
 " toggle line wrap
 nnoremap <M-w> :set wrap!<CR>
 
 " toggle display of invisible chars
-nnoremap <leader>l :set list!<CR>
+nnoremap <silent> <leader>l :set list!<CR>
 
 " toggle line numbers
-nnoremap <Bslash>n :set number! relativenumber!<CR>
+nnoremap <silent> <Bslash>n :set number! relativenumber!<CR>
 
-" toggle automatic comments
+" toggle automatic comments on new lines
 nnoremap <leader>c :set formatoptions=ql<CR>
 nnoremap <leader>C :set formatoptions=qlcro<CR>
 
-" copy, paste, and cut in visual mode
-vnoremap <C-c> :!xclip -i -selection clipboard && xclip -o -selection clipboard<CR>
-vnoremap <C-x> :!xclip -i -selection clipboard<CR>
-vnoremap <C-v> :!xclip -o -selection clipboard<CR>
+" jump to mark then jump to the file
+" whose name is under the cursor
+let c='a'
+while c <= 'z'
+	exec "nnoremap ç".c." `".c."gf"
+	let c = nr2char(1+char2nr(c))
+endwhile
+let c='A'
+while c <= 'A'
+	exec "nnoremap ç".c." `".c."gf"
+	let c = nr2char(1+char2nr(c))
+endwhile
 
-" coc
-inoremap <silent><expr> <c-space> coc#refresh()
+" ---------------------------------------------------------------------------
+" TABS
+" ---------------------------------------------------------------------------
 
-" 
-inoremap <M-i> <Esc>
+" close/open tabs
+nnoremap ,t :tabnew<CR>
+nnoremap ,T :tabc<CR>
+
+" ---------------------------------------------------------------------------
+" PLUGINS 
+" ---------------------------------------------------------------------------
+
+" COC (CONQUER OF COMPLETION) -----------------------------------------------
+
+" enable/disable coc
+noremap <Bslash>c :CocDisable<Esc>
+noremap <Bslash>C :CocEnable<Esc>
+
+" go to definitions
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> ,gi <Plug>(coc-implementation)
+nmap <silent> ,gr <Plug>(coc-references)
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" toggle explorer
+nmap <silent> ,d :CocCommand explorer --toggle --sources=buffer+,file+<cr>
+nmap <silent> ,ev :CocCommand explorer --preset vim<cr>
+nmap <silent> ,en :CocCommand explorer --preset nvim<cr>
+nmap <silent> ,esh :CocCommand explorer --preset shell<cr>
+nmap <silent> ,esc :CocCommand explorer --preset scripts<cr>
+
+" EASY ALIGN ----------------------------------------------------------------
+
+" interactive EasyAlign in visual mode
+xmap gA <Plug>(EasyAlign)
+
+" interactive EasyAlign for a motion text object
+nmap gA <Plug>(EasyAlign)
+
+" FZF -----------------------------------------------------------------------
+
+" open new file
+nnoremap <leader>f :FZF<CR>
+
+" NETRW ---------------------------------------------------------------------
+
+" toggle file explorer
+" nnoremap <leader>d :Lexplore<CR>
+
+" STARTFIY ------------------------------------------------------------------
+
+" go to home page
+nnoremap <Bslash>h :Startify<CR>
+
+" TAGBAR --------------------------------------------------------------------
+
+" toggle tag bar
+nnoremap <Bslash>t :TagbarToggle<CR>

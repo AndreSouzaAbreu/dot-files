@@ -1,15 +1,33 @@
-"""""""""""""""""""""
-" AUTOMATED SCRIPTS "
-"""""""""""""""""""""
+" ---------------------------------------------------------------------------
+" AUTO COMMANS
+" ---------------------------------------------------------------------------
 
-" auto reload vim config
-" autocmd bufwritepost $VIMRC source $VIMRC
+augroup editorconfig
+  au FileType gitcommit let b:EditorConfig_disable=1
+augroup end
 
-" disable editor config in git commit files
-au FileType gitcommit let b:EditorConfig_disable=1
+augroup coc
+  au FileType gitcommit let b:coc_enabled=0
+augroup END
 
-" disable Coc in git commits
-au FileType gitcommit let b:coc_enabled=0
+augroup mycolorscheme
+  au BufEnter *.c colorscheme pop-punk
+  au BufEnter *.cpp colorscheme pop-punk
+  au BufEnter *.html colorscheme codedark
+  au BufEnter *.java colorscheme codedark
+  au BufEnter *.js colorscheme pop-punk
+  au BufEnter *.json colorscheme codedark
+  au BufEnter *.md colorscheme gruvbox
+  au BufEnter *.php colorscheme codedark
+  au BufEnter *.python colorscheme onedark
+  au BufEnter *.snippets colorscheme codedark
+  au BufEnter *.tex colorscheme gruvbox
+  au BufEnter *.vue colorscheme codedark
+  au BufEnter *.vim colorscheme eldar
+  au BufEnter vimrc* colorscheme eldar
+augroup END
 
-" custom syntax for some file types
-autocmd BufNewFile,BufRead .env.* set syntax=sh
+augroup mysyntax
+  au BufEnter,BufNewFile,BufRead .env.* set syntax=sh
+  au BufEnter,BufNewFile,BufRead *.md set filetype=markdown syntax=markdown.pandoc
+augroup END

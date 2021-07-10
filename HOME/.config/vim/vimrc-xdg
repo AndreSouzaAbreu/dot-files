@@ -1,8 +1,9 @@
-"""""""""""""""""""""
-"  XDG CONFIG       "
-"""""""""""""""""""""
+" ---------------------------------------------------------------------------
+" XDG BASE DIR
+" ---------------------------------------------------------------------------
 
 set runtimepath^=$XDG_CONFIG_HOME/vim
+set runtimepath+=$XDG_CONFIG_HOME/vim/ultisnips
 set runtimepath+=$XDG_DATA_HOME/vim
 set runtimepath+=$XDG_CONFIG_HOME/vim/after
 

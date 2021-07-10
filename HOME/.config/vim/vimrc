@@ -1,6 +1,7 @@
 " source the configuration files
 source $VIMRC-general
 source $VIMRC-xdg
+source $VIMRC-gui
 source $VIMRC-plugins
 source $VIMRC-bugfixes
 source $VIMRC-keybindings

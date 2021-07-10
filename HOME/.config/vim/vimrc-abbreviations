@@ -1,8 +1,9 @@
-"""""""""""""""""""""
-" ABBREVIATIONS     "
-"""""""""""""""""""""
+" ---------------------------------------------------------------------------
+" ABBREVIATIONS
+" ---------------------------------------------------------------------------
 
 " fix misspelling in command mode
+
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -11,3 +12,6 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 
+" fix misspelling in insert mode
+
+inoreabbrev epislon epsilon

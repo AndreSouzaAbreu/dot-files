@@ -1,6 +1,6 @@
-"""""""""""""""""""""
-" BUG FIXING        "
-"""""""""""""""""""""
+" ---------------------------------------------------------------------------
+" BUG FIXES
+" ---------------------------------------------------------------------------
 
 " Map the escape characters to their alt combinations
 " @see https://stackoverflow.com/questions/6778961/
@@ -10,8 +10,14 @@ while c <= 'z'
 	exec "imap \e".c." <A-".c.">"
 	let c = nr2char(1+char2nr(c))
 endwhile
+
+let c='A'
+while c <= 'A'
+	exec "set <A-".c.">=\e".c
+	exec "imap \e".c." <A-".c.">"
+	let c = nr2char(1+char2nr(c))
+endwhile
 set ttimeout ttimeoutlen=50
 
 " fix mouse bug in some terminal emulators
 set ttymouse=xterm2
-

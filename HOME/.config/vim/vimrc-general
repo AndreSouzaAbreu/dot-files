@@ -1,31 +1,40 @@
-"""""""""""""""""""""
-" VIMRC             "
-"""""""""""""""""""""
+" ---------------------------------------------------------------------------
+" VIMRC
+" ---------------------------------------------------------------------------
 
-" don't be compatible with vi
-" (required for some of vim's features)
+" this file contains general settings for vim.  The settings are divided  into
+"   categories,   and   are   sorted   alphabetically   in   each    category.
+
+" first, set vim to not be compatible with vi,
+" which is required for some of vim's features
 set nocompatible
 
-" syntax highlighting
-syntax on
 
-" size of command history
-set history=5000
+" ---------------------------------------------------------------------------
+" INDENTATION
+" ---------------------------------------------------------------------------
 
-" activate mouse on all modes
-set mouse=a
-
-" use system's clipboard
-set clipboard=unnamedplus
-
-" relative line numbers
-set number relativenumber
-
-" indentation settings
+" automatic indentation
 set autoindent smartindent
 
-" tab settings
-set softtabstop=2 tabstop=2 shiftwidth=2 expandtab
+" width, in characters, for the indent operator > 
+set shiftwidth=2
+
+" amount of characters occupied by pressing <TAB>
+" (if the value is different than tabstop, vim will
+" insert a combination of tabs and spaces to simulate
+" the tab width).
+set softtabstop=2
+
+" width, in characters, of a <TAB>
+set tabstop=2
+
+" whether to convert tabs to space
+set expandtab!
+
+" ---------------------------------------------------------------------------
+" SEARCH
+" ---------------------------------------------------------------------------
 
 " highlight search while typing
 set incsearch
@@ -33,50 +42,97 @@ set incsearch
 " highlight all strings matching the search pattern
 set hlsearch
 
-" don't wrap lines!
-set wrap!
-
-" don't redraw the screen when using macros
-set lazyredraw
-
-" show suggestions for selection/commands
-set wildmenu
-
-" folding settings
-set foldmethod=syntax foldlevel=99
-
-" text enconding
-set encoding=utf8
-
-" don't hide double quotes in json files
-set conceallevel=0
-
-" show at least one line below/above the cursor
-set scrolloff=1
-
-" autoload file changes
-set autoread
-
-" cursor hightlight
-set cursorline
-
-" hide statusline by default
-set laststatus=0
-
 " make path include current dir, dir of current file, and subdirs
 set path=.,,**
 
 " ignore some directories when searching files
 set wildignore+=**/node_modules/** 
 set wildignore+=**/vendor/** 
-set wildignore+=**/.git/** 
+set wildignore+=**/__pycache__/** 
 set wildignore+=**/.cache/** 
+set wildignore+=**/.git/** 
 
-"""""""""""""""""""""
-" CHARS             "
-"""""""""""""""""""""
+" ---------------------------------------------------------------------------
+" BUFFERS
+" ---------------------------------------------------------------------------
 
-" custom chars for invisible characteres
+" auto load file changes
+set autoread
+
+" enable backspace to delete char
+set backspace=indent,eol,start
+
+" text encoding
+set encoding=utf8
+
+" folding settings
+set foldmethod=manual foldlevel=99
+
+" prevent warnings when exiting modified buffer
+set hidden
+
+" lazy screen redraw when using macros
+set lazyredraw
+
+" relative line numbers
+set number relativenumber
+
+" enable syntax highlighting
+syntax on
+
+" how many lines to show below/above the cursor
+set scrolloff=0
+
+" don't wrap lines!
+set wrap!
+
+" ---------------------------------------------------------------------------
+" AUTO COMPLETE
+" ---------------------------------------------------------------------------
+
+" include dictionary
+set complete+=kspell
+
+" show complete menu by pressing <C-P> (default), longest matches first.
+set completeopt=menuone,longest,preview
+
+" don't show notifications when showing completion suggestions
+set shortmess+=c
+
+" turn on spell to get completion for words in dictionary
+set spell
+
+" spell language
+set spelllang=en_us,pt_br
+
+" ---------------------------------------------------------------------------
+" CURSOR
+" ---------------------------------------------------------------------------
+
+" highlight current cursor line
+set cursorline
+
+" activate mouse on all modes
+set mouse=a
+
+" ---------------------------------------------------------------------------
+" CMD LINE
+" ---------------------------------------------------------------------------
+
+" hide status line by default
+set laststatus=0
+
+" show suggestions for selection/commands
+set wildmenu
+
+" size of command history
+set history=5000
+
+" ---------------------------------------------------------------------------
+" CHARACTERS
+" ---------------------------------------------------------------------------
+
+" custom chars for invisible characters
 set listchars=eol:¬,tab:↳\ ,trail:~,extends:>,precedes:<,space:·
 
 " Char Unicode
@@ -91,12 +147,12 @@ set listchars=eol:¬,tab:↳\ ,trail:~,extends:>,precedes:<,space:·
 " more at: https://www.w3schools.com/charsets/ref_utf_punctuation.asp
 " press <C-v> in Insert Mode then type the unicode to insert UTF-8 char
 
-"""""""""""""""""""""
-" FILE MANAGER      "
-"""""""""""""""""""""
+" ---------------------------------------------------------------------------
+" NETRW (DEFAULT FILE MANAGER)
+" ---------------------------------------------------------------------------
 
-" abide to xdg
-let g:netrw_home = $XDG_DATA_HOME."/vim"
+" open files to the right
+let g:netrw_altv=1
 
 " turn off top banner
 let g:netrw_banner=0
@@ -110,11 +166,19 @@ let g:netrw_liststyle=3
 " 2 column
 " 3 tree
 
+" abide to xdg
+let g:netrw_home = $XDG_DATA_HOME."/vim"
+
 " open preview of files to the right
 let g:netrw_preview=1
 
 " initial size of the file menu (percentage of the window)
 let g:netrw_winsize=20
 
-" open files to the right
-let g:netrw_altv=1
+" ---------------------------------------------------------------------------
+" WINDOW
+" ---------------------------------------------------------------------------
+
+" more natural window splitting
+set splitbelow
+set splitright

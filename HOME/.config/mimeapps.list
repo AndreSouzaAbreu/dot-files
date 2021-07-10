@@ -1,5 +1,4 @@
 [Default Applications]
-
 application/json=text.desktop
 application/pdf=pdf.desktop;
 application/postscript=pdf.desktop;
@@ -19,3 +18,6 @@ x-scheme-handler/ftp=web.desktop;
 x-scheme-handler/http=web.desktop;
 x-scheme-handler/https=web.desktop;
 x-scheme-handler/mailto=mail.desktop;
+
+[Added Associations]
+application/json=vim.desktop;

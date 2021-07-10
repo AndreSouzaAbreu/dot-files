@@ -1,3 +1,12 @@
 .termite {
-    padding: 0;
+    padding: 0 4px;
+}
+
+#vim-main-window {
+    background-color: #000000;
+}
+
+#gvim-main-window {
+    background-color: #000000;
+    padding: 0
 }

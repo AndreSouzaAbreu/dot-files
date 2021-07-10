@@ -13,7 +13,11 @@ setopt extendedglob appendhistory hist_ignore_all_dups hist_ignore_space
 
 ## PROMPT ######################################################
 
-PROMPT="%F{#0f0}%n%F{#fff}@%F{#0f0}%m %F{fff}[%~]%F{fff} "
+alias p0='PROMPT="[%2d]$ "'
+alias p1='PROMPT="[%~] "'
+alias p2="PROMPT='%F{#0f0}%n%F{#fff}@%F{#0f0}%m %F{fff}[%~]%F{fff} '"
+alias p4='PROMPT="$ "'
+p0
 
 ## AUTO COMPLETION #############################################
 
@@ -165,4 +169,3 @@ disable -r repeat
 # load shell aliases, functions, and env vars
 shell_profile=~/.config/shell/profile
 [[ -f $shell_profile ]] && source $shell_profile
-

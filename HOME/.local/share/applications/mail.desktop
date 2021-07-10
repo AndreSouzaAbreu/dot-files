@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Mail Client
-Exec=/usr/bin/termite -e neomutt %u
+Exec=/usr/bin/termite -e "neomutt %u"

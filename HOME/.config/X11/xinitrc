@@ -1,7 +1,7 @@
 xrdb -load ~/.config/X11/xresources
 xset r rate 300 50
 setxkbmap -layout br
-/usr/lib/notification-daemon-1.0/notification-daemon &
 clipmenud &
-flameshot &
+notification-daemon &
+start-pulseaudio-x11
 exec dwm

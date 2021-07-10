@@ -1,12 +1,6 @@
-import os
-
-### ENVIRONMENT VARIABLES
-
-ENV = os.environ
-TERMINAL = ENV['TERMINAL']
-EDITOR = ENV['EDITOR']
-
-### CONFIGURATION
+#############################
+# CONFIGURATION             #
+#############################
 
 # load default configuration
 config.load_autoconfig()
@@ -27,16 +21,27 @@ c.content.pdfjs = False
 c.url.default_page = 'about:blank'
 
 # add some search engines
-c.url.searchengines = {
-  'DEFAULT': 'https://duckduckgo.com/?q={}',
-  'aw': 'https://wiki.archlinux.org/?search={}',
+search_engines = {
   'ak': 'https://wiki.archlinux.org/?search={}',
-  'ddg': 'https://duckduckgo.com/?q={}',
-  'sp': 'https://www.startpage.com/do/asearch?query={}.',
-  'wi': 'https://en.wikipedia.org/w/index.php?search={}&title=Special:Search',
-  'wk': 'https://en.wikipedia.org/w/index.php?search={}&title=Special:Search',
+  'ar': 'https://archlinux.org/packages/?q={}',
+  'aur': 'https://aur.archlinux.org/packages/?K={}',
+  'dg': 'https://duckduckgo.com/?q={}',
   'gh': 'https://github.com/search?q={}',
+  'sp': 'https://www.startpage.com/do/asearch?query={}.',
+  'sx': 'https://searx.info/search?q={}&language=en-US',
+  'wi': 'https://wiby.me/?q={}',
+  'wk': 'https://en.wikipedia.org/w/index.php?search={}',
+  'wkp': 'https://pt.wikipedia.org/w/index.php?search={}',
 }
+
+# default search engine
+search_engines['DEFAULT'] = search_engines['dg']
+
+# set custom serach engines
+c.url.searchengines = search_engines
+
+# video autoplay
+c.content.autoplay = False
 
 # geolocation
 c.content.geolocation = False
@@ -53,21 +58,96 @@ c.content.webrtc_ip_handling_policy = 'default-public-interface-only'
 # cookies
 c.content.cookies.accept = 'no-3rdparty'
 
-# command
-c.editor.command = [TERMINAL, "-e", EDITOR + " {file}"]
+# random user agent
+# c.content.headers.user_agent = random_user_agent()
 
-### BINDINGS
+# command
+c.editor.command = ["termite", "--class=floatcenter", "-e", "nvim {file}"]
+
+#############################
+# ALIASES                   #
+#############################
+
+# aliases for commands
+c.aliases['echo'] = 'message-info'
+c.aliases['clear'] = 'clear-messages'
+c.aliases['print'] = 'message-info'
+c.aliases['proxy'] = 'set content.proxy'
+c.aliases['javascript'] = 'set content.javascript.enabled'
+c.aliases['darkmode'] = 'set colors.webpage.darkmode.enabled'
+
+# aliases for user scripts
+c.aliases['untrack-url'] = 'spawn --userscript untrack-url'
+
+#############################
+# BINDINGS                  #
+#############################
+
+# bind commands
+def bind(key, command):
+    config.bind(key, command)
+
+# bind many commands at once
+def bind_many(key, commands):
+    config.bind(key, ' ;; '.join(commands))
+
+# print the command that was executed
+def bind_show(key, command):
+    commands = [command, f'message-info "{command}"', "later 1000 clear-messages"]
+    bind_many(key, commands)
 
 # zoom
-config.bind('<ctrl-=>', 'zoom-in')
-config.bind('<ctrl-->', 'zoom-out')
+bind('<ctrl-=>', 'zoom-in')
+bind('<ctrl-->', 'zoom-out')
 
 # open pages
-config.bind(',,', 'open -t about:blank')
+bind(',.', 'open about:blank')
+bind(',,', 'open -t about:blank')
+bind('\\h', 'open qute://history')
+
+# edit current url
+bind('\\o', 'set-cmd-text :open {url:domain}/')
+bind('\\O', 'set-cmd-text :open -t {url:domain}')
+
+# devtools
+bind('ww', 'devtools window')
+bind('wh', 'devtools left')
+bind('wj', 'devtools bottom')
+bind('wk', 'devtools top')
+bind('wl', 'devtools right')
 
 # open videos in mpv
-config.bind(',m', 'spawn mpv {clipboard}')
-config.bind(',M', 'hint links spawn mpv {hint-url}')
+bind('\\M', 'spawn mpv {clipboard}')
+bind('\\m', 'hint links spawn mpv {hint-url}')
+
+# open untracked url
+bind('\\u', 'hint links spawn -u untrack-url -O {hint-url}')
+bind('\\U', 'spawn -u untrack-url {clipboard}')
+
+# print current urly
+bind('su', 'message-info {url}')
+
+# other stuff
+bind('\\l', 'clear-messages')
+
+# restart the browser
+bind('<alt-r>', 'restart')
+
+# go to command mode by pressing ç
+bind('ç', 'fake-key -g :')
+
+# enable/disable tor proxy
+bind_show('<alt-t>', 'proxy socks://localhost:9050/')
+bind_show('<alt-shift-t>', 'proxy none')
+
+# disable/enable javascript
+bind_show('<alt-j>', 'javascript false')
+bind_show('<alt-shift-j>', 'javascript true')
+
+
+#############################
+# PRIVATE CONFIG            #
+#############################
 
 # load private config
 import config_private
