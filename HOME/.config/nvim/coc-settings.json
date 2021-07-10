@@ -1,0 +1,69 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["json"],
+  "explorer.quitOnOpen": false,
+  "explorer.position": "left",
+  "explorer.file.showHiddenFiles": true,
+  "explorer.file.hiddenRules": {
+    "filenames": [".git"]
+  },
+  "explorer.git.enable": false,
+  "explorer.keyMappings.global": {
+    "ad": "addDirectory",
+    "af": "addFile",
+    "dd": "delete",
+    "dc": "cutFile",
+    "f": "search",
+    "F": "searchRecursive",
+    "gb": "gotoSource:buffer",
+    "gf": "gotoSource:file",
+    "gh": "gotoParent",
+    "gj": "expandableNext",
+    "gk": "expandablePrev",
+    "gl": "open",
+    "gp": "gotoParent",
+    "h": ["expandable?", ["expanded?", "collapse", "gotoParent"], "gotoParent"],
+    "l": ["expandable?", ["expanded?", "cd", "expand"], ["collapse", "cd"]],
+    "os": "open:split",
+    "ot": "open:tab",
+    "ov": "open:vsplit",
+    "q": "quit",
+    "R": "refresh",
+    "r": "rename",
+    "yn": "copyFilename",
+    "yp": "copyFilepath",
+    "yy": "copyFile",
+    "zc": "collapse",
+    "zC": "collapse:all",
+    "zh": "toggleHidden",
+    "zo": "expand",
+    "zO": "expand:recursive",
+    "!": "systemExecute",
+    "?": "help",
+    "<bs><bs>": "gotoParent",
+    "<cr>": ["expandable?", "cd", "open:previousWindow"],
+    "<esc>": "esc",
+    "<space>": "toggleSelection"
+  },
+  "explorer.presets": {
+    "vim": {
+      "root-uri": "~/.config/vim"
+    },
+    "nvim": {
+      "root-uri": "~/.config/nvim"
+    },
+    "shell": {
+      "root-uri": "~/.config/shell"
+    },
+    "scripts": {
+      "root-uri": "~/.local/scripts"
+    }
+  },
+  "explorer.root.strategies": ["sourceBuffer"],
+  "explorer.width": 30,
+  "java.project.referencedLibraries": [
+    "/home/andre/.local/share/algs4/algs4.jar"
+  ],
+  "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
+  "suggest.noselect": false,
+  "suggest.autoTrigger": "none"
+}
