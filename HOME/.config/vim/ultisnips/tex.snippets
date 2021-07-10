@@ -82,7 +82,7 @@ endsnippet
 
 context "not_math()"
 snippet m "inline math" w
-\$$1\$ $0
+\$$1\$$0
 endsnippet
 
 context "not_math()"
@@ -107,10 +107,6 @@ snippet align "align" b
 \begin{align*}
 $1 &= $2 \\\\$0
 \end{align*}
-endsnippet
-
-snippet epislon "fix often-misspelled greek letter" A
-epsilon
 endsnippet
 
 ######################################################
@@ -176,16 +172,18 @@ snippet "(x|y|f)([0-9]+)" "automatic subscript" wr
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}$0
 endsnippet
 
+priority 20
 context "math()"
-snippet ë "superscript (alt+k)" iA
+snippet sç "superscript (alt+k)" iA
 ^{$1}$0
 endsnippet
 
 context "math()"
-snippet ê "subscript (alt+j)" iA
+snippet ç "subscript (alt+j)" iA
 _{$1}$0
 endsnippet
 
+priority 20
 context "math()"
 snippet fç "fraction" iA
 \\frac{$1}{$2}$0

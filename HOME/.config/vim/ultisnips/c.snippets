@@ -1,0 +1,60 @@
+extends brakets
+
+snippet stdio "incluide stdio" bA
+#include <stdio.h>
+$0
+endsnippet
+
+snippet stdlib "include stdlib" bA
+#include <stdlib.h>
+$0
+endsnippet
+
+snippet main "main function" b
+int main()
+{
+	$0
+
+	return 0;
+}
+endsnippet
+
+snippet maina "main function with args" b
+int main(int argc, char* argv[])
+{
+	$0
+
+	return 0;
+}
+endsnippet
+
+snippet cc "comment" w
+/* $1 */$0
+endsnippet
+
+snippet struct "struct" b
+struct $1
+{
+	$2
+}
+$0
+endsnippet
+
+snippet inc "include" b
+#include $1
+$0
+endsnippet
+
+snippet free "free" wA
+free($1);
+$0
+endsnippet
+
+snippet malloc "malloc" wA
+malloc($1);
+$0
+endsnippet
+
+snippet sizeof "sizeof" wA
+sizeof($1)$0
+endsnippet

@@ -1,58 +1,69 @@
 {
-  "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
-  "suggest.noselect": false,
-  "suggest.autoTrigger": "none",
   "coc.preferences.formatOnSaveFiletypes": ["json"],
-  "explorer.quitOnOpen": true,
+  "explorer.quitOnOpen": false,
   "explorer.position": "left",
   "explorer.file.showHiddenFiles": true,
-  "explorer.keyMappings": {
-    "gk": "expandablePrev",
-    "gj": "expandableNext",
-    "<space>": "toggleSelection",
-    "<tab>": "actionMenu",
-    "h": "collapse",
-    "l": ["expandable?", "expand", "open"],
-    "J": ["toggleSelection", "nodeNext"],
-    "K": ["toggleSelection", "nodePrev"],
-    "<2-LeftMouse>": [
-      "expandable?",
-      ["expanded?", "collapse", "expand"],
-      "open"
-    ],
-    "o": ["expanded?", "collapse", "expand"],
-    "<cr>": ["expandable?", "cd", "open"],
-    "H": "open:split",
-    "S": "open:split:plain",
-    "V": "open:vsplit",
-    "t": "open:tab",
-    "<bs>": "gotoParent",
-    "gp": "preview:labeling",
-    "Y": "copyFile",
-    "X": "cutFile",
-    "P": "pasteFile",
+  "explorer.file.hiddenRules": {
+    "filenames": [".git"]
+  },
+  "explorer.git.enable": false,
+  "explorer.keyMappings.global": {
+    "ad": "addDirectory",
+    "af": "addFile",
     "dd": "delete",
-    "T": "addFile",
-    "D": "addDirectory",
-    "r": "rename",
-    ".": "toggleHidden",
-    "R": "refresh",
-    "?": "help",
-    "q": "quit",
-    "<esc>": "esc",
-    "!": "systemExecute",
-    "gd": "listDrive",
+    "dc": "cutFile",
     "f": "search",
     "F": "searchRecursive",
-    "gf": "gotoSource:file",
     "gb": "gotoSource:buffer",
-    "[[": "sourcePrev",
-    "]]": "sourceNext",
-    "[d": "diagnosticPrev",
-    "]d": "diagnosticNext",
-    "[c": "gitPrev",
-    "]c": "gitNext",
-    "<<": "gitStage",
-    ">>": "gitUnstage"
-  }
+    "gf": "gotoSource:file",
+    "gh": "gotoParent",
+    "gj": "expandableNext",
+    "gk": "expandablePrev",
+    "gl": "open",
+    "gp": "gotoParent",
+    "h": ["expandable?", ["expanded?", "collapse", "gotoParent"], "gotoParent"],
+    "l": ["expandable?", ["expanded?", "cd", "expand"], ["collapse", "cd"]],
+    "os": "open:split",
+    "ot": "open:tab",
+    "ov": "open:vsplit",
+    "q": "quit",
+    "R": "refresh",
+    "r": "rename",
+    "yn": "copyFilename",
+    "yp": "copyFilepath",
+    "yy": "copyFile",
+    "zc": "collapse",
+    "zC": "collapse:all",
+    "zh": "toggleHidden",
+    "zo": "expand",
+    "zO": "expand:recursive",
+    "!": "systemExecute",
+    "?": "help",
+    "<bs><bs>": "gotoParent",
+    "<cr>": ["expandable?", "cd", "open:previousWindow"],
+    "<esc>": "esc",
+    "<space>": "toggleSelection"
+  },
+  "explorer.presets": {
+    "vim": {
+      "root-uri": "~/.config/vim"
+    },
+    "nvim": {
+      "root-uri": "~/.config/nvim"
+    },
+    "shell": {
+      "root-uri": "~/.config/shell"
+    },
+    "scripts": {
+      "root-uri": "~/.local/scripts"
+    }
+  },
+  "explorer.root.strategies": ["sourceBuffer"],
+  "explorer.width": 30,
+  "java.project.referencedLibraries": [
+    "/home/andre/.local/share/algs4/algs4.jar"
+  ],
+  "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
+  "suggest.noselect": false,
+  "suggest.autoTrigger": "none"
 }
