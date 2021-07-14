@@ -8,6 +8,8 @@ command! -bar FontMinus :execute "GuiFont " . substitute(g:GuiFont, '\d\+', '\=s
 " keybindings to increase/decrease font size in neovim-qt
 nnoremap <C-=> :FontPlus<CR> 
 nnoremap <C--> :FontMinus<CR> 
+tnoremap <C-=> <C-\><C-N>:FontPlus<CR>a
+tnoremap <C--> <C-\><C-N>:FontMinus<CR>a
 
 " disable tabline
 GuiTabline 0

@@ -27,7 +27,7 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'tomasr/molokai'
   Plug 'joshdick/onedark.vim'
 
-  " algin stuff
+  " align stuff
   Plug 'junegunn/vim-easy-align'
 
   " sort motion
@@ -84,14 +84,14 @@ call plug#begin('~/.config/vim/plugged')
   " replace case (kebab/snake/camal)
   Plug 'tpope/vim-abolish'
 
+  " zoxide
+  Plug 'nanotee/zoxide.vim'
+
   " comments 
   Plug 'tpope/vim-commentary'
 
   " manipulate surroundings
   Plug 'tpope/vim-surround'
-
-  " git integration
-  Plug 'tpope/vim-fugitive'
 
   " status line
   Plug 'vim-airline/vim-airline'
@@ -100,7 +100,7 @@ call plug#begin('~/.config/vim/plugged')
   " snippets engine
   Plug 'SirVer/ultisnips'
 
-  " tag manager
+  " tag bar
   Plug 'preservim/tagbar'
 call plug#end()
 

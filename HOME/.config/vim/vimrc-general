@@ -99,8 +99,8 @@ set completeopt=menuone,longest,preview
 " don't show notifications when showing completion suggestions
 set shortmess+=c
 
-" turn on spell to get completion for words in dictionary
-set spell
+" turn on/off spell to get completion for words in dictionary
+set nospell
 
 " spell language
 set spelllang=en_us,pt_br

@@ -1,9 +1,17 @@
 extends brakets
 
+global !p
+def comment(): 
+    return vim.eval('IsCursorWithinComment') == '1'
+
+def code():
+    return vim.eval('IsCursorWithinComment()') == '0'
+endglobal
+
 ## MAIN
 context "code()"
 snippet main "Main function" b
-public void main(String args[]) {
+public static void main(String args[]) {
 	$0
 }
 endsnippet
@@ -39,18 +47,21 @@ $0
 endsnippet
 
 ## CLASSES
+context "code()"
 snippet class "class" bA
 class ${1:`!p snip.rv = snip.basename`} {
 	$0
 }
 endsnippet
 
+context "code()"
 snippet pvclass "private class" bA
 private class ${1:`!p snip.rv = snip.basename`} {
 	$0
 }
 endsnippet
 
+context "code()"
 snippet pbclass "public class" bA
 public class ${1:`!p snip.rv = snip.basename`} {
 	$0
@@ -58,17 +69,14 @@ public class ${1:`!p snip.rv = snip.basename`} {
 endsnippet
 
 ## PRINT
-context "code()"
 snippet println "Description" w
 StdOut.println($1);$0
 endsnippet
 
-context "code()"
 snippet print "Description" w
 StdOut.print($1);$0
 endsnippet
 
-context "code()"
 snippet printf "Description" w
 StdOut.printf($1);$0
 endsnippet
