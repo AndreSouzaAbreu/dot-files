@@ -8,7 +8,7 @@
 alias a='aliases'
 alias b='$BROWSER'
 alias c='coins'
-alias e='envs'
+alias e='envvars'
 alias f='myfunctions'
 alias g='git'
 alias m='neomutt'
@@ -16,7 +16,7 @@ alias n='nvim'
 alias o='open'
 alias p='profile'
 alias q='exit'
-alias v='$EDITOR'
+alias v='nvim'
 alias y='yay'
 
 # files
@@ -40,7 +40,7 @@ alias l='exa'
 alias ls='exa'
 alias la='exa -lhgH --group-directories-first --all'
 alias ll='exa -lhgH --group-directories-first'
-alias l1='ll'
+alias l1='exa -1hgH --group-directories-first'
 
 # other stuff
 alias path='echo $PATH'

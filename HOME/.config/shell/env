@@ -6,8 +6,8 @@
 
 # programs
 export BROWSER=qutebrowser
-export EDITOR=nvim-gui
-export VISUAL=nvim-gui
+export EDITOR=nvim
+export VISUAL=nvim
 export PAGER=less
 export TERMINAL=termite
 export MANPAGER=less
@@ -31,12 +31,7 @@ export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_CACHE_HOME=${HOME}/.cache
 
-# xdg_dirs=$XDG_CONFIG_HOME/user-dirs.dirs
-# xdg_locale=$XDG_CONFIG_HOME/user-dirs.locale
-# [[ -f $xdg_dirs ]] && source $xdg_dirs
-# [[ -f $xdg_locale ]] && source $xdg_locale
-
-# xorg
+# x11
 export XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority
 export XINITRC=${XDG_CONFIG_HOME}/X11/xinitrc
 export XSERVERRC=${XDG_CONFIG_HOME}/X11/xserverrc
@@ -96,7 +91,7 @@ export R_HISTFILE=${XDG_DATA_HOME}/r/.Rhistory
 # vim
 export NVIMRC=${XDG_CONFIG_HOME}/nvim/init.vim
 export VIMRC=${XDG_CONFIG_HOME}/vim/vimrc
-#export VIMINIT='source $VIMRC'
+export VIMINIT='let $vimrc = has("nvim") ? $NVIMRC : $VIMRC | source $vimrc'
 
 # java algs4
 PRINCETON=$HOME/.local/share/algs4

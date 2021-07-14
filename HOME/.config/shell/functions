@@ -36,23 +36,13 @@ function aliases()
   aliases_file=${XDG_CONFIG_HOME}/shell/aliases
   case "$1" in
     edit|-e) $EDITOR $aliases_file ;;
+    file|-f) echo $aliases_file ;;
     sync|-s) source $aliases_file ;;
-    add|-a)
-      shift
-      name=$1
-      shift
-      echo "alias $name='$@'" >> $aliases_file
-      source $aliases_file
-      ;;
-    rm|-r)
-      name=$1
-      sed -i "alias $1/d"  $aliases_file
-      ;;
     *)
       if [[ -z $1 ]]; then
         alias
       else
-        alias | grep -i -P "$1" 
+        alias | grep -i -P "$1"
       fi
     ;;
   esac
@@ -65,6 +55,7 @@ function profile()
   profile_file=${XDG_CONFIG_HOME}/shell/profile
   case "$1" in
     edit|-e) $EDITOR $profile_file ;;
+    file|-f) echo $profile_file ;;
     sync|-s) source $profile_file ;;
     *) $PAGER $profile_file ;;
   esac
@@ -77,6 +68,7 @@ function myfunctions()
   file=${XDG_CONFIG_HOME}/shell/functions
   case "$1" in
     edit|-e) $EDITOR $file ;;
+    file|-e) echo $file ;;
     sync|-s) source $file ;;
     *) $PAGER $file ;;
   esac
@@ -84,18 +76,19 @@ function myfunctions()
 }
 
 # utility to edit, view, or syn environment variables
-function envs()
+function envvars()
 {
   env_file=${XDG_CONFIG_HOME}/shell/env
   case "$1" in
     edit|-e) $EDITOR $env_file ;;
+    file|-f) echo $env_file ;;
     sync|-s) source $env_file ;;
     view|-v) $PAGER $env_file ;;
     *)
       if [[ -z $1 ]]; then
-        env | sort
+        env | sort -i
       else
-        env | grep -i -P "$1"
+        env | grep -i -P "$1" | sort -i
       fi
     ;;
   esac
@@ -103,7 +96,8 @@ function envs()
 }
 
 # Go back to the parent directory n times
-function up() {
+function up()
+{
   number="${1:-1}"
   for i in $(seq $number); do
     cd ..
@@ -112,7 +106,8 @@ function up() {
 }
 
 # Make a directory and cd into it
-function mkcd() {
+function mkcd()
+{
   mkdir -p "$1" && cd "$1"
   return 0
 }
@@ -135,4 +130,22 @@ function extract()
     *)        echo "Cannot extract it";;
   esac
   return 0
+}
+
+# ranger wrapper
+function ranger
+{
+    local IFS=$'\t\n'
+    local tempfile="$(mktemp -t tmp.XXXXXX)"
+    local ranger_cmd=(
+        command
+        ranger
+        --cmd="map q chain shell echo %d > "$tempfile"; quitall"
+    )
+    
+    ${ranger_cmd[@]} "$@"
+    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
+        cd -- "$(cat "$tempfile")" || return
+    fi
+    command rm -f -- "$tempfile" 2>/dev/null
 }
