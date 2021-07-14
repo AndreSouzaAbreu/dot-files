@@ -2,4 +2,4 @@
 Type=Application
 Terminal=true
 Name=Text editor
-Exec=termite --class floatcenter -e "nvim %u"
+Exec=/usr/bin/termite --class floatcenter -e "nvim %u"
