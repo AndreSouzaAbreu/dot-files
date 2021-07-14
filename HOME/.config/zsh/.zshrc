@@ -8,7 +8,7 @@ ZDOTDIR=~/.config/zsh
 
 ## HISTORY #####################################################
 
-export HISTFILE="${XDG_DATA_HOME}/zsh/history"
+export HISTFILE="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/history"
 setopt extendedglob appendhistory hist_ignore_all_dups hist_ignore_space
 
 ## PROMPT ######################################################
