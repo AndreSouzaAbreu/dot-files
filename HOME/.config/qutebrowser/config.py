@@ -64,6 +64,12 @@ c.content.cookies.accept = 'no-3rdparty'
 # command
 c.editor.command = ["termite", "--class=floatcenter", "-e", "nvim {file}"]
 
+# file handler
+c.fileselect.handler = 'external'
+c.fileselect.folder.command = ['termite', '--title=Ranger', '-e', 'ranger --choosedir={}']
+c.fileselect.single_file.command = ['termite', '--title=Ranger', '-e', 'ranger --choosefile={}']
+c.fileselect.multiple_files.command = ['termite', '--title=Ranger', '-e', 'ranger --choosefiles={}']
+
 #############################
 # ALIASES                   #
 #############################
@@ -143,7 +149,6 @@ bind_show('<alt-shift-t>', 'proxy none')
 # disable/enable javascript
 bind_show('<alt-j>', 'javascript false')
 bind_show('<alt-shift-j>', 'javascript true')
-
 
 #############################
 # PRIVATE CONFIG            #
