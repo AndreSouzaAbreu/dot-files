@@ -1,8 +1,8 @@
 #!/bin/sh
 
-#############################
-##  ENVIRONMENT VARIABLES  ##
-#############################
+# ------------------------------------------------
+# ENVIRONMENT VARIABLES
+# ------------------------------------------------
 
 # programs
 export BROWSER=qutebrowser
@@ -22,9 +22,11 @@ export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-#############################
-# CLEANING UP HOME DIRECTORY
-#############################
+# commands
+export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
+export FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git'
+
+# CLEANING UP HOME DIRECTORY ---------------------
 
 # xdg
 export XDG_CONFIG_HOME=${HOME}/.config
@@ -39,6 +41,9 @@ export XSERVERRC=${XDG_CONFIG_HOME}/X11/xserverrc
 # shell
 export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
 export BASHRC=${XDG_CONFIG_HOME}/bash/.bashrc
+
+# session management
+export ABDUCO_SOCKET_DIR=${XDG_DATA_HOME}
 
 # less
 export LESSHISTFILE=-
@@ -64,6 +69,7 @@ export ELECTRUMDIR=${XDG_DATA_HOME}/electrum
 
 # javascript 
 export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME}/npm/npmrc
+export NODE_REPL_HISTORY=${XDG_CONFIG_HOME}/npm/node_hist
 
 # rust
 export CARGO_HOME=${XDG_DATA_HOME}/cargo
@@ -98,10 +104,3 @@ PRINCETON=$HOME/.local/share/algs4
 export PATH=$PATH:$PRINCETON/bin
 export LIFT_INSTALL=$PRINCETON/lift
 export CLASSPATH=$PRINCETON
-
-#############################
-## COMMANDS                ##
-#############################
-
-export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
-export FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git'

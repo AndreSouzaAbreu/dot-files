@@ -1,10 +1,11 @@
 #!/bin/sh
 
-#############################
-##      SHELL ALIASES      ##
-#############################
+# ------------------------------------------------
+# SHELL ALIASES
+# ------------------------------------------------
 
-# shortcuts
+# shortcuts --------------------------------------------------------------------
+
 alias a='aliases'
 alias b='$BROWSER'
 alias c='coins'
@@ -12,29 +13,24 @@ alias e='envvars'
 alias f='myfunctions'
 alias g='git'
 alias m='neomutt'
-alias n='nvim'
 alias o='open'
 alias p='profile'
 alias q='exit'
-alias v='nvim'
+alias v='nvim-gui'
 alias y='yay'
 
-# files
-alias rename='perl-rename'
-alias open='xdg-open'
-alias tree='tree --charset=ascii'
+# more shorctus ----------------------------------------------------------------
 
-# history
-alias hist='cat $HISTFILE'
-alias hgrep='cat $HISTFILE | grep'
-alias histedit='$EDTIOR $HISTFILE'
+alias js='node'
+alias oc='octave'
+alias py='HOME=/tmp python'
+alias vv='v ~/.config/vim'
+alias v.='v .'
+alias xx='startx'
+alias za='tabbed -c zathura -e'
 
-# ls
-# alias l='LC_ALL=C ls -1'
-# alias la='LC_ALL=C ls -lh --human-readable --group-directories-first --almost-all'
-# alias lh='LC_ALL=C ls -lh --human-readable --group-directories-first'
+# files ------------------------------------------------------------------------
 
-# exa
 alias exa='exa --color=never'
 alias l='exa'
 alias ls='exa'
@@ -42,14 +38,40 @@ alias la='exa -lhgH --group-directories-first --all'
 alias ll='exa -lhgH --group-directories-first'
 alias l1='exa -1hgH --group-directories-first'
 
-# other stuff
-alias path='echo $PATH'
+# long-name programms -----------------------------------------------------------
 
-# SHELL
+alias open='xdg-open'
+alias rename='perl-rename'
+alias chromium='ungoogled-chromium'
+alias tab='tabbed'
+
+# clipboard stuff ---------------------------------------------------------------
+
+alias xcopy='xclip -selection clipboard'
+alias curlx='curl "$(xclip -o selection clibpoard)"'
+alias mpvx='mpv "$(xclip -o -selection clipboard)"'
+alias xpaste='xclip -out -selection clipboard'
+
+# programms with default options -----------------------------------------------
+
+alias tree='tree --charset=ascii'
+alias python='python -q'
+alias octave='octave -q'
+alias R='R -q'
+
+# shells -----------------------------------------------------------------------
+
 alias bash='SHELL=/bin/bash bash'
 alias zsh='SHELL=/bin/zsh zsh'
 
-# git
+# shell history ----------------------------------------------------------------
+
+alias hist='cat $HISTFILE'
+alias hgrep='cat $HISTFILE | grep'
+alias histedit='$EDTIOR $HISTFILE'
+
+# git --------------------------------------------------------------------------
+
 alias ga='git add'
 alias gb='git branch'
 alias gc='git commit'
@@ -60,21 +82,8 @@ alias gk='git checkout'
 alias gl='git log --oneline'
 alias gg='git log --oneline --graph --full-history --all'
 
-# pacman
-alias pqeq='pacman -Qeq'
-alias pss='pacman -Ss'
-alias ppr='doas pacman -Rsn'
-alias pS='doas pacman -S'
-alias pp='doas pacman -Syu'
+# docker -----------------------------------------------------------------------
 
-# yay
-alias yqeq='yay -Qeq'
-alias yss='yay -Ss'
-alias yyr='yay -Rsn'
-alias yS='yay -S'
-alias yy='yay -Syu'
-
-# docker
 alias dk='docker'
 alias dkps='docker ps'
 alias dke='docker exec'
@@ -82,16 +91,31 @@ alias dkei='docker exec -it'
 alias dker='docker exec --user root'
 alias dkeir='docker exec -it --user root'
 
-# docker compose
+# docker-compose ---------------------------------------------------------------
+
 alias dup='docker-compose up -d'
 alias ddown='docker-compose down'
 
-# npm
+# Laravel ----------------------------------------------------------------------
+
+alias pa='php artisan'
+alias pam='php artisan migrate'
+alias par='php artisan route:list --compact'
+alias tinker='php artisan tinker'
+
+# Java ------------------------------------------------------------------------
+
+alias ja='java-algs4'
+alias jac='javac-algs4'
+
+# npm --------------------------------------------------------------------------
+
 alias naudit='npm audit'
 alias nauditf='npm audit fix'
 alias npublish='npm publish --access=public'
 
-# npm scripts
+# npm scripts ------------------------------------------------------------------
+
 alias nbuild='npm run build'
 alias ndev='npm run dev'
 alias ndev-js='npm run dev-js'
@@ -99,40 +123,40 @@ alias ndev-css='npm run dev-css'
 alias nprod='npm run prod'
 alias nprod-js='npm run prod-js'
 alias nprod-css='npm run prod-css'
+alias nrun='npm run'
 alias nserve='npm run serve'
 alias nwatch='npm run watch'
 alias nwatch-js='npm run watch-js'
 alias nwatch-css='npm run watch-css'
 
-# laravel
-alias pa='php artisan'
-alias pam='php artisan migrate'
-alias par='php artisan route:list --compact'
-alias tinker='php artisan tinker'
+# pacman -----------------------------------------------------------------------
 
-# JAVA
-alias ja='java-algs4'
-alias jac='javac-algs4'
+alias pqeq='pacman -Qeq'
+alias pss='pacman -Ss'
+alias ppr='doas pacman -Rsn'
+alias pS='doas pacman -S'
+alias pp='doas pacman -Syu'
 
-# mpv
-alias mpvx='mpv "$(xclip -o -selection clipboard)"'
+# yay --------------------------------------------------------------------------
 
-# make some fucking programs abide to XDG
-alias ssh='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
-alias scp='scp -F ${XDG_CONFIG_HOME}/ssh/config'
-alias mbsync='mbsync -c ${XDG_CONFIG_HOME}/mbsync/mbsyncrc'
-alias claws-mail='claws-mail --alternate-config-dir ${XDG_DATA_HOME}/claws-mail'
-alias startx='startx ${XDG_CONFIG_HOME}/X11/xinitrc -- ${XDG_CONFIG_HOME}/X11/xserverrc vt1'
+alias yqeq='yay -Qeq'
+alias yss='yay -Ss'
+alias yyr='yay -Rsn'
+alias yS='yay -S'
+alias yy='yay -Syu'
+
+# XDG Dirs --------------------------------------------------------------------
+
+# hardcoded solutions
+
 alias jupyter='HOME=${XDG_DATA_HOME}/jupyter jupyter'
 alias monerod='HOME=${XDG_DATA_HOME}/monero monerod'
 alias monero-wallet-gui='HOME=${XDG_DATA_HOME}/monero monero-wallet-gui'
 
-# clipboard
-alias xcopy='xclip -selection clipboard'
-alias xpaste='xclip -out -selection clipboard'
+# custom config for programms
 
-# more shortcuts
-alias vv='v ~/.config/vim'
-alias v.='v .'
-alias py='HOME=/tmp python'
-alias xx='startx'
+alias claws-mail='claws-mail --alternate-config-dir ${XDG_DATA_HOME}/claws-mail'
+alias mbsync='mbsync -c ${XDG_CONFIG_HOME}/mbsync/mbsyncrc'
+alias ssh='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
+alias scp='scp -F ${XDG_CONFIG_HOME}/ssh/config'
+alias startx='startx ${XINITRC} -- ${XSERVERRC} vt1'
