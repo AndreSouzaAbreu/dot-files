@@ -66,9 +66,9 @@ c.editor.command = ["termite", "--class=floatcenter", "-e", "nvim {file}"]
 
 # file handler
 c.fileselect.handler = 'external'
-c.fileselect.folder.command = ['termite', '--title=Ranger', '-e', 'ranger --choosedir={}']
-c.fileselect.single_file.command = ['termite', '--title=Ranger', '-e', 'ranger --choosefile={}']
-c.fileselect.multiple_files.command = ['termite', '--title=Ranger', '-e', 'ranger --choosefiles={}']
+c.fileselect.folder.command = ['termite', '--class=Ranger', '-e', 'ranger --choosedir={}']
+c.fileselect.single_file.command = ['termite', '--class=Ranger', '-e', 'ranger --choosefile={}']
+c.fileselect.multiple_files.command = ['termite', '--class=Ranger', '-e', 'ranger --choosefiles={}']
 
 #############################
 # ALIASES                   #
