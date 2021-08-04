@@ -15,7 +15,7 @@ augroup mycolorscheme
   au BufEnter *.cpp colorscheme pop-punk
   au BufEnter *.html colorscheme codedark
   au BufEnter *.java colorscheme codedark
-  au BufEnter *.js colorscheme pop-punk
+  au BufEnter *.js colorscheme codedark
   au BufEnter *.json colorscheme codedark
   au BufEnter *.md colorscheme gruvbox
   au BufEnter *.php colorscheme codedark

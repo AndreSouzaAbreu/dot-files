@@ -16,13 +16,16 @@
     "F": "searchRecursive",
     "gb": "gotoSource:buffer",
     "gf": "gotoSource:file",
-    "gh": "gotoParent",
     "gj": "expandableNext",
     "gk": "expandablePrev",
-    "gl": "open",
-    "gp": "gotoParent",
-    "h": ["expandable?", ["expanded?", "collapse", "gotoParent"], "gotoParent"],
-    "l": ["expandable?", ["expanded?", "cd", "expand"], ["collapse", "cd"]],
+    "gl": ["expandable?", ["expanded?", "cd", "expand"], "open"],
+    "gh": [
+      "expandable?",
+      ["expanded?", "collapse", "gotoParent"],
+      "gotoParent"
+    ],
+    "h": "gotoParent",
+    "l": "open",
     "os": "open:split",
     "ot": "open:tab",
     "ov": "open:vsplit",
@@ -42,7 +45,7 @@
     "<bs><bs>": "gotoParent",
     "<cr>": ["expandable?", "cd", "open:previousWindow"],
     "<esc>": "esc",
-    "<space>": "toggleSelection"
+    "<space>": ["expandable?", ["expanded?", "collapse", "expand"], "open"]
   },
   "explorer.presets": {
     "vim": {
@@ -63,7 +66,6 @@
   "java.project.referencedLibraries": [
     "/home/andre/.local/share/algs4/algs4.jar"
   ],
-  "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
   "suggest.noselect": false,
   "suggest.autoTrigger": "none"
 }

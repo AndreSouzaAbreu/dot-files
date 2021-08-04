@@ -17,8 +17,8 @@ nnoremap <Bslash><Bslash> <Nop>
 nnoremap <Bslash>bn :bn<CR>
 nnoremap <Bslash>bp :bp<CR>
 nnoremap <Bslash>bd :bd<CR>
-nnoremap <M-1> :bn<CR>
-nnoremap <M-2> :bp<CR>
+nnoremap <M-1> :bp<CR>
+nnoremap <M-2> :bn<CR>
 nnoremap gb :b<space>
 
 " close and save file easily
@@ -50,15 +50,16 @@ nnoremap <M-l> <C-W>l
 " TERMINAL
 " ---------------------------------------------------------------------------
 
-" open term to the bottom
-nnoremap <silent> <Bslash>s :term ++rows=5<CR>
-
 " resize terminal
 tnoremap <silent> <C-[> <C-w>:resize +1<CR>
 tnoremap <silent> <C-]> <C-w>:resize -1<CR>
 
 " turn the terminal into a normal buffer
-tnoremap <silent> <C-Bslash> <C-w><S-n>:set nonumber norelativenumber<CR>
+tnoremap <silent> <Esc> <C-w><S-n>:set nonumber norelativenumber<CR>
+
+" toggle terminal
+nnoremap <silent> <A-s> :call TgtToggleH()<CR>
+tnoremap <silent> <A-s> <C-w><S-n>:call TerminalToggle()<CR>
 
 " ---------------------------------------------------------------------------
 " CLIPBOARD
@@ -82,7 +83,7 @@ nnoremap ç :
 vnoremap ç :
 
 " source vimrc
-nnoremap <leader>S :source $VIMRC<CR>
+nnoremap <leader>S :source $vimrc<CR>
 
 " clear highlight from previous searc
 nnoremap <silent> <Bslash>l :noh<CR>
@@ -178,6 +179,16 @@ nnoremap <leader>f :FZF<CR>
 
 " toggle file explorer
 " nnoremap <leader>d :Lexplore<CR>
+
+" NEOTERM -------------------------------------------------------------------
+
+" Use gx{text-object} in normal mode
+nmap ,r <Plug>(neoterm-repl-send)
+nmap ,R :TREPLSendFile<CR>
+nmap ,rr :TREPLSendLine<CR>
+
+" Send selected contents in visual mode.
+xmap ,r <Plug>(neoterm-repl-send)
 
 " STARTFIY ------------------------------------------------------------------
 

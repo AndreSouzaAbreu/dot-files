@@ -51,10 +51,11 @@ def is_surrounded_by(text, index, before, after):
 
 def math_eval():
 	line = snip.buffer[snip.line]
+	return False
 	return is_surrounded_by(line, snip.column, "eval", "endeval")
 
 def math():
-	return (vim.eval('vimtex#syntax#in_mathzone()') == '1') and not math_eval()
+	return (vim.eval('vimtex#syntax#in_mathzone()') == '1') #and not math_eval()
 
 def not_math():
 	return vim.eval('vimtex#syntax#in_mathzone()') == '0'
@@ -67,12 +68,12 @@ endglobal
 ######################################################
 ### BASIC SNIPPETS ###################################
 
-snippet box "Box"
-`!p snip.rv = '┌' + '─' * (len(t[1]) + 2) + '┐'`
-│ $1 │
-`!p snip.rv = '└' + '─' * (len(t[1]) + 2) + '┘'`
-$0
-endsnippet
+# snippet box "Box"
+# `!p snip.rv = '┌' + '─' * (len(t[1]) + 2) + '┐'`
+# │ $1 │
+# `!p snip.rv = '└' + '─' * (len(t[1]) + 2) + '┘'`
+# $0
+# endsnippet
 
 snippet bb "begin{} / end{}" bA
 \begin{$1}
@@ -93,8 +94,6 @@ endsnippet
 context "not_math()"
 snippet mm "math block" bA
 \$\$ $1 \$\$
-
-$0
 endsnippet
 
 snippet eq "equation" b
@@ -103,9 +102,15 @@ snippet eq "equation" b
 \end{equation*}
 endsnippet
 
+snippet alignn "align" b
+\begin{align}
+	$0
+\end{align}
+endsnippet
+
 snippet align "align" b
 \begin{align*}
-$1 &= $2 \\\\$0
+	$0
 \end{align*}
 endsnippet
 
@@ -115,6 +120,16 @@ endsnippet
 context "math()"
 snippet p "parenthesis" i
 ($1)$0
+endsnippet
+
+context "math()"
+snippet sp "sized parenthesis" wA
+\left( $1 \right) $0
+endsnippet
+
+context "math()"
+snippet ss "sized square brackets" wA
+\left[ $1 \right] $0
 endsnippet
 
 context "math()"
@@ -163,30 +178,25 @@ snippet ^ "superscript" iA
 endsnippet
 
 context "math()"
-snippet "(x|y|f)([0-9]+) " "automatic subscript" wrA
+snippet "(a|b|c|t|x|y|z|f)([0-9]+) " "automatic subscript" wrA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`} $0
 endsnippet
 
 context "math()"
-snippet "(x|y|f)([0-9]+)" "automatic subscript" wr
+snippet "(a|b|c|t|x|y|z|f)([0-9]+)" "automatic subscript" wr
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}$0
 endsnippet
 
 priority 20
 context "math()"
-snippet sç "superscript (alt+k)" iA
+snippet ç "superscript (alt+k)" iA
 ^{$1}$0
 endsnippet
 
+priority 10
 context "math()"
-snippet ç "subscript (alt+j)" iA
+snippet Ç "subscript (alt+j)" iA
 _{$1}$0
-endsnippet
-
-priority 20
-context "math()"
-snippet fç "fraction" iA
-\\frac{$1}{$2}$0
 endsnippet
 
 context "math()"
@@ -194,13 +204,20 @@ snippet sqrt "square root" wA
 \\sqrt{$1}$0
 endsnippet
 
+priority 25
+context "math()"
+snippet '([^\s]+\{.+\}[^\s]+)/' "fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+priority 15
 context "math()"
 snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "fraction" wrA
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
 context "math()"
-priority 1000
+priority 10
 snippet '^.*\)/' "() fraction" wrA
 `!p
 stripped = match.string[:-1]
@@ -235,8 +252,9 @@ snippet prod "prod" wA
 \\prod $0
 endsnippet
 
+priority 5
 context "math()"
-snippet iint "integral" w
+snippet iint "integral" wA
 \\int_{$1}^{$2} $0
 endsnippet
 

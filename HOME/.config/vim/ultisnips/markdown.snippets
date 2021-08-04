@@ -98,3 +98,14 @@ post_jump "create_table(snip)"
 snippet "table([1-9]+x[1-9]+)" "automatic generated table" br
 `!p snip.rv = match.group(1)`
 endsnippet
+
+snippet  - "header" b
+---
+author: ${1:André Souza Abreu}
+date: `date +%d/%m/%Y`
+title: $2
+---
+
+$0
+endsnippet
+

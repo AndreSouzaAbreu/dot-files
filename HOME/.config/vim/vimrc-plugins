@@ -38,8 +38,6 @@ call plug#begin('~/.config/vim/plugged')
 
   " fuzzy finder
   Plug 'junegunn/fzf.vim'
-
-  " show available keybindings
   Plug 'liuchengxu/vim-which-key'
 
   " code completion
@@ -48,11 +46,8 @@ call plug#begin('~/.config/vim/plugged')
   " text objects
   Plug 'kana/vim-textobj-function'
   Plug 'kana/vim-textobj-indent'
-  Plug 'kana/vim-textobj-line'
   Plug 'kana/vim-textobj-user'
   Plug 'jceb/vim-textobj-uri'
-  Plug 'akiyan/vim-textobj-php'
-  Plug 'rbonvall/vim-textobj-latex'
   Plug 'Julian/vim-textobj-variable-segment'
 
   " latex
@@ -93,6 +88,9 @@ call plug#begin('~/.config/vim/plugged')
   " manipulate surroundings
   Plug 'tpope/vim-surround'
 
+  " terminal stuff
+  Plug 'kassio/neoterm'
+
   " status line
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
@@ -130,7 +128,6 @@ let g:coc_global_extensions = [
   \ 'coc-html',
   \ 'coc-java',
   \ 'coc-json',
-  \ 'coc-pairs',
   \ 'coc-phpls',
   \ 'coc-prettier',
   \ 'coc-python',
@@ -156,6 +153,16 @@ let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
 let g:tex_conceal='abdmg'
 
+" NEOTERM -------------------------------------------------------------------
+
+let g:neoterm_size = 40
+let g:neoterm_default_mod = 'botright vertical'
+let g:neoterm_autoscroll = 1
+let g:neoterm_term_per_tab = 1
+let g:neoterm_repl_python = ['python']
+let g:neoterm_repl_r = ['R', '-q']
+let g:neoterm_repl_octave_qt = 1
+
 " STARTIFY ------------------------------------------------------------------
 
 let g:startify_custom_header = []
@@ -178,28 +185,48 @@ let g:startify_bookmarks = [
 
 let g:UltiSnipsSnippetDirectories = [ $XDG_CONFIG_HOME . '/vim/ultisnips']
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<M-tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
 " SORT MOTION ---------------------------------------------------------------
 
 let g:sort_motion_flags = "ui"
 
+" VIM SURROUDING ------------------------------------------------------------
+
+let g:surround_no_mappings=1
+nmap d,s  <Plug>Dsurround
+nmap c,s  <Plug>Csurround
+nmap c,S  <Plug>CSurround
+nmap y,s  <Plug>Ysurround
+nmap y,S  <Plug>YSurround
+nmap y,ss <Plug>Yssurround
+nmap y,Ss <Plug>YSsurround
+nmap y,SS <Plug>YSsurround
+xmap ,S   <Plug>VSurround
+xmap g,S  <Plug>VgSurround
+
 " TEXT OBJECTS --------------------------------------------------------------
 
-call textobj#user#plugin('text', {
-\  'pascalCase': {
-\    'pattern': '[A-Za-z][a-z]\+',
-\    'select': [',w', 'i,w'],
-\  },
+call textobj#user#plugin('braces', {
+\   'angle': {
+\     'pattern': ['<<', '>>'],
+\     'select-a': 'aA',
+\     'select-i': 'iA',
+\   },
 \ })
 
-call textobj#user#plugin('braces', {
-\  'angle': {
-\    'pattern': ['<<', '>>'],
-\    'select-a': 'aA',
-\    'select-i': 'iA',
-\  },
+call textobj#user#plugin('latex', {
+\   'environment': {
+\     '*pattern*': ['\\begin{[^}]\+}.*\n\s*', '\n^\s*\\end{[^}]\+}.*$'],
+\     'select-a': 'ae',
+\     'select-i': 'ie',
+\   },
+\  'dollar-math-i': {
+\     '*pattern*': '[$]\zs[^$]*\ze[$]',
+\     'select-a': 'am',
+\     'select-i': 'am',
+\   },
 \ })
 
 call textobj#user#plugin('line', {
@@ -210,6 +237,14 @@ call textobj#user#plugin('line', {
 \    'select-i': 'iL',
 \  },
 \ })
+
+call textobj#user#plugin('php', {
+\  'phptag': {
+\    '*pattern*': ['<?\(=\|php\)\?[[:blank:][:return:]\n]*','[[:blank:][:return:]\n]*?>'],
+\    'select-a': 'aP',
+\    'select-i': 'iP',
+\  }
+\})
 
 function! CurrentLineA()
   normal! 0

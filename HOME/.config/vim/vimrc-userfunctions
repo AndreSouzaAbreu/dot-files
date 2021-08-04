@@ -1,4 +1,5 @@
-" toggle statusbar
+" TOGGLE STATUSBAR ----------------------------------------------------------
+
 let s:hidden_all=1
 function! ToggleStatusBar()
 	if s:hidden_all == 0
@@ -14,25 +15,252 @@ endfunction
 command ToggleStatusBar execute ":call ToggleStatusBar()"
 nnoremap <Bslash>B :ToggleStatusBar<CR>
 
-" man pager mode
+" MAN PAGER MODE ------------------------------------------------------------
+
 function! ManPagerMode()
   set scrolloff=0
   set laststatus=0
   set nonumber norelativenumber
   let g:airline_disable_statusline=1
-  :CocDisable
+  silent execute CocDisable
 endfunction
+
 command ManPager execute ":call ManPagerMode()"
 
-" is cursor within comment
+" HELPERS FUNCTION USED ELSEWHERE ------------------------------------------
+
 function! IsCursorWithinComment()
     let hg = join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'))
     return hg =~? 'comment' ? 1 : 0
 endfunction
+
+" CUSTOM FORMATTING FUNCTIONS -----------------------------------------------
 
 function! CustomFormatting()
   :%s/\([^ ]\) \?{$/\1\r{/
   :gg=G
   %s/  / /ge<CR>:%s/ \+$//
   :g/^$\n^$/
+endfunction
+
+" TOGGLE TERMINAL -----------------------------------------------------------
+
+" my own plugin ;)
+
+let g:terminal_opened_h = 0
+let g:terminal_opened_v = 0
+let g:terminal_winid_h = -1
+let g:terminal_winid_v = -1
+let g:terminal_bufid_h = ''
+let g:terminal_bufid_v = ''
+let g:terminal_winsize_h = 0
+let g:terminal_winsize_v = 0
+let g:terminal_winsize_default_h = 6
+let g:terminal_winsize_default_v = 40
+
+""
+" get the last window size of given split
+function! TgtGetWindowSize(split)
+
+  " attempt to get previous window height
+  if a:split == 'h'
+    let winsize = g:terminal_winsize_h
+    let winsize_default = g:terminal_winsize_default_h
+  else
+    let winsize = g:terminal_winsize_v
+    let winsize_default = g:terminal_winsize_default_v
+  endif
+
+  " make sure the default window size is not negative
+  if winsize_default < 1
+    winsize_default = 10
+  endif
+
+  " if window did not exist, assign the default size
+  if winsize < 1
+    let winsize = winsize_default
+  endif
+
+  " return the value
+  return winsize
+endfunction
+
+""
+" Open new window for the given split
+function! TgtOpenWindow(split)
+  let winsize = TgtGetWindowSize(a:split)
+
+  if a:split == 'h'
+    let cmd = 'split'
+  else
+    let cmd = 'vsplit'
+  endif
+
+  let cmd = winsize . ' ' . cmd 
+  silent execute cmd
+endfunction
+
+""
+" Update the current window size
+function! TgtUpdateWinsizeState(split)
+  if a:split == 'h'
+    let g:terminal_winsize_h = winheight('%')
+  else
+    let g:terminal_winsize_v = winwidth('%')
+  endif
+endfunction
+
+""
+" Update the state of the window
+function! TgtUpdateWinState(split)
+  if a:split == 'h'
+    let g:terminal_winid_h = win_getid()
+    let g:terminal_opened_h = 1
+  else
+    let g:terminal_winid_v = win_getid()
+    let g:terminal_opened_v = 1
+  endif
+endfunction
+
+""
+" Get the buffer id of the terminal
+" for the given split
+function! TgtGetBufferId(split)
+  if a:split == 'h'
+    return g:terminal_bufid_h
+  else
+    return g:terminal_bufid_v
+  endif
+endfunction
+
+""
+" Set the buffer id of the terminal
+" for the given split
+function! TgtSetBufferId(split, buffer_id)
+  if a:split == 'h'
+    let g:terminal_bufid_h = a:buffer_id
+  else
+    let g:terminal_bufid_v = a:buffer_id
+  endif
+endfunction
+
+""
+" Open new term, updating the id of the buffer
+function! TgtOpenTerm(split, termcmd)
+  keepjumps enew
+  silent execute a:termcmd
+  set bufhidden=hide nobuflisted
+  let buffer_id = bufname()
+  silent call TgtSetBufferId(a:split, buffer_id)
+endfunction
+
+""
+" Open existing term buffer or create new one for Nvim
+function! TgtOpenTermBufferNvim(split)
+  let buffer_id = TgtGetBufferId(a:split)
+
+  if bufexists(buffer_id)
+    silent execute 'keepjumps buffer' buffer_id
+    return
+  endif
+
+  silent call TgtOpenTerm(a:split, 'term')
+endfunction
+
+"" 
+" Open term window for Nvim
+function! TgtOpenNvim(split)
+  silent call TgtOpenWindow(a:split)
+  silent call TgtOpenTermBufferNvim(a:split)
+  silent call TgtUpdateWinState(a:split)
+  startinsert!
+endfunction
+
+""
+" Open existing term buffer or create new one for Nim
+function! TgtOpenTermBufferVim(split)
+  let buffer_id = TgtGetBufferId(a:split)
+
+  if bufexists(buffer_id)
+    silent call TgtOpenWindow(a:split)
+    silent execute 'keepjumps buffer' buffer_id
+    return
+  endif
+
+  let winsize = TgtGetWindowSize(a:split)
+  if a:split == 'h'
+    let termcmd = 'term ++rows=' . winsize
+  else
+    let termcmd = 'vert term ++cols=' . winsize
+  endif
+
+  silent call TgtOpenTerm(a:split, termcmd) 
+endfunction
+
+""
+" Open term window for vim
+function! TgtOpenVim(split)
+  silent call TgtOpenTermBufferVim(a:split)
+  silent call TgtUpdateWinState(a:split)
+  startinsert!
+endfunction
+
+""
+" open term for the given split
+function! TgtOpen(split)
+  if has('nvim')
+    silent call TgtOpenNvim(a:split)
+  else
+    silent call TgtOpenVim(a:split)
+  endif
+endfunction
+
+""
+" close term for the given split
+function! TgtClose(split)
+  if a:split == 'h'
+    let winid = g:terminal_winid_h
+  else
+    let winid = g:terminal_winid_v
+  endif
+
+  let current_winid = win_getid()
+  silent call win_gotoid(winid)
+  silent call TgtUpdateWinsizeState(a:split)
+  close
+  silent call win_gotoid(current_winid)
+
+  if a:split == 'h'
+    let g:terminal_opened_h = 0
+  else
+    let g:terminal_opened_v = 0
+  endif
+endfunction
+
+""
+" toggle horizontal term
+function! TgtToggleH()
+  if !(bufexists(g:terminal_bufid_h))
+    let g:terminal_opened_h = 0
+  endif
+
+  if g:terminal_opened_h == 0
+    silent call TgtOpen('h')
+  else
+    silent call TgtClose('h')
+  endif
+endfunction
+
+""
+" togggle vertical term
+function! TgtToggleV()
+  if !(bufexists(g:terminal_bufid_v))
+    let g:terminal_opened_v = 0
+  endif
+
+  if g:terminal_opened_v == 0
+    silent call TgtOpen('v')
+  else
+    silent call TgtClose('v')
+  endif
 endfunction

@@ -1,6 +1,6 @@
-""""""""""""""""""""""""""""""""""""""""""""
+" ---------------------------------------------------------------------------
 " VIM 
-""""""""""""""""""""""""""""""""""""""""""""
+" ---------------------------------------------------------------------------
 
 " the following settings make it possible to share
 " plugins and configuration between vim and neovim
@@ -18,14 +18,14 @@ source $VIMRC-autocommands
 source $VIMRC-abbreviations
 source $VIMRC-userfunctions
 
-""""""""""""""""""""""""""""""""""""""""""""
+" ---------------------------------------------------------------------------
 " NEOVIM
-""""""""""""""""""""""""""""""""""""""""""""
+" ---------------------------------------------------------------------------
 
-" the following settings are for neovim only
-" they may not work with vim.
+" the following settings are for neovim only (they may not work with vim)
 
-nnoremap <leader>S :source $NVIMRC<CR>
+" justify alignment
+packadd justify
 
 " fzf 
 function! FzfOpen()
@@ -34,17 +34,18 @@ function! FzfOpen()
 endfunction()
 autocmd FileType fzf call FzfOpen()
 
-""" Terminal Mode
+" TERMINAL ------------------------------------------------------------------
 
-function! TerminalOpen()
+function! TerminalOpened()
   setlocal nonumber norelativenumber noshowmode noruler noshowcmd laststatus=0
   nnoremap <buffer> <C-P> pi<Home><space><left>
   nnoremap <buffer> o A
   nnoremap <buffer> O A
 endfunction
 
-autocmd TermOpen * call TerminalOpen() | startinsert
+autocmd TermOpen * call TerminalOpened() | startinsert
 autocmd BufLeave term://* stopinsert
+
 
 " terminal window navigation
 tnoremap <Esc> <C-\><C-n>
@@ -63,9 +64,8 @@ tnoremap <silent> <A-S-l> <C-\><C-N>:vertical resize +5<cr>
 tnoremap <A-1> <C-\><C-N>:bp<CR>
 tnoremap <A-2> <C-\><C-N>:bn<CR>
 
-" R programming
-" function RunR()
-"   :\"ry
-"   :buffer term://*:R -q
-"   <C-\><C-n>"rp<CR>
-" endfunction
+" 
+nnoremap <silent> <A-s> :call TgtToggleH()<CR>
+tnoremap <silent> <A-s> <C-\><C-n>:call TgtToggleH()<CR>
+nnoremap <silent> <A-S-s> :call TgtToggleV()<CR>
+tnoremap <silent> <A-S-s> <C-\><C-n>:call TgtToggleV()<CR>
