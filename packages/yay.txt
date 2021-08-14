@@ -1,8 +1,16 @@
 cointop-bin
+dragon-drag-and-drop
 light-git
+mermaid-cli
 mutt-wizard
+octave-statistics
+octave-symbolic
 perl-text-lorem
+python-imageio
 simple-mtpfs
+tabbed
+telegram-tg
+termite
+trezor-bridge-bin
 yay
-ytfzf
 zoxide-bin
