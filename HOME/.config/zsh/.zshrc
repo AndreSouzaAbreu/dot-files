@@ -76,6 +76,7 @@ ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=magenta
 ZSH_HIGHLIGHT_STYLES[path]=fg=cyan
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=white
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=white
+ZSH_HIGHLIGHT_STYLES[comment]=fg=245
 
 # default values are as follows
 
