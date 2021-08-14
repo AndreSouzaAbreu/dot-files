@@ -6,13 +6,14 @@
 		cat /dev/stdin
 	fi
 ) | 
-sed 's/[ -]/_/g' | # replace space or hyphen with underline
-sed 's/\([a-z]\)\([A-Z]\)/\1_\2/g' | # split camel/pascal case words
-sed 's/[_]\+/_/g' | # supress consecutive underline characters
-sed 's/_\?\([\[(){}]\)_\?/\1/g' | # delete underline surrounding parenthesis/braces/brackets
-sed 's/_\?\]_\?/]/g' | # delete underline surrounding the character ']'
-sed 's/^_//g' | # trim underline at the beginning of sentence
-sed 's/_$//g' | # trim underline at the end of sentence
-sed 's/.*/\L&/g' # convert everything to lower case
->&1 # redirect output to stdout
+sed 's/[ -]/_/g' \                   # replace space or hyphen with underline
+ -e 's/\([a-z]\)\([A-Z]\)/\1_\2/g' \ # split camel / pascal case words
+ -e 's/[_]\+/_/g' \                  # supress consecutive underline characters
+ -e 's/_\?\([\[(){}]\)_\?/\1/g' \    # delete underline surrounding parenthesis/braces/brackets
+ -e 's/_\?\]_\?/]/g' \               # delete underline surrounding the character ']'
+ -e 's/^_//g' \                      # trim underline at the beginning of sentence
+ -e 's/_$//g' \                      # trim underline at the end of sentence
+ -e 's/.*/\L&/g'                     # convert everything to lower case
+  >&1                                # redirect output to stdout
+
 exit 0

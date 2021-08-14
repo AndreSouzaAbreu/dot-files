@@ -6,4 +6,5 @@
 		cat /dev/stdin
 	fi
 ) | iconv -f utf8 -t ascii//TRANSLIT//IGNORE >&1
+
 exit 0
