@@ -2,4 +2,4 @@
 Type=Application
 Terminal=true
 Name=File Manager
-Exec=/usr/bin/termite -d %u
+Exec=/usr/bin/alacritty -e ranger %u
