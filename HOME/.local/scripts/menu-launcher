@@ -1,6 +1,6 @@
 #!/bin/sh
 applications_list=$HOME/.config/applications.list
-application_name=$(sed 's/:.*//' $applications_list | sort | rofi -dmenu -window-title 'application')
+application_name=$(sed 's/:.*//' $applications_list | sort | rofi -dmenu -window-title 'application' | head -n1)
 [[ -z $application_name ]] && exit 0
 application_cmd=$(grep "$application_name" $applications_list | sed 's/.*://' )
 $SHELL -c "$application_cmd"
