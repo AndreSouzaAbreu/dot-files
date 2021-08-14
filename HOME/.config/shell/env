@@ -9,7 +9,7 @@ export BROWSER=qutebrowser
 export EDITOR=nvim
 export VISUAL=nvim
 export PAGER=less
-export TERMINAL=termite
+export TERMINAL=alacritty
 export MANPAGER=less
 
 # history
@@ -99,8 +99,10 @@ export NVIMRC=${XDG_CONFIG_HOME}/nvim/init.vim
 export VIMRC=${XDG_CONFIG_HOME}/vim/vimrc
 export VIMINIT='let $vimrc = has("nvim") ? $NVIMRC : $VIMRC | source $vimrc'
 
+# emacs
+export EMACSDIR=~/.config/emacs
+
 # java algs4
 PRINCETON=$HOME/.local/share/algs4
-export PATH=$PATH:$PRINCETON/bin
 export LIFT_INSTALL=$PRINCETON/lift
 export CLASSPATH=$PRINCETON

@@ -16,7 +16,7 @@ alias m='neomutt'
 alias o='open'
 alias p='profile'
 alias q='exit'
-alias v='nvim-gui'
+alias v='nvim'
 alias y='yay'
 
 # more shorctus ----------------------------------------------------------------

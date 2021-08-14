@@ -23,7 +23,7 @@ SHELL_CONFIG=~/.config/shell
 source_files $SHELL_CONFIG/{env,aliases,functions}
 
 # load local scripts and local bin
-path_append ~/.local/{bin,scripts}
+path_prepend ~/.local/{bin,scripts}
 
 ##### SHELL COMPLETION ######
 
