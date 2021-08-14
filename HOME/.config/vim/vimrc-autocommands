@@ -3,14 +3,30 @@
 " ---------------------------------------------------------------------------
 
 augroup editorconfig
+  au!
   au FileType gitcommit let b:EditorConfig_disable=1
 augroup end
 
 augroup coc
+  au!
   au FileType gitcommit let b:coc_enabled=0
+  au BufRead **/qutebrowser/config.py let b:coc_enabled=0
+  au BufRead **/dwm/* let b:coc_enabled=0
+augroup END
+
+augroup colored
+  au!
+  au BufEnter config set filetype=toml
+augroup END
+
+augroup emmet
+  au!
+  au FileType html imap <M-e> <plug>(emmet-expand-abbr)
+  au FileType vue imap <M-e> <plug>(emmet-expand-abbr)
 augroup END
 
 augroup mycolorscheme
+  au!
   au BufEnter *.c colorscheme pop-punk
   au BufEnter *.cpp colorscheme pop-punk
   au BufEnter *.html colorscheme codedark
@@ -28,6 +44,7 @@ augroup mycolorscheme
 augroup END
 
 augroup mysyntax
-  au BufEnter,BufNewFile,BufRead .env.* set syntax=sh
-  au BufEnter,BufNewFile,BufRead *.md set filetype=markdown syntax=markdown.pandoc
+  au!
+  au BufEnter,BufRead .env.* set syntax=sh
+  au BufEnter,BufRead *.md set filetype=markdown syntax=markdown.pandoc
 augroup END

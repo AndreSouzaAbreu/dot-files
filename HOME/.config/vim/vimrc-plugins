@@ -18,88 +18,66 @@ endif
 call plug#begin('~/.config/vim/plugged')
 
   " themes
-  Plug 'agude/vim-eldar'
-  Plug 'bignimbus/pop-punk.vim'
-  Plug 'bluz71/vim-moonfly-colors'
-  Plug 'tomasiser/vim-code-dark'
-  Plug 'morhetz/gruvbox'
-  Plug 'ayu-theme/ayu-vim' 
-  Plug 'tomasr/molokai'
-  Plug 'joshdick/onedark.vim'
+  Plug 'ayu-theme/ayu-vim'         " theme ayu
+  Plug 'tomasiser/vim-code-dark'   " theme codedark
+  Plug 'agude/vim-eldar'           " theme eldar
+  Plug 'morhetz/gruvbox'           " theme gruvbox
+  Plug 'tomasr/molokai'            " theme molokai
+  Plug 'bluz71/vim-moonfly-colors' " theme moonfly
+  Plug 'joshdick/onedark.vim'      " theme onedark
+  Plug 'bignimbus/pop-punk.vim'    " theme pop-punk
 
-  " align stuff
-  Plug 'junegunn/vim-easy-align'
+  " Syntax Highlight
+  Plug 'ekalinin/dockerfile.vim'      " dockerfile
+  Plug 'uiiaoo/java-syntax.vim'       " java
+  Plug 'pangloss/vim-javascript'      " javascript
+  Plug 'chr4/nginx.vim'               " nginx
+  Plug 'jvirtanen/vim-octave'         " octave
+  Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc
+  Plug 'cespare/vim-toml'             " toml
+  Plug 'posva/vim-vue'                " vue
+  
+  " junegunn plugins
+  Plug 'junegunn/vim-easy-align' " align text
+  Plug 'junegunn/fzf.vim'        " fuzzy finder
 
-  " sort motion
-  Plug 'christoomey/vim-sort-motion'
-
-  " editorconfig
-  Plug 'editorconfig/editorconfig-vim'
-
-  " fuzzy finder
-  Plug 'junegunn/fzf.vim'
-  Plug 'liuchengxu/vim-which-key'
-
-  " code completion
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  " Tim Pope's plugins
+  Plug 'tpope/vim-abolish'    " substitution
+  Plug 'tpope/vim-commentary' " toggle comments
+  Plug 'tpope/vim-surround'   " surrouding motion
 
   " text objects
-  Plug 'kana/vim-textobj-function'
-  Plug 'kana/vim-textobj-indent'
-  Plug 'kana/vim-textobj-user'
-  Plug 'jceb/vim-textobj-uri'
-  Plug 'Julian/vim-textobj-variable-segment'
+  Plug 'kana/vim-textobj-user'               " engine
+  Plug 'kana/vim-textobj-function'           " function
+  Plug 'kana/vim-textobj-indent'             " indentation
+  Plug 'jceb/vim-textobj-uri'                " uri
+  Plug 'Julian/vim-textobj-variable-segment' " variable segment
 
-  " latex
-  Plug 'lervag/vimtex'
+  " Other plugins
+  Plug 'AndrewRadev/tagalong.vim'                 " automatically change html tags
+  Plug 'arthurxavierx/vim-caser'                  " change case
+  Plug 'arthurxavierx/vim-unicoder'               " automatic insert unicode chars
+  Plug 'chrisbra/Colorizer'                       " color colornames and colorcodes
+  Plug 'chrisbra/csv.vim'                         " work with csv files
+  Plug 'chrisbra/improvedft'                      " improved f and t commands
+  Plug 'christoomey/vim-sort-motion'              " sort motion
+  Plug 'editorconfig/editorconfig-vim'            " enforce editorconfig settings
+  Plug 'kassio/neoterm'                           " terminal REPL
+  Plug 'lervag/vimtex'                            " LaTeX
+  Plug 'liuchengxu/vim-which-key'                 " whichkey (like emacs)
+  Plug 'ludovicchabant/vim-gutentags'             " tag manager
+  Plug 'mattn/emmet-vim'                          " emmet engine
+  Plug 'mg979/vim-visual-multi'                   " multi cursor
+  Plug 'mhinz/vim-startify'                       " home
+  Plug 'nanotee/zoxide.vim'                       " zoxide
+  Plug 'neoclide/coc.nvim', {'branch': 'release'} " coc
+  Plug 'preservim/tagbar'                         " tag panel
+  Plug 'preservim/vim-pencil'                     " free writing
+  Plug 'SirVer/ultisnips'                         " snippets engine
+  Plug 'tommcdo/vim-ninja-feet'                   " operations to start/end of motion
+  Plug 'vim-airline/vim-airline'                  " statusbar
+  Plug 'vim-airline/vim-airline-themes'           " statusbar themes
 
-  " emmet plugin
-  Plug 'mattn/emmet-vim'
-
-  " multiline cursor
-  Plug 'mg979/vim-visual-multi'
-
-  " home view
-  Plug 'mhinz/vim-startify'
-
-  " specific syntax hightlight
-  Plug 'posva/vim-vue'
-  Plug 'chr4/nginx.vim'
-  Plug 'cespare/vim-toml'
-  Plug 'jvirtanen/vim-octave'
-  Plug 'uiiaoo/java-syntax.vim'
-  Plug 'ekalinin/dockerfile.vim'
-  Plug 'pangloss/vim-javascript'
-  Plug 'vim-scripts/cSyntaxAfter'
-  Plug 'vim-pandoc/vim-pandoc-syntax'
-
-  " automatically change html tags
-  Plug 'AndrewRadev/tagalong.vim'
-
-  " replace case (kebab/snake/camal)
-  Plug 'tpope/vim-abolish'
-
-  " zoxide
-  Plug 'nanotee/zoxide.vim'
-
-  " comments 
-  Plug 'tpope/vim-commentary'
-
-  " manipulate surroundings
-  Plug 'tpope/vim-surround'
-
-  " terminal stuff
-  Plug 'kassio/neoterm'
-
-  " status line
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-
-  " snippets engine
-  Plug 'SirVer/ultisnips'
-
-  " tag bar
-  Plug 'preservim/tagbar'
 call plug#end()
 
 " ---------------------------------------------------------------------------
@@ -138,6 +116,12 @@ let g:coc_global_extensions = [
 \ ]
 set updatetime=300
 
+" COLORIZER -----------------------------------------------------------------
+
+let g:colorizer_auto_filetype='css,scss,yaml,toml'
+let g:colorizer_skip_comments=1
+let g:colorizer_colornames=0
+
 " EDITOR CONFIG -------------------------------------------------------------
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
@@ -145,13 +129,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 " EMMET ---------------------------------------------------------------------
 
 let g:user_emmet_expandabbr_key = '<M-e>'
-
-" LATEX ---------------------------------------------------------------------
-
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_quickfix_mode=0
-let g:tex_conceal='abdmg'
+let g:user_emmet_install_global = 0
 
 " NEOTERM -------------------------------------------------------------------
 
@@ -175,10 +153,9 @@ let g:startify_lists = [
 \ ]
 let g:startify_bookmarks = [
   \ { 'vv': '~/.config/vim/vimrc' },
-  \ { 'nv': '~/.config/nvim/init.vim' },
-  \ { 'cc': '~/.config/nvim/coc-settings.json' },
+  \ { 'uu': '~/.config/vim/ultisnips/' },
+  \ { 'nn': '~/.config/nvim/init.vim' },
   \ { 'qq': '~/.config/qutebrowser/config.py' },
-  \ { 'ss': '~/.config/shell' },
 \ ]
 
 " SNIPPETS ------------------------------------------------------------------
@@ -192,9 +169,17 @@ let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
 let g:sort_motion_flags = "ui"
 
+" VIM CSS COLORS ------------------------------------------------------------
+
+let g:cssColorVimDoNotMessMyUpdatetime = 1
+
+" VIM CASER -----------------------------------------------------------------
+
+let g:caser_prefix = "\\k"
+
 " VIM SURROUDING ------------------------------------------------------------
 
-let g:surround_no_mappings=1
+let g:surround_no_mappings=1 " make fucking plugin don't mess up keybindings
 nmap d,s  <Plug>Dsurround
 nmap c,s  <Plug>Csurround
 nmap c,S  <Plug>CSurround
@@ -206,6 +191,18 @@ nmap y,SS <Plug>YSsurround
 xmap ,S   <Plug>VSurround
 xmap g,S  <Plug>VgSurround
 
+" VIM TEX -------------------------------------------------------------------
+
+let g:tex_flavor='latex'
+let g:tex_conceal='abdmgs'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+let g:vimtex_mappins_enabled=0
+
+" VIM UNICODER --------------------------------------------------------------
+
+let g:unicoder_exclude_filetypes = ['tex', 'latex', 'markdown', 'markdown.pandoc']
+
 " TEXT OBJECTS --------------------------------------------------------------
 
 call textobj#user#plugin('braces', {
@@ -213,19 +210,6 @@ call textobj#user#plugin('braces', {
 \     'pattern': ['<<', '>>'],
 \     'select-a': 'aA',
 \     'select-i': 'iA',
-\   },
-\ })
-
-call textobj#user#plugin('latex', {
-\   'environment': {
-\     '*pattern*': ['\\begin{[^}]\+}.*\n\s*', '\n^\s*\\end{[^}]\+}.*$'],
-\     'select-a': 'ae',
-\     'select-i': 'ie',
-\   },
-\  'dollar-math-i': {
-\     '*pattern*': '[$]\zs[^$]*\ze[$]',
-\     'select-a': 'am',
-\     'select-i': 'am',
 \   },
 \ })
 
@@ -237,14 +221,6 @@ call textobj#user#plugin('line', {
 \    'select-i': 'iL',
 \  },
 \ })
-
-call textobj#user#plugin('php', {
-\  'phptag': {
-\    '*pattern*': ['<?\(=\|php\)\?[[:blank:][:return:]\n]*','[[:blank:][:return:]\n]*?>'],
-\    'select-a': 'aP',
-\    'select-i': 'iP',
-\  }
-\})
 
 function! CurrentLineA()
   normal! 0

@@ -5,10 +5,6 @@
 " the leader key
 let mapleader=","
 
-" do nothing when pressing space or \ twice
-nnoremap <space> <nop>
-nnoremap <Bslash><Bslash> <Nop>
-
 " ---------------------------------------------------------------------------
 " BUFFERS
 " ---------------------------------------------------------------------------
@@ -78,18 +74,18 @@ vnoremap <Bslash>v "+p<CR>
 " ---------------------------------------------------------------------------
 
 " map ç to :
-nnoremap çç :
 nnoremap ç :
 vnoremap ç :
 
 " source vimrc
 nnoremap <leader>S :source $vimrc<CR>
 
-" clear highlight from previous searc
+" clear highlight from previous search
 nnoremap <silent> <Bslash>l :noh<CR>
+nnoremap <silent> <Bslash>ç :noh<CR>
 
 " search and replace word under cursor
-nnoremap <space>w :%s/<C-r><C-w>/
+nnoremap <Bslash>w :%s/<C-r><C-w>/
 
 " move lines up/down without using clipboard
 nnoremap <M-o> :m .-2<CR>==
@@ -114,16 +110,22 @@ nnoremap <silent> <Bslash>n :set number! relativenumber!<CR>
 nnoremap <leader>c :set formatoptions=ql<CR>
 nnoremap <leader>C :set formatoptions=qlcro<CR>
 
+" spell
+nnoremap <C-s> [sz=
+nnoremap <C-S-s> ]sz=
+inoremap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u
+inoremap <C-S-s> <C-g>u<Esc>]s1z=`]a<C-g>u
+
 " jump to mark then jump to the file
 " whose name is under the cursor
 let c='a'
 while c <= 'z'
-	exec "nnoremap ç".c." `".c."gf"
+	exec "nnoremap <Bslash>ç".c." `".c."gf"
 	let c = nr2char(1+char2nr(c))
 endwhile
 let c='A'
 while c <= 'A'
-	exec "nnoremap ç".c." `".c."gf"
+	exec "nnoremap <Bslash>ç".c." `".c."gf"
 	let c = nr2char(1+char2nr(c))
 endwhile
 
@@ -146,8 +148,8 @@ noremap <Bslash>c :CocDisable<Esc>
 noremap <Bslash>C :CocEnable<Esc>
 
 " go to definitions
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> ,gd <Plug>(coc-definition)
+nmap <silent> ,gt <Plug>(coc-type-definition)
 nmap <silent> ,gi <Plug>(coc-implementation)
 nmap <silent> ,gr <Plug>(coc-references)
 
@@ -157,10 +159,60 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " toggle explorer
 nmap <silent> ,d :CocCommand explorer --toggle --sources=buffer+,file+<cr>
-nmap <silent> ,ev :CocCommand explorer --preset vim<cr>
-nmap <silent> ,en :CocCommand explorer --preset nvim<cr>
-nmap <silent> ,esh :CocCommand explorer --preset shell<cr>
-nmap <silent> ,esc :CocCommand explorer --preset scripts<cr>
+
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <M-TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
+inoremap <expr><M-S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Show documentation for symbol under cursor
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
 " EASY ALIGN ----------------------------------------------------------------
 
@@ -183,12 +235,12 @@ nnoremap <leader>f :FZF<CR>
 " NEOTERM -------------------------------------------------------------------
 
 " Use gx{text-object} in normal mode
-nmap ,r <Plug>(neoterm-repl-send)
-nmap ,R :TREPLSendFile<CR>
-nmap ,rr :TREPLSendLine<CR>
+nmap gx <Plug>(neoterm-repl-send)
+nmap gX :TREPLSendFile<CR>
+nmap gxx :TREPLSendLine<CR>
 
 " Send selected contents in visual mode.
-xmap ,r <Plug>(neoterm-repl-send)
+xmap gx <Plug>(neoterm-repl-send)
 
 " STARTFIY ------------------------------------------------------------------
 

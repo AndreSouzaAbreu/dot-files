@@ -18,14 +18,16 @@
     "gf": "gotoSource:file",
     "gj": "expandableNext",
     "gk": "expandablePrev",
-    "gl": ["expandable?", ["expanded?", "cd", "expand"], "open"],
-    "gh": [
+    "gl": [
       "expandable?",
-      ["expanded?", "collapse", "gotoParent"],
-      "gotoParent"
+      ["expanded?", "cd", "expand"],
+      ["expandablePrev", "cd"]
     ],
-    "h": "gotoParent",
-    "l": "open",
+    "gh": ["gotoParent"],
+    "h": ["expandable?", ["expanded?", "collapse", "gotoParent"], "gotoParent"],
+    "l": ["expandable?", ["expanded?", "cd", "expand"], "open"],
+    "<C-h>": "gotoParent",
+    "<C-l>": "open",
     "os": "open:split",
     "ot": "open:tab",
     "ov": "open:vsplit",
@@ -43,29 +45,17 @@
     "!": "systemExecute",
     "?": "help",
     "<bs><bs>": "gotoParent",
-    "<cr>": ["expandable?", "cd", "open:previousWindow"],
     "<esc>": "esc",
+    "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"],
     "<space>": ["expandable?", ["expanded?", "collapse", "expand"], "open"]
   },
-  "explorer.presets": {
-    "vim": {
-      "root-uri": "~/.config/vim"
-    },
-    "nvim": {
-      "root-uri": "~/.config/nvim"
-    },
-    "shell": {
-      "root-uri": "~/.config/shell"
-    },
-    "scripts": {
-      "root-uri": "~/.local/scripts"
-    }
-  },
+  "explorer.presets": {},
   "explorer.root.strategies": ["sourceBuffer"],
   "explorer.width": 30,
   "java.project.referencedLibraries": [
     "/home/andre/.local/share/algs4/algs4.jar"
   ],
-  "suggest.noselect": false,
-  "suggest.autoTrigger": "none"
+  "suggest.detailField": "preview",
+  "suggest.maxCompleteItemCount": 20,
+  "suggest.snippetsSupport": false
 }
