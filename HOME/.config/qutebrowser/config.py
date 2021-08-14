@@ -25,13 +25,21 @@ search_engines = {
   'ak': 'https://wiki.archlinux.org/?search={}',
   'ar': 'https://archlinux.org/packages/?q={}',
   'aur': 'https://aur.archlinux.org/packages/?K={}',
+  'cd': 'https://tube.cadence.moe/search?q={}',
   'dg': 'https://duckduckgo.com/?q={}',
+  'ddg': 'https://duckduckgo.com/?q={}',
+  'doc': 'https://devdocs.io/#q={}',
   'gh': 'https://github.com/search?q={}',
-  'sp': 'https://www.startpage.com/do/asearch?query={}.',
+  'qw': 'https://qwant.com/?q={}',
+  'sp': 'https://startpage.com/do/asearch?query={}.',
   'sx': 'https://searx.info/search?q={}&language=en-US',
+  'yt': 'https://yewtu.be/search?q={}',
   'wi': 'https://wiby.me/?q={}',
   'wk': 'https://en.wikipedia.org/w/index.php?search={}',
   'wkp': 'https://pt.wikipedia.org/w/index.php?search={}',
+  'img': 'https://duckduckgo.com/?iar=images&iax=images&ia=images&q={}',
+  'img-ya': 'https://yandex.com/images/search?text={}',
+  'img-qw': 'https://qwant.com/?t=images&q={}',
 }
 
 # default search engine
@@ -62,13 +70,14 @@ c.content.cookies.accept = 'no-3rdparty'
 # c.content.headers.user_agent = random_user_agent()
 
 # command
-c.editor.command = ["termite", "--class=floatcenter", "-e", "nvim {file}"]
+cmd = 'nvim-qt --nofork -- {file} +"normal {line}G{column}l"'
+c.editor.command = ['termite', '--class=termfloatcenter', '-e', cmd]
 
 # file handler
 c.fileselect.handler = 'external'
-c.fileselect.folder.command = ['termite', '--class=Ranger', '-e', 'ranger --choosedir={}']
-c.fileselect.single_file.command = ['termite', '--class=Ranger', '-e', 'ranger --choosefile={}']
-c.fileselect.multiple_files.command = ['termite', '--class=Ranger', '-e', 'ranger --choosefiles={}']
+c.fileselect.folder.command = ['fp', '--choosedir', '{}']
+c.fileselect.single_file.command = ['fp', '--choosefile', '{}']
+c.fileselect.multiple_files.command = ['fp', '--choosefiles', '{}']
 
 #############################
 # ALIASES                   #
@@ -79,8 +88,8 @@ c.aliases['echo'] = 'message-info'
 c.aliases['clear'] = 'clear-messages'
 c.aliases['print'] = 'message-info'
 c.aliases['proxy'] = 'set content.proxy'
-c.aliases['javascript'] = 'set content.javascript.enabled'
 c.aliases['darkmode'] = 'set colors.webpage.darkmode.enabled'
+c.aliases['javascript'] = 'set content.javascript.enabled'
 
 # aliases for user scripts
 c.aliases['untrack-url'] = 'spawn --userscript untrack-url'
