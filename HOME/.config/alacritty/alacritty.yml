@@ -2,8 +2,32 @@ colors:
   primary:
     background: '#000000'
     foreground: '#ffffff'
+  normal:
+    black:   '#000000'
+    red:     '#ff0000'
+    green:   '#00ff00'
+    yellow:  '#ffff00'
+    blue:    '#0000dd'
+    cyan:    '#00ffff'
+    magenta: '#ff00ff'
+    white:   '#ffffff'
+  bright:
+    black:   '#555555'
+    red:     '#dd0000'
+    green:   '#00dd00'
+    yellow:  '#dddd00'
+    blue:    '#0000dd'
+    magenta: '#dd00dd'
+    cyan:    '#00dddd'
+    white:   '#dddddd'
+
 cursor:
   style:
     shape: Beam
+
 font:
-  size: 13
+  family: Source Code Pro
+  size: 12
+
+key_bindings:
+  - { key: Return,   mods: Control|Shift, action: SpawnNewInstance }
