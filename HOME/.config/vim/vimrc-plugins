@@ -34,6 +34,7 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'chr4/nginx.vim'               " nginx
   Plug 'jvirtanen/vim-octave'         " octave
   Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc
+  Plug 'wlangstroth/vim-racket'       " racket
   Plug 'cespare/vim-toml'             " toml
   Plug 'posva/vim-vue'                " vue
   
@@ -56,7 +57,7 @@ call plug#begin('~/.config/vim/plugged')
   " Other plugins
   Plug 'AndrewRadev/tagalong.vim'                 " automatically change html tags
   Plug 'arthurxavierx/vim-caser'                  " change case
-  Plug 'arthurxavierx/vim-unicoder'               " automatic insert unicode chars
+  " Plug 'arthurxavierx/vim-unicoder'               " automatic insert unicode chars
   Plug 'chrisbra/Colorizer'                       " color colornames and colorcodes
   Plug 'chrisbra/csv.vim'                         " work with csv files
   Plug 'chrisbra/improvedft'                      " improved f and t commands
@@ -65,7 +66,6 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'kassio/neoterm'                           " terminal REPL
   Plug 'lervag/vimtex'                            " LaTeX
   Plug 'liuchengxu/vim-which-key'                 " whichkey (like emacs)
-  Plug 'ludovicchabant/vim-gutentags'             " tag manager
   Plug 'mattn/emmet-vim'                          " emmet engine
   Plug 'mg979/vim-visual-multi'                   " multi cursor
   Plug 'mhinz/vim-startify'                       " home
@@ -201,6 +201,7 @@ let g:vimtex_mappins_enabled=0
 
 " VIM UNICODER --------------------------------------------------------------
 
+let g:unicoder_command_abbreviations= 0
 let g:unicoder_exclude_filetypes = ['tex', 'latex', 'markdown', 'markdown.pandoc']
 
 " TEXT OBJECTS --------------------------------------------------------------
