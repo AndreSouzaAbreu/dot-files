@@ -40,7 +40,7 @@ function aliases()
     sync|-s) source $aliases_file ;;
     *)
       if [[ -z $1 ]]; then
-        alias
+        alias | sort -i
       else
         alias | grep -i -P "$1"
       fi
@@ -137,15 +137,20 @@ function ranger
 {
     local IFS=$'\t\n'
     local tempfile="$(mktemp -t tmp.XXXXXX)"
-    local ranger_cmd=(
-        command
-        ranger
-        --cmd="map q chain shell echo %d > "$tempfile"; quitall"
-    )
-    
-    ${ranger_cmd[@]} "$@"
-    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
-        cd -- "$(cat "$tempfile")" || return
+
+    # local ranger_cmd=(
+    #     command
+    #     ranger
+    #     --cmd="map q chain shell echo %d > "$tempfile"; quitall"
+    # )
+    # ${ranger_cmd[@]} "$@"
+
+    command ranger --cmd="map q chain shell echo %d > "$tempfile"; quitall" $@
+
+    if [[ -f "$tempfile" ]] && [[ "$(head -n 1 "$tempfile")" != "$(pwd)" ]]; then
+        destdir=$(head -n1 "$tempfile")
+        cd $destdir || return
     fi
+
     command rm -f -- "$tempfile" 2>/dev/null
 }

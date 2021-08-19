@@ -10,47 +10,54 @@ alias a='aliases'
 alias b='$BROWSER'
 alias c='coins'
 alias e='envvars'
+alias d='doas'
 alias f='myfunctions'
 alias g='git'
+alias h='head'
 alias m='neomutt'
+alias n='newsboat'
 alias o='open'
 alias p='profile'
 alias q='exit'
+alias s='sxiv'
+alias t='touch'
 alias v='nvim'
 alias y='yay'
 
 # more shorctus ----------------------------------------------------------------
 
-alias js='node'
+alias al='tabbed -c alacritty --embed'
 alias oc='octave'
+alias off='doas poweroff'
 alias py='HOME=/tmp python'
-alias vv='v ~/.config/vim'
+alias rr='ranger'
+alias s.='s .'
+alias sk='setxkbmap -layout br; xset r rate 300 100'
 alias v.='v .'
+alias vv='v ~/.config/vim'
 alias xx='startx'
 alias za='tabbed -c zathura -e'
 
 # files ------------------------------------------------------------------------
 
-alias exa='exa --color=never'
-alias l='exa'
-alias ls='exa'
-alias la='exa -lhgH --group-directories-first --all'
-alias ll='exa -lhgH --group-directories-first'
-alias l1='exa -1hgH --group-directories-first'
+alias  l='exa --color=never'
+alias ls='exa --color=never'
+alias la='exa --color=never -lhgH --group-directories-first --all'
+alias ll='exa --color=never -lhgH --group-directories-first'
+alias l1='exa --color=never -1hgH --group-directories-first'
 
 # long-name programms -----------------------------------------------------------
 
 alias open='xdg-open'
 alias rename='perl-rename'
 alias chromium='ungoogled-chromium'
-alias tab='tabbed'
 
 # clipboard stuff ---------------------------------------------------------------
 
 alias xcopy='xclip -selection clipboard'
+alias xpaste='xclip -selection clipboard -out'
 alias curlx='curl "$(xclip -o selection clibpoard)"'
 alias mpvx='mpv "$(xclip -o -selection clipboard)"'
-alias xpaste='xclip -out -selection clipboard'
 
 # programms with default options -----------------------------------------------
 
@@ -145,18 +152,16 @@ alias yyr='yay -Rsn'
 alias yS='yay -S'
 alias yy='yay -Syu'
 
-# XDG Dirs --------------------------------------------------------------------
-
-# hardcoded solutions
-
-alias jupyter='HOME=${XDG_DATA_HOME}/jupyter jupyter'
-alias monerod='HOME=${XDG_DATA_HOME}/monero monerod'
-alias monero-wallet-gui='HOME=${XDG_DATA_HOME}/monero monero-wallet-gui'
+# XDG dirs ---------------------------------------------------------------------
 
 # custom config for programms
-
 alias claws-mail='claws-mail --alternate-config-dir ${XDG_DATA_HOME}/claws-mail'
 alias mbsync='mbsync -c ${XDG_CONFIG_HOME}/mbsync/mbsyncrc'
 alias ssh='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
 alias scp='scp -F ${XDG_CONFIG_HOME}/ssh/config'
 alias startx='startx ${XINITRC} -- ${XSERVERRC} vt1'
+
+# hardcoded solutions
+alias jupyter='HOME=${XDG_DATA_HOME}/jupyter jupyter'
+alias monerod='HOME=${XDG_DATA_HOME}/monero monerod'
+alias monero-wallet-gui='HOME=${XDG_DATA_HOME}/monero monero-wallet-gui'

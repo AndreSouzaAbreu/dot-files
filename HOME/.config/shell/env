@@ -9,7 +9,6 @@ export BROWSER=qutebrowser
 export EDITOR=nvim
 export VISUAL=nvim
 export PAGER=less
-export TERMINAL=alacritty
 export MANPAGER=less
 
 # history
