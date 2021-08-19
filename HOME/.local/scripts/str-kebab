@@ -5,14 +5,25 @@
 	else
 		cat /dev/stdin
 	fi
-) | 
-sed 's/[ \_]/-/g' \                  # replace space or underline with hyphen
- -e 's/\([a-z]\)\([A-Z]\)/\1-\2/g' \ # split camel/pascal case words
- -e 's/[-]\+/-/g' \                  # supress consecutive hyphens
- -e 's/-\?\([\[(){}]\)-\?/\1/g' \    # delete hyphens surrounding parenthesis/braces/brackets
- -e 's/-\?\]-\?/]/g' \               # delte hyphens surrounding the character ']'
- -e 's/^-//g' \                      # trim hyphen at the beginning of sentence
- -e 's/-$//g' \                      # trim hyphen at the end of sentence
- -e 's/.*/\L&/g'                     # convert everything to lower case
-  >&1                                # redirect output to stdout
+) |
+sed -e 's/[ \_]/-/g' \
+    -e 's/\([a-z]\)\([A-Z]\)/\1-\2/g' \
+    -e 's/[-]\+/-/g' \
+    -e 's/-\?\([\[(){}]\)-\?/\1/g' \
+    -e 's/-\?\]-\?/]/g' \
+    -e 's/^-//g' \
+    -e 's/-$//g' \
+    -e 's/.*/\L&/g' \
+     >&1
 exit 0
+
+# explanation:
+# sed -e 's/[ \_]/-/g' \                  # replace space or underline with hyphen
+#     -e 's/\([a-z]\)\([A-Z]\)/\1-\2/g' \ # split camel/pascal case words
+#     -e 's/[-]\+/-/g' \                  # supress consecutive hyphens
+#     -e 's/-\?\([\[(){}]\)-\?/\1/g' \    # delete hyphens surrounding parenthesis/braces/brackets
+#     -e 's/-\?\]-\?/]/g' \               # delete hyphens surrounding the character ']'
+#     -e 's/^-//g' \                      # trim hyphen at the beginning of sentence
+#     -e 's/-$//g' \                      # trim hyphen at the end of sentence
+#     -e 's/.*/\L&/g' \                   # convert everything to lower case
+#      >&1                                # redirect output to stdout
