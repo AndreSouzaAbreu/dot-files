@@ -12,6 +12,7 @@ augroup coc
   au FileType gitcommit let b:coc_enabled=0
   au BufRead **/qutebrowser/config.py let b:coc_enabled=0
   au BufRead **/dwm/* let b:coc_enabled=0
+  au BufRead **/dvtm/* let b:coc_enabled=0
 augroup END
 
 augroup colored
@@ -21,30 +22,37 @@ augroup END
 
 augroup emmet
   au!
+  au FileType css imap <M-e> <plug>(emmet-expand-abbr)
   au FileType html imap <M-e> <plug>(emmet-expand-abbr)
   au FileType vue imap <M-e> <plug>(emmet-expand-abbr)
 augroup END
 
 augroup mycolorscheme
   au!
-  au BufEnter *.c colorscheme pop-punk
-  au BufEnter *.cpp colorscheme pop-punk
-  au BufEnter *.html colorscheme codedark
-  au BufEnter *.java colorscheme codedark
-  au BufEnter *.js colorscheme codedark
-  au BufEnter *.json colorscheme codedark
-  au BufEnter *.md colorscheme gruvbox
-  au BufEnter *.php colorscheme codedark
-  au BufEnter *.python colorscheme onedark
-  au BufEnter *.snippets colorscheme codedark
-  au BufEnter *.tex colorscheme gruvbox
-  au BufEnter *.vue colorscheme codedark
-  au BufEnter *.vim colorscheme eldar
-  au BufEnter vimrc* colorscheme eldar
+  au FileType c colorscheme pop-punk
+  au FileType cpp colorscheme pop-punk
+  au FileType html colorscheme codedark
+  au FileType java colorscheme codedark
+  au FileType javascript colorscheme codedark
+  au FileType json colorscheme codedark
+  au FileType markdown colorscheme gruvbox
+  au FileType markdown.pandoc colorscheme gruvbox
+  au FileType php colorscheme codedark
+  au FileType python colorscheme onedark
+  au FileType snippets colorscheme codedark
+  au FileType tex colorscheme gruvbox
+  au FileType vue colorscheme codedark
+  au FileType vim colorscheme eldar
 augroup END
 
 augroup mysyntax
   au!
   au BufEnter,BufRead .env.* set syntax=sh
   au BufEnter,BufRead *.md set filetype=markdown syntax=markdown.pandoc
+augroup END
+
+augroup pencil
+  au!
+  au FileType mail Pencil
+  au FileType text Pencil
 augroup END
