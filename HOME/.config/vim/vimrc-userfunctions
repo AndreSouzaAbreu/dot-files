@@ -17,15 +17,20 @@ nnoremap <Bslash>B :ToggleStatusBar<CR>
 
 " MAN PAGER MODE ------------------------------------------------------------
 
-function! ManPagerMode()
-  set scrolloff=0
-  set laststatus=0
-  set nonumber norelativenumber
+function! ManPager()
+  set scrolloff=0 laststatus=0 nonumber norelativenumber
   let g:airline_disable_statusline=1
-  silent execute CocDisable
+  silent execute AirlineToggle
+  " silent execute CocDisable
 endfunction
 
-command ManPager execute ":call ManPagerMode()"
+function! RssPager()
+  set scrolloff=0 laststatus=0 nonumber norelativenumber
+  silent normal gg:%s/^\s\+$///^Link:njVG{_j
+  silent execute 'AirlineToggle'
+endfunction
+
+command ManPager silent execute ":call ManPager()"
 
 " HELPERS FUNCTION USED ELSEWHERE ------------------------------------------
 
