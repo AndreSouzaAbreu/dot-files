@@ -123,12 +123,12 @@ snippet p "parenthesis" i
 endsnippet
 
 context "math()"
-snippet sp "sized parenthesis" wA
+snippet bp "sized parenthesis" wA
 \left( $1 \right) $0
 endsnippet
 
 context "math()"
-snippet ss "sized square brackets" wA
+snippet bs "sized square brackets" wA
 \left[ $1 \right] $0
 endsnippet
 
@@ -233,22 +233,22 @@ snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
 endsnippet
 
 context "math()"
-snippet ssum "sum" wA
+snippet sum "sum" w
 \\sum_{$1}^{$2} $0
 endsnippet
 
 context "math()"
-snippet sum "sum" wA
+snippet "sum " "sum" wrA
 \\sum $0
 endsnippet
 
 context "math()"
-snippet sprod "prod" wA
+snippet prod "prod" w
 \\prod_{$1}^{$2} $0
 endsnippet
 
 context "math()"
-snippet prod "prod" wA
+snippet	"prod " "prod" wrA
 \\prod $0
 endsnippet
 
