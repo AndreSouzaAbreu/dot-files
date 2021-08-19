@@ -52,14 +52,14 @@ inc() {
 
 dec() {
   new=$(($current_temperature - $1))
-  if (($new > $min_temperature)); then
+  if (($new >= $min_temperature)); then
     redshift -PO $new && echo $new > $data_file
   fi
 }
 
 set_temperature() {
   new=$1
-  if (($new > $min_temperature)) && (($max_temperature > $new)); then
+  if (($new >= $min_temperature)) && (($max_temperature >= $new)); then
     redshift -PO $new && echo $new > $data_file
   fi
 }
@@ -73,6 +73,9 @@ case $1 in
     ;;
   set|--set|-s)
     set_temperature $2
+    ;;
+  get|--get|-g)
+    cat $data_file
     ;;
   *)
     showHelp
