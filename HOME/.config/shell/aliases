@@ -50,17 +50,17 @@ alias l1='exa --color=never -1hgH --group-directories-first'
 
 alias open='xdg-open'
 alias rename='perl-rename'
-alias chromium='ungoogled-chromium'
 
 # clipboard stuff ---------------------------------------------------------------
 
 alias xcopy='xclip -selection clipboard'
 alias xpaste='xclip -selection clipboard -out'
-alias curlx='curl "$(xclip -o selection clibpoard)"'
-alias mpvx='mpv "$(xclip -o -selection clipboard)"'
+alias curlx='xclip -o -selection clipboard | xargs curl'
+alias mpvx='xclip -o -selection clipboard | xargs mpv'
 
 # programms with default options -----------------------------------------------
 
+alias less='less -S'
 alias tree='tree --charset=ascii'
 alias python='python -q'
 alias octave='octave -q'
@@ -162,6 +162,7 @@ alias scp='scp -F ${XDG_CONFIG_HOME}/ssh/config'
 alias startx='startx ${XINITRC} -- ${XSERVERRC} vt1'
 
 # hardcoded solutions
-alias jupyter='HOME=${XDG_DATA_HOME}/jupyter jupyter'
+alias jupyter='HOME=${XDG_DATA_HOME} jupyter'
 alias monerod='HOME=${XDG_DATA_HOME}/monero monerod'
 alias monero-wallet-gui='HOME=${XDG_DATA_HOME}/monero monero-wallet-gui'
+alias monero-wallet-cli='HOME=${XDG_DATA_HOME}/monero monero-wallet-cli'

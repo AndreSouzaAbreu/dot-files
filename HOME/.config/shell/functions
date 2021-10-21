@@ -138,13 +138,6 @@ function ranger
     local IFS=$'\t\n'
     local tempfile="$(mktemp -t tmp.XXXXXX)"
 
-    # local ranger_cmd=(
-    #     command
-    #     ranger
-    #     --cmd="map q chain shell echo %d > "$tempfile"; quitall"
-    # )
-    # ${ranger_cmd[@]} "$@"
-
     command ranger --cmd="map q chain shell echo %d > "$tempfile"; quitall" $@
 
     if [[ -f "$tempfile" ]] && [[ "$(head -n 1 "$tempfile")" != "$(pwd)" ]]; then

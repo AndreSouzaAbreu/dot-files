@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# file used to store last visited dir
+cached_file=${HOME}/.cache/filepicker.txt
+touch $cached_file
+
+# set dir to last visited dir or to ~/downloads
+lines=$(wc -l $cached_file | grep -o '^[0-9]')
+if (( $lines > 0 )); then
+  dir=$(head -n 1 $cached_file | xargs dirname)
+else
+  dir=$HOME/downloads
+fi
+
+# get the args to pass to ranger
+flags=$1
+file="$2"
+tmpfile=$(mktemp)
+
+# launch ranger on a terminal
+alacritty --class Ranger -e ranger $flags $tmpfile "$dir" 2>/dev/null
+cat $tmpfile > $file
+
+# update last viisited dir
+lines=$(wc -l "$tmpfile" | grep -o '^[0-9]')
+if [[ -n $lines ]] && (( $lines > 0)); then
+  cp "$tmpfile" "$cached_file"
+fi
+
+# rm tmp file
+rm $tmpfile

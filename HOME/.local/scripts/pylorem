@@ -1,0 +1,71 @@
+#!/bin/python
+import sys
+import re
+
+# get unique strings from ordered list of strings
+def unique(strlist):
+    l = len(strlist)
+    if l == 0:
+        return []
+
+    last = strlist[0]
+    if last != '':
+        r = [ last ]
+    else:
+        r = []
+
+    for i in range(1, l):
+        if strlist[i] != last and strlist[i] != '':
+            r.append(strlist[i])
+        last = strlist[i]
+
+    return r
+
+
+def getwords(text):
+    t = re.sub(r'[^a-záéíóúãẽĩõũâêîôûàèìòùç]+', " ", text, flags=re.IGNORECASE)
+    t = re.sub(r'\s+', ' ', t)
+    return t
+
+def paragraphs(text):
+    t = text.split('\n')
+    t.sort()
+    return unique(t)
+
+def words(text):
+    t = getwords(text)
+    t = t.split(' ')
+    t.sort()
+    return unique(t)
+
+def sentences(text):
+    l = len(text)
+    j = 0
+    i = 0
+    s = []
+    s.append("")
+    punctuations = ['.', '?', '!', '\n']
+
+    while i < l:
+        char = text[i]
+        if char not in punctuations:
+            s[j] += char
+        else:
+            if char == '\n' and i != (l - 1) and '\n' != text[i+1]:
+                s[j] += '\n'
+            elif len(s[j]) > 0:
+                s[j] += char
+                j += 1
+                s.append("")
+        i += 1
+
+    for i in range(0, len(s)):
+        s[i] = s[i].strip()
+    s.sort()
+    return unique(s)
+
+# argv = sys.argv
+# argc = len(argv)
+
+buffer = sys.stdin.read()
+print(*sentences(buffer))

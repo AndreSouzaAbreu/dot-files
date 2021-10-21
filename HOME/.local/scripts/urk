@@ -1,5 +1,7 @@
 #!/bin/sh
 rsa_dir=~/.local/share/ssh
+rc_file=~/.config/urk/urk.rc
+
 cd $rsa_dir
 
 function show_help()
@@ -28,8 +30,15 @@ function list_keys()
 function unlock()
 {
 	name=$1
-	file=id_rsa_${name}
 
+  if [[ -f $rc_file ]]; then
+    key_alias=$(grep -P "^$name" $rc_file | awk '{ print $2}')
+    if [[ -n key_alias ]]; then
+      name="$key_alias"
+    fi
+  fi
+
+  file=id_rsa_${name}
 	if [[ ! -f $file ]]; then
 		echo "key does not exit"
 		return 1
@@ -75,6 +84,6 @@ function main()
 	esac
 }
 
-main $@
+main "$@"
 
 exit 0

@@ -1,0 +1,3 @@
+#!/bin/sh
+# wrapper for w3m
+HOME=${HOME}/.local/share /usr/bin/w3m "$@"

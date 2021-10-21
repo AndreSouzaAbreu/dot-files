@@ -20,7 +20,7 @@ shell=${SHELL##*/}
 
 # load environment variables, aliases, and user funtions.
 SHELL_CONFIG=~/.config/shell
-source_files $SHELL_CONFIG/{env,aliases,functions}
+source_files $SHELL_CONFIG/{login,env,aliases,functions}
 
 # load local scripts and local bin
 path_prepend ~/.local/{bin,scripts}

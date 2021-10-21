@@ -1,0 +1,15 @@
+#!/bin/python
+import re
+
+s = input()
+l = re.search(r'^[\s\t]+', s)
+if l != None:
+    print(l.group(), end='')
+
+print("cout << ", end='')
+for a in s.split(" "):
+    if a == '':
+        continue
+    print(f" \" {a}: \" << {a} << ", end='')
+
+print('"\\n";', end='')

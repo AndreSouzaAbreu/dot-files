@@ -21,10 +21,6 @@ export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# commands
-export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
-export FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git'
-
 # CLEANING UP HOME DIRECTORY ---------------------
 
 # xdg
@@ -32,29 +28,14 @@ export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_CACHE_HOME=${HOME}/.cache
 
-# x11
-export XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority
-export XINITRC=${XDG_CONFIG_HOME}/X11/xinitrc
-export XSERVERRC=${XDG_CONFIG_HOME}/X11/xserverrc
+# PROGRAMS ---------------------------------------
 
-# shell
-export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
-export BASHRC=${XDG_CONFIG_HOME}/bash/.bashrc
-
-# session management
+# abduco session management
 export ABDUCO_SOCKET_DIR=${XDG_DATA_HOME}
 
-# less
-export LESSHISTFILE=-
-
-# gnupg
-export GNUPGHOME=${XDG_DATA_HOME}/gnupg
-export PASSWORD_STORE_DIR=${XDG_DATA_HOME}/pass
-
-# email
-export MBSYNCRC=${XDG_CONFIG_HOME}/mbsync/mbsyncrc
-export NOTMUCH_CONFIG=${XDG_CONFIG_HOME}/notmuch/notmuchrc
-export NMBGIT=${XDG_DATA_HOME}/notmuch/nmbug
+# asymptote graphics
+export ASYMPTOTE_HOME=${XDG_CONFIG_HOME}/asymptote
+export ASYMPTOTE_CONFIG=${ASYMPTOTE_HOME}/config.asy
 
 # clipmenu
 export CM_DIR=${XDG_CACHE_HOME}/clipmenu
@@ -63,23 +44,39 @@ export CM_LAUNCHER=rofi
 export CM_OUTPUT_CLIP=0
 export CM_MAX_CLIPS=50
 
+# commands
+export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
+export FZF_DEFAULT_COMMAND='fd --hidden --follow'
+
 # crypto
 export ELECTRUMDIR=${XDG_DATA_HOME}/electrum
+
+# emacs
+export EMACSDIR=${XDG_CONFIG_HOME}/emacs
+
+# email
+export MBSYNCRC=${XDG_CONFIG_HOME}/mbsync/mbsyncrc
+export NOTMUCH_CONFIG=${XDG_CONFIG_HOME}/notmuch/notmuchrc
+export NMBGIT=${XDG_DATA_HOME}/notmuch/nmbug
+
+# gnupg
+export GNUPGHOME=${XDG_DATA_HOME}/gnupg
+export PASSWORD_STORE_DIR=${XDG_DATA_HOME}/pass
 
 # javascript 
 export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME}/npm/npmrc
 export NODE_REPL_HISTORY=${XDG_CONFIG_HOME}/npm/node_hist
 
-# rust
-export CARGO_HOME=${XDG_DATA_HOME}/cargo
+# java algs4
+PRINCETON=$HOME/.local/share/algs4
+export LIFT_INSTALL=${PRINCETON}/lift
+export CLASSPATH=${PRINCETON}
 
-# python stuff
-export PYLINTHOME=${XDG_CACHE_HOME}/pylint
-export IPYTHONDIR=${XDG_CONFIG_HOME}/jupyter
-export JUPYTER_CONFIG_DIR=${XDG_CONFIG_HOME}/jupyter
+# julia
+export JULIA_DEPOT_PATH=${XDG_DATA_HOME}/julia
 
-# sage math
-export DOT_SAGE=${XDG_CONFIG_HOME}/sage
+# less
+export LESSHISTFILE=-
 
 # maxima
 export MAXIMA_USERDIR=${XDG_CONFIG_HOME}/maxima
@@ -88,20 +85,33 @@ export MAXIMA_USERDIR=${XDG_CONFIG_HOME}/maxima
 export OCTAVE_HISTFILE=${XDG_CACHE_HOME}/octave-hsts
 export OCTAVE_SITE_INITFILE=${XDG_CONFIG_HOME}/octave/octaverc
 
+# python
+export PYLINTHOME=${XDG_CACHE_HOME}/pylint
+export IPYTHONDIR=${XDG_CONFIG_HOME}/jupyter
+export JUPYTER_CONFIG_DIR=${XDG_CONFIG_HOME}/jupyter
+
 # r
 export R_PROFILE_USER=${XDG_CONFIG_HOME}/r/.Rprofile
 export R_LIBS_USER=${XDG_DATA_HOME}/r/lib
 export R_HISTFILE=${XDG_DATA_HOME}/r/.Rhistory
+
+# rust
+export CARGO_HOME=${XDG_DATA_HOME}/cargo
+
+# sage math
+export DOT_SAGE=${XDG_CONFIG_HOME}/sage
+
+# shell
+export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
+export BASHRC=${XDG_CONFIG_HOME}/bash/.bashrc
 
 # vim
 export NVIMRC=${XDG_CONFIG_HOME}/nvim/init.vim
 export VIMRC=${XDG_CONFIG_HOME}/vim/vimrc
 export VIMINIT='let $vimrc = has("nvim") ? $NVIMRC : $VIMRC | source $vimrc'
 
-# emacs
-export EMACSDIR=~/.config/emacs
+# x11
+export XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority
+export XINITRC=${XDG_CONFIG_HOME}/X11/xinitrc
+export XSERVERRC=${XDG_CONFIG_HOME}/X11/xserverrc
 
-# java algs4
-PRINCETON=$HOME/.local/share/algs4
-export LIFT_INSTALL=$PRINCETON/lift
-export CLASSPATH=$PRINCETON
