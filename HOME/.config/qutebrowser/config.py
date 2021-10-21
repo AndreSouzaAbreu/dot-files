@@ -19,31 +19,35 @@ c.content.pdfjs = False
 
 # show blank page when opening new page
 c.url.default_page = 'about:blank'
+c.url.start_pages = ['about:blank']
 
 # add some search engines
 search_engines = {
-  'ak': 'https://wiki.archlinux.org/?search={}',
-  'ar': 'https://archlinux.org/packages/?q={}',
-  'aur': 'https://aur.archlinux.org/packages/?K={}',
-  'cd': 'https://tube.cadence.moe/search?q={}',
-  'dg': 'https://duckduckgo.com/?q={}',
-  'ddg': 'https://duckduckgo.com/?q={}',
-  'doc': 'https://devdocs.io/#q={}',
-  'gh': 'https://github.com/search?q={}',
-  'qw': 'https://qwant.com/?q={}',
-  'sp': 'https://startpage.com/do/asearch?query={}.',
-  'sx': 'https://searx.info/search?q={}&language=en-US',
-  'yt': 'https://yewtu.be/search?q={}',
-  'wi': 'https://wiby.me/?q={}',
-  'wk': 'https://en.wikipedia.org/w/index.php?search={}',
-  'wkp': 'https://pt.wikipedia.org/w/index.php?search={}',
-  'img': 'https://duckduckgo.com/?iar=images&iax=images&ia=images&q={}',
-  'img-ya': 'https://yandex.com/images/search?text={}',
-  'img-qw': 'https://qwant.com/?t=images&q={}',
+  'ak':   'https://wiki.archlinux.org/?search={}',
+  'ar':   'https://archlinux.org/packages/?q={}',
+  'aur':  'https://aur.archlinux.org/packages/?K={}',
+  'cd':   'https://tube.cadence.moe/search?q={}',
+  'ddg':  'https://duckduckgo.com/?q={}',
+  'ddgl': 'https://lite.duckduckgo.com/?q={}',
+  'doc':  'https://devdocs.io/#q={}',
+  'gh':   'https://github.com/search?q={}',
+  'qw':   'https://qwant.com/?q={}',
+  'qwl':  'https://lite.qwant.com/?q={}',
+  'mo':   'https://www.mojeek.com/search?q={}',
+  'sp':   'https://startpage.com/do/asearch?query={}',
+  'sx':   'https://searx.info/search?q={}&language=en-US',
+  'sw':   'https://swisscows.com/web?region=iv&query={}',
+  'yt':   'https://yewtu.be/search?q={}',
+  'wi':   'https://wiby.me/?q={}',
+  'wk':   'https://en.wikipedia.org/w/index.php?search={}',
+  'wkp':  'https://pt.wikipedia.org/w/index.php?search={}',
+  'img':     'https://yandex.com/images/search?text={}',
+  'img-ddg': 'https://duckduckgo.com/?iar=images&iax=images&ia=images&q={}',
+  'img-qw':  'https://qwant.com/?t=images&q={}',
 }
 
 # default search engine
-search_engines['DEFAULT'] = search_engines['dg']
+search_engines['DEFAULT'] = search_engines['sx']
 
 # set custom serach engines
 c.url.searchengines = search_engines
@@ -70,10 +74,12 @@ c.content.cookies.accept = 'no-3rdparty'
 # c.content.headers.user_agent = random_user_agent()
 
 # command
-cmd = 'nvim-qt --nofork -- {file} +"normal {line}G{column}l"'
-c.editor.command = ['termite', '--class=termfloatcenter', '-e', cmd]
+c.editor.command = [
+    'alacritty', '--class', 'termfloatcenter', '-e',
+    'nvim-qt', '--nofork', '--', '{file}', '+"normal {line}G{column}l"'
+]
 
-# file handler
+# file picker
 c.fileselect.handler = 'external'
 c.fileselect.folder.command = ['fp', '--choosedir', '{}']
 c.fileselect.single_file.command = ['fp', '--choosefile', '{}']
