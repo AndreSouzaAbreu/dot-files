@@ -1,0 +1,30 @@
+extends html
+extends javascript
+
+snippet ed "export default" bA
+export default {
+	$0
+}
+endsnippet
+
+snippet sed "script export default" bA
+<script>
+export default {
+	$0
+}
+</script>
+endsnippet
+
+snippet "(computed|methods|props)" "computed properties" br
+`!p snip.rv = match.group(1)`: {
+	$0
+},
+endsnippet
+
+snippet data "data" b
+data() {
+	return {
+		$0
+	};
+}
+endsnippet

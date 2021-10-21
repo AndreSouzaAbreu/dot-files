@@ -1,0 +1,68 @@
+# console utilities
+
+snippet clog "console log" wA
+console.log(${1:${VISUAL}})$0
+endsnippet
+
+snippet cerr "console error" wA
+console.error(${1:${VISUAL}})$0
+endsnippet
+
+snippet cinf "console info" wA
+console.info(${1:${VISUAL}})$0
+endsnippet
+
+# import/require statements
+
+snippet require "require statement" wA
+require("$1")$0
+endsnippet
+
+snippet imp "import statement" b
+import $1 from '$2'$0
+endsnippet
+
+# functions
+
+snippet fn "function" w
+function ${1:fname}($2) {
+	$0
+}
+endsnippet
+
+snippet afn "async function" w
+async function ${1:fname}($2) {
+	$0
+}
+endsnippet
+
+# anonymous functions
+
+snippet ann "anonymous function" w
+($1) => {
+	$0
+}
+endsnippet
+
+snippet aan "async anonymous function" w
+async ($1) => {
+	$0
+}
+endsnippet
+
+snippet an "inline anonymous function" w
+$1 => $0
+endsnippet
+
+# method function
+snippet fm "method function" wA
+${1:functionName}($2) {
+	$0
+},
+endsnippet
+
+snippet fp "property function" wA
+${1:functionName}: function($2) {
+	$0
+},
+endsnippet
