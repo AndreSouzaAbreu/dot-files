@@ -1,10 +1,14 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["json"],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "json"
+  ],
   "explorer.quitOnOpen": false,
   "explorer.position": "left",
   "explorer.file.showHiddenFiles": true,
   "explorer.file.hiddenRules": {
-    "filenames": [".git"]
+    "filenames": [
+      ".git"
+    ]
   },
   "explorer.git.enable": false,
   "explorer.keyMappings.global": {
@@ -20,12 +24,37 @@
     "gk": "expandablePrev",
     "gl": [
       "expandable?",
-      ["expanded?", "cd", "expand"],
-      ["expandablePrev", "cd"]
+      [
+        "expanded?",
+        "cd",
+        "expand"
+      ],
+      [
+        "expandablePrev",
+        "cd"
+      ]
     ],
-    "gh": ["gotoParent"],
-    "h": ["expandable?", ["expanded?", "collapse", "gotoParent"], "gotoParent"],
-    "l": ["expandable?", ["expanded?", "cd", "expand"], "open"],
+    "gh": [
+      "gotoParent"
+    ],
+    "h": [
+      "expandable?",
+      [
+        "expanded?",
+        "collapse",
+        "gotoParent"
+      ],
+      "gotoParent"
+    ],
+    "l": [
+      "expandable?",
+      [
+        "expanded?",
+        "cd",
+        "expand"
+      ],
+      "open"
+    ],
     "<C-h>": "gotoParent",
     "<C-l>": "open",
     "os": "open:split",
@@ -46,11 +75,26 @@
     "?": "help",
     "<bs><bs>": "gotoParent",
     "<esc>": "esc",
-    "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"],
-    "<space>": ["expandable?", ["expanded?", "collapse", "expand"], "open"]
+    "<cr>": [
+      "expandable?",
+      [
+        "expanded?",
+        "collapse",
+        "expand"
+      ],
+      "open"
+    ],
+    "<space>": [
+      "expandable?",
+      [
+        "expanded?",
+        "collapse",
+        "expand"
+      ],
+      "open"
+    ]
   },
   "explorer.presets": {},
-  "explorer.root.strategies": ["sourceBuffer"],
   "explorer.width": 30,
   "java.project.referencedLibraries": [
     "/home/andre/.local/share/algs4/algs4.jar"

@@ -15,4 +15,7 @@ cnoreabbrev Q q
 " fix misspelling in insert mode
 
 inoreabbrev epislon epsilon
+inoreabbrev "\epislon" \epsilon
+inoreabbrev "$\epislon" $\epsilon
+inoreabbrev "$$\epislon" $$\epsilon
 inoreabbrev latex LaTeX 

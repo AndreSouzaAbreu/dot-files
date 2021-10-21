@@ -18,19 +18,19 @@ set nocompatible
 set autoindent smartindent
 
 " width, in characters, for the indent operator > 
-set shiftwidth=2
+set shiftwidth=4
 
 " amount of characters occupied by pressing <TAB>
 " (if the value is different than tabstop, vim will
 " insert a combination of tabs and spaces to simulate
 " the tab width).
-set softtabstop=2
+set softtabstop=4
 
 " width, in characters, of a <TAB>
-set tabstop=2
+set tabstop=4
 
 " whether to convert tabs to space
-set expandtab!
+set expandtab
 
 " ---------------------------------------------------------------------------
 " SEARCH

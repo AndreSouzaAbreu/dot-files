@@ -27,6 +27,11 @@ augroup emmet
   au FileType vue imap <M-e> <plug>(emmet-expand-abbr)
 augroup END
 
+augroup cpp
+    au!
+    au FileType cpp nnoremap <buffer> <space>o !!cout<CR>
+augroup END
+
 augroup mycolorscheme
   au!
   au FileType c colorscheme pop-punk

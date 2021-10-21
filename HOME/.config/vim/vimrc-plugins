@@ -35,6 +35,7 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'jvirtanen/vim-octave'         " octave
   Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc
   Plug 'wlangstroth/vim-racket'       " racket
+  Plug 'kien/rainbow_parentheses.vim' " rainbow parentheses
   Plug 'cespare/vim-toml'             " toml
   Plug 'posva/vim-vue'                " vue
   
@@ -57,9 +58,7 @@ call plug#begin('~/.config/vim/plugged')
   " Other plugins
   Plug 'AndrewRadev/tagalong.vim'                 " automatically change html tags
   Plug 'arthurxavierx/vim-caser'                  " change case
-  " Plug 'arthurxavierx/vim-unicoder'               " automatic insert unicode chars
   Plug 'chrisbra/Colorizer'                       " color colornames and colorcodes
-  Plug 'chrisbra/csv.vim'                         " work with csv files
   Plug 'chrisbra/improvedft'                      " improved f and t commands
   Plug 'christoomey/vim-sort-motion'              " sort motion
   Plug 'editorconfig/editorconfig-vim'            " enforce editorconfig settings
@@ -77,6 +76,12 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'tommcdo/vim-ninja-feet'                   " operations to start/end of motion
   Plug 'vim-airline/vim-airline'                  " statusbar
   Plug 'vim-airline/vim-airline-themes'           " statusbar themes
+  Plug 'vim-scripts/vis'                          " visual commands
+
+  " below are some excelent plugins, but they have caused undesired behavior 
+
+  " Plug 'arthurxavierx/vim-unicoder'               " automatic insert unicode chars
+  " Plug 'chrisbra/csv.vim'                         " work with csv files
 
 call plug#end()
 
@@ -107,12 +112,10 @@ let g:coc_global_extensions = [
   \ 'coc-java',
   \ 'coc-json',
   \ 'coc-phpls',
-  \ 'coc-prettier',
   \ 'coc-python',
   \ 'coc-sh',
   \ 'coc-snippets',
   \ 'coc-tsserver',
-  \ 'coc-vetur',
 \ ]
 set updatetime=300
 
@@ -136,10 +139,37 @@ let g:user_emmet_install_global = 0
 let g:neoterm_size = 40
 let g:neoterm_default_mod = 'botright vertical'
 let g:neoterm_autoscroll = 1
+let g:neoterm_automap_keys = "\\n"
 let g:neoterm_term_per_tab = 1
 let g:neoterm_repl_python = ['python']
-let g:neoterm_repl_r = ['R', '-q']
 let g:neoterm_repl_octave_qt = 1
+
+" RAINBOW -------------------------------------------------------------------
+
+let g:rbpt_colorpairs = [
+    \ ['gray',        'firebrick3'],
+    \ ['brown',       'SeaGreen3'],
+    \ ['green',       'RoyalBlue3'],
+    \ ['red',         'RoyalBlue3'],
+    \ ['magenta',     'SeaGreen3'],
+    \ ['cyan',        'DarkOrchid3'],
+    \ ['blue',        'DarkOrchid3'],
+\ ]
+let g:rbpt_max = 21
+let g:rbpt_loadcmd_toggle = 0
+
+augroup lisp
+  au!
+  au BufEnter *.rkt silent call RainbowOn()
+  au BufEnter *.el silent call RainbowOn()
+augroup END
+
+function RainbowOn()
+  execute 'RainbowParenthesesLoadRound'
+  execute 'RainbowParenthesesLoadSquare'
+  execute 'RainbowParenthesesLoadBraces'
+  execute 'RainbowParenthesesActivate'
+endfunction
 
 " STARTIFY ------------------------------------------------------------------
 
@@ -160,7 +190,7 @@ let g:startify_bookmarks = [
 
 " SNIPPETS ------------------------------------------------------------------
 
-let g:UltiSnipsSnippetDirectories = [ $XDG_CONFIG_HOME . '/vim/ultisnips']
+let g:UltiSnipsSnippetDirectories = [ '~/.config/vim/ultisnips' ]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
@@ -180,16 +210,6 @@ let g:caser_prefix = "\\k"
 " VIM SURROUDING ------------------------------------------------------------
 
 let g:surround_no_mappings=1 " make fucking plugin don't mess up keybindings
-nmap d,s  <Plug>Dsurround
-nmap c,s  <Plug>Csurround
-nmap c,S  <Plug>CSurround
-nmap y,s  <Plug>Ysurround
-nmap y,S  <Plug>YSurround
-nmap y,ss <Plug>Yssurround
-nmap y,Ss <Plug>YSsurround
-nmap y,SS <Plug>YSsurround
-xmap ,S   <Plug>VSurround
-xmap g,S  <Plug>VgSurround
 
 " VIM TEX -------------------------------------------------------------------
 
@@ -247,6 +267,3 @@ endfunction
 
 " favorite themes: ayu, eldar, pop-punk, moonfly, codedark, molokai, onedark
 colorscheme eldar
-
-" for some weird reason ayu only works after adding line below
-" :colorscheme ayu

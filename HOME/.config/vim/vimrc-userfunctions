@@ -26,8 +26,12 @@ endfunction
 
 function! RssPager()
   set scrolloff=0 laststatus=0 nonumber norelativenumber
+  packadd justify
+  nunmap ,gq
+  xunmap ,gq
   silent normal gg:%s/^\s\+$///^Link:njVG{_j
   silent execute 'AirlineToggle'
+  nnoremap q :q!<CR>
 endfunction
 
 command ManPager silent execute ":call ManPager()"
@@ -63,7 +67,6 @@ let g:terminal_winsize_v = 0
 let g:terminal_winsize_default_h = 6
 let g:terminal_winsize_default_v = 40
 
-""
 " get the last window size of given split
 function! TgtGetWindowSize(split)
 
@@ -90,7 +93,6 @@ function! TgtGetWindowSize(split)
   return winsize
 endfunction
 
-""
 " Open new window for the given split
 function! TgtOpenWindow(split)
   let winsize = TgtGetWindowSize(a:split)
@@ -105,7 +107,6 @@ function! TgtOpenWindow(split)
   silent execute cmd
 endfunction
 
-""
 " Update the current window size
 function! TgtUpdateWinsizeState(split)
   if a:split == 'h'
@@ -115,7 +116,6 @@ function! TgtUpdateWinsizeState(split)
   endif
 endfunction
 
-""
 " Update the state of the window
 function! TgtUpdateWinState(split)
   if a:split == 'h'
@@ -127,7 +127,6 @@ function! TgtUpdateWinState(split)
   endif
 endfunction
 
-""
 " Get the buffer id of the terminal
 " for the given split
 function! TgtGetBufferId(split)
@@ -138,7 +137,6 @@ function! TgtGetBufferId(split)
   endif
 endfunction
 
-""
 " Set the buffer id of the terminal
 " for the given split
 function! TgtSetBufferId(split, buffer_id)
@@ -149,7 +147,6 @@ function! TgtSetBufferId(split, buffer_id)
   endif
 endfunction
 
-""
 " Open new term, updating the id of the buffer
 function! TgtOpenTerm(split, termcmd)
   keepjumps enew
@@ -159,7 +156,6 @@ function! TgtOpenTerm(split, termcmd)
   silent call TgtSetBufferId(a:split, buffer_id)
 endfunction
 
-""
 " Open existing term buffer or create new one for Nvim
 function! TgtOpenTermBufferNvim(split)
   let buffer_id = TgtGetBufferId(a:split)
@@ -181,7 +177,6 @@ function! TgtOpenNvim(split)
   startinsert!
 endfunction
 
-""
 " Open existing term buffer or create new one for Nim
 function! TgtOpenTermBufferVim(split)
   let buffer_id = TgtGetBufferId(a:split)
@@ -202,7 +197,6 @@ function! TgtOpenTermBufferVim(split)
   silent call TgtOpenTerm(a:split, termcmd) 
 endfunction
 
-""
 " Open term window for vim
 function! TgtOpenVim(split)
   silent call TgtOpenTermBufferVim(a:split)
@@ -210,7 +204,6 @@ function! TgtOpenVim(split)
   startinsert!
 endfunction
 
-""
 " open term for the given split
 function! TgtOpen(split)
   if has('nvim')
@@ -220,7 +213,6 @@ function! TgtOpen(split)
   endif
 endfunction
 
-""
 " close term for the given split
 function! TgtClose(split)
   if a:split == 'h'
@@ -242,7 +234,6 @@ function! TgtClose(split)
   endif
 endfunction
 
-""
 " toggle horizontal term
 function! TgtToggleH()
   if !(bufexists(g:terminal_bufid_h))
@@ -256,7 +247,6 @@ function! TgtToggleH()
   endif
 endfunction
 
-""
 " togggle vertical term
 function! TgtToggleV()
   if !(bufexists(g:terminal_bufid_v))

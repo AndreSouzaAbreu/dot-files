@@ -126,13 +126,12 @@ snippet form "HTML <form>" w
 endsnippet
 
 snippet "(h[1-6])" "HTML <h4>" wr
-<`!p snip.rv = match.group(1)`>${1:${VISUAL}}</`!p snip.rv=match.group(1)`>
-$0
+<`!p snip.rv = match.group(1)`>${1:${VISUAL}}</`!p snip.rv=match.group(1)`>$0
 endsnippet
 
 snippet header "<header>"
 <header>
-	$1
+	$0
 </header>
 endsnippet
 
@@ -333,8 +332,14 @@ endsnippet
 
 snippet tbody "<tbody>"
 <tbody>
-	$1
-</tbody>$0
+	$0
+</tbody>
+endsnippet
+
+snippet tfooter "<tfooter>"
+<tfooter>
+	$0
+</tfooter>
 endsnippet
 
 snippet td "table cell" w

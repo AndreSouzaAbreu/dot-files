@@ -3,7 +3,7 @@
 " ---------------------------------------------------------------------------
 
 " the leader key
-let mapleader=","
+let mapleader=" "
 
 " ---------------------------------------------------------------------------
 " BUFFERS
@@ -13,14 +13,16 @@ let mapleader=","
 nnoremap <Bslash>bn :bn<CR>
 nnoremap <Bslash>bp :bp<CR>
 nnoremap <Bslash>bd :bd<CR>
+nnoremap <Bslash>bD :bd!<CR>
 nnoremap <M-1> :bp<CR>
 nnoremap <M-2> :bn<CR>
-nnoremap gb :b<space>
 
 " close and save file easily
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
-nnoremap <leader>a :qall!<CR>
+nnoremap <leader>Q :q!<CR>
+nnoremap <leader>a :qall<CR>
+nnoremap <leader>A :qall!<CR>
 
 " ---------------------------------------------------------------------------
 " WINDOW
@@ -31,10 +33,10 @@ nnoremap <leader>v <C-w>v
 nnoremap <leader>s <C-w>s
 
 " window resize
-nnoremap <silent> <M-S-j> :resize -5<cr>
-nnoremap <silent> <M-S-k> :resize +5<cr>
-nnoremap <silent> <M-S-h> :vertical resize -5<cr>
-nnoremap <silent> <M-S-l> :vertical resize +5<cr>
+nnoremap <silent> <M-S-j> <C-W>-
+nnoremap <silent> <M-S-k> <C-W>+
+nnoremap <silent> <M-S-h> <C-W><
+nnoremap <silent> <M-S-l> <C-W>>
 
 " window navigation
 nnoremap <M-h> <C-W>h
@@ -47,8 +49,8 @@ nnoremap <M-l> <C-W>l
 " ---------------------------------------------------------------------------
 
 " resize terminal
-tnoremap <silent> <C-[> <C-w>:resize +1<CR>
-tnoremap <silent> <C-]> <C-w>:resize -1<CR>
+tnoremap <silent> <C-[> <C-w>+<CR>
+tnoremap <silent> <C-]> <C-w>-<CR>
 
 " turn the terminal into a normal buffer
 tnoremap <silent> <Esc> <C-w><S-n>:set nonumber norelativenumber<CR>
@@ -110,9 +112,9 @@ nnoremap <silent> <Bslash>n :set number! relativenumber!<CR>
 nnoremap <leader>c :set formatoptions=ql<CR>
 nnoremap <leader>C :set formatoptions=qlcro<CR>
 
-" spell
-nnoremap <C-s> [sz=
-nnoremap <C-S-s> ]sz=
+" spell 
+nnoremap <C-s> [s1z=<CR><C-o>
+nnoremap <C-S-s> ]s1z=<CR><C-o>
 inoremap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u
 inoremap <C-S-s> <C-g>u<Esc>]s1z=`]a<C-g>u
 
@@ -134,8 +136,8 @@ endwhile
 " ---------------------------------------------------------------------------
 
 " close/open tabs
-nnoremap ,t :tabnew<CR>
-nnoremap ,T :tabc<CR>
+nnoremap <leader>t :tabnew<CR>
+nnoremap <leader>T :tabc<CR>
 
 " ---------------------------------------------------------------------------
 " PLUGINS 
@@ -148,17 +150,18 @@ noremap <Bslash>c :CocDisable<Esc>
 noremap <Bslash>C :CocEnable<Esc>
 
 " go to definitions
-nmap <silent> ,gd <Plug>(coc-definition)
-nmap <silent> ,gt <Plug>(coc-type-definition)
-nmap <silent> ,gi <Plug>(coc-implementation)
-nmap <silent> ,gr <Plug>(coc-references)
+nmap <silent> <leader>gd <Plug>(coc-definition)
+nmap <silent> <leader>gt <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>gr <Plug>(coc-references)
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " toggle explorer
-nmap <silent> ,d :CocCommand explorer --toggle --sources=buffer+,file+<cr>
+nmap <silent> <leader>d :CocCommand explorer --root-strategies sourceBuffer<cr>
+nmap <silent> <leader><S-d> :CocCommand explorer --root-strategies cwd<cr>
 
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <M-TAB>
@@ -223,31 +226,34 @@ xmap gA <Plug>(EasyAlign)
 nmap gA <Plug>(EasyAlign)
 
 " FZF -----------------------------------------------------------------------
-
 " open new file
 nnoremap <leader>f :FZF<CR>
 
 " NETRW ---------------------------------------------------------------------
-
 " toggle file explorer
 " nnoremap <leader>d :Lexplore<CR>
 
 " NEOTERM -------------------------------------------------------------------
-
-" Use gx{text-object} in normal mode
+xmap gx <Plug>(neoterm-repl-send)
 nmap gx <Plug>(neoterm-repl-send)
-nmap gX :TREPLSendFile<CR>
+nmap gxX :TREPLSendFile<CR>
 nmap gxx :TREPLSendLine<CR>
 
-" Send selected contents in visual mode.
-xmap gx <Plug>(neoterm-repl-send)
-
 " STARTFIY ------------------------------------------------------------------
-
-" go to home page
 nnoremap <Bslash>h :Startify<CR>
 
 " TAGBAR --------------------------------------------------------------------
-
-" toggle tag bar
 nnoremap <Bslash>t :TagbarToggle<CR>
+
+" SURROUNDINGS --------------------------------------------------------------
+
+nmap d,s  <Plug>Dsurround
+nmap c,s  <Plug>Csurround
+nmap c,S  <Plug>CSurround
+nmap y,s  <Plug>Ysurround
+nmap y,S  <Plug>YSurround
+nmap y,ss <Plug>Yssurround
+nmap y,Ss <Plug>YSsurround
+nmap y,SS <Plug>YSsurround
+xmap g,S  <Plug>VSurround
+xmap g,s  <Plug>VgSurround
