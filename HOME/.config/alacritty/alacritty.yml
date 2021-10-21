@@ -26,8 +26,8 @@ cursor:
     shape: Beam
 
 font:
-  family: Source Code Pro
-  size: 12
+  family: Perfect DOS VGA 437 Regular
+  size: 16
 
 key_bindings:
   - { key: Return,   mods: Control|Shift, action: SpawnNewInstance }
