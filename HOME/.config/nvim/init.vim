@@ -25,7 +25,7 @@ source $VIMRC-userfunctions
 " the following settings are for neovim only (they may not work with vim)
 
 " justify alignment
-packadd justify
+" packadd justify
 
 " fzf 
 function! FzfOpen()

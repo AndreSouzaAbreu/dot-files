@@ -1,9 +1,15 @@
-" gui font
-set guifont=Source\ Code\ Pro:h11
+" some nice gui fonts
+
+set guifont=Source\ Code\ Pro:h18
+" set guifont=FreeMono:h14
+" set guifont=Inconsolata:h16
+" set guifont=Liberation\ Mono:h17
+" set guifont=Perfect\ DOS\ VGA\ 437:h18
+
 
 " command to increase/decrease font size in neovim-gt
-command! -bar FontPlus  :execute "GuiFont " . substitute(g:GuiFont, '\d\+', '\=submatch(0)+2', '')
-command! -bar FontMinus :execute "GuiFont " . substitute(g:GuiFont, '\d\+', '\=submatch(0)-2', '')
+command! -bar FontPlus  :execute "GuiFont " . substitute(g:GuiFont, '\d\+$', '\=submatch(0)+1', '')
+command! -bar FontMinus :execute "GuiFont " . substitute(g:GuiFont, '\d\+$', '\=submatch(0)-1', '')
 
 " keybindings to increase/decrease font size in neovim-qt
 nnoremap <C-=> :FontPlus<CR> 
