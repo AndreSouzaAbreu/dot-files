@@ -13,10 +13,23 @@ setopt extendedglob appendhistory hist_ignore_all_dups hist_ignore_space
 
 ## PROMPT ######################################################
 
-alias p0='PROMPT="[%2d]$ "'
-alias p1='PROMPT="[%~] "'
-alias p2="PROMPT='%F{#0f0}%n%F{#fff}@%F{#0f0}%m %F{fff}[%~]%F{fff} '"
-alias p3='PROMPT="$ "'
+function p0() {
+	PROMPT="[%3d]$ "
+}
+
+function p1() {
+	PROMPT="[%~] "
+}
+
+function p2() {
+	PROMPT='%F{#0f0}%n%F{#fff}@%F{#0f0}%m %F{fff}[%~]%F{fff} '
+}
+
+function p3() {
+	PROMPT="$ "
+}
+
+# default prompt
 p0
 
 ## AUTO COMPLETION #############################################
