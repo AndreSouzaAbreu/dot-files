@@ -4,9 +4,12 @@ dict-moby-thesaurus
 dict-wn
 dragon-drag-and-drop
 gdrive
-light-git
+light
 memstat
 mutt-wizard
+netdiscover
 perl-text-lorem
+perl-rename
+powershell
 trezor-bridge-bin
 yay
