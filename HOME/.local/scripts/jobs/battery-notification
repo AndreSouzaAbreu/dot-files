@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# exit if Xserver or daemon are not running.
+xset q >/dev/null || pidof notification-daemon>/dev/null || exit 1;
+
+# get information about battery
+battery_level=$(acpi | sed 's/.*:[^0-9]*\([0-9]\+\)%.*/\1/' | sort -n | head -n 1) 
+charging=$(acpi | grep Charging)
+
+# exit if is charging or battery is above 20%
+(( $battery_level > 20 )) && exit 0;
+[[ -n $charging  ]] &&  exit 0;
+
+# notification options
+time='5000'
+title='LOW BATTERY'
+message="Battery is only $battery_level%."
+icon='battery-caution'
+urgency='critical'
+
+# see https://askubuntu.com/questions/298608/notify-send-doesnt-work-from-crontab
+wm=dwm
+proc_id=$(pgrep -u $LOGNAME $wm | tail -n1)
+addr=$(egrep -z DBUS_SESSION_BUS_ADDRESS /proc/${proc_id}/environ | sed 's/^[A-Z_]\+=//')
+eval "export DBUS_SESSION_BUS_ADDRESS=$addr"
+
+# send notification
+notify-send -i "$icon" -t "$time" -u "$urgency" "$title" "$message"
+exit 0

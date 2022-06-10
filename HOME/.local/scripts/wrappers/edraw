@@ -1,0 +1,24 @@
+#!/bin/sh
+f=$1
+function err() {
+  echo $@
+  exit 1
+}
+[[ ! -f "$f" ]] && err 'input file does not exist'
+
+N=$(basename "$f")
+d=$(dirname "$f")
+n=$d/${N%.*}
+
+fdot="$n.dot"
+fsvg="$n.svg"
+fpng="$n.png"
+
+[[ -f $fdot ]] && rm $fdot
+[[ -f $fsvg ]] && rm $fsvg
+[[ -f $fpng ]] && rm $fpng
+
+erdot "$f" || err 'erdot failed'
+dot -Tsvg "$fdot" > "$fsvg" || err 'dot failed'
+inkscape $fsvg -o $fpng || err 'inkscape failed'
+rm $fdot $fsvg

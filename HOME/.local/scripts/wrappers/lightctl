@@ -1,0 +1,56 @@
+#!/bin/sh
+# wrapper to control screen light
+
+function show_help()
+{
+  cat <<EOF
+Description: Control screen brightness
+
+Usage: screenlight [COMMAND] [ARG]
+
+Examples:
+
+	Decrease brightness by 5%:
+    screenlight dec 5
+    screenlight -d 5
+
+	Increase brightness by 5%:
+    screenlight inc 5
+    screenlight -i 5
+
+	Set brightness to 60%:
+    screenlight set 60
+    screenlight -s 60
+
+  Get brightness:
+    screenlight get
+    screenlight -g
+EOF
+}
+
+function main()
+{
+    action=$1
+    amount=$2
+    case $1 in
+    inc|-i)
+      light -A $amount
+      ;;
+    dec|-d)
+      light -U $amount
+      ;;
+    set|-s)
+      light -S $amount
+      ;;
+    get|-g)
+      light -G
+      ;;
+    *)
+      help
+      exit 1
+      ;;
+    esac
+}
+
+main "$@"
+exit 0

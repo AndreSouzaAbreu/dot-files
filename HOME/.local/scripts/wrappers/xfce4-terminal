@@ -1,0 +1,3 @@
+#!/bin/sh
+# wrapper for xfce4 terminal
+/usr/bin/xfce4-terminal -T "terminal" --dynamic-title-mode=none "$@"

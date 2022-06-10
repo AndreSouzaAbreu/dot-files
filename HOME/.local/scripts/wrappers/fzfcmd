@@ -1,0 +1,2 @@
+#!/bin/sh
+(fd -H -L -E .git; fd "^\.env" -H -I) | sort | uniq

@@ -1,0 +1,19 @@
+#!/bin/sh
+max_backups=2
+backup_dir=/home/backups/HOME
+
+cd $backup_dir
+backup_count=$(ls | grep -o -e "^backup_[0-9-]\+" | sort | uniq | wc -l)
+
+if (( $backup_count > $max_backups )); then
+  ls |
+  grep -o -e "^backup_[0-9-]\+" |
+  sort -r |
+  uniq |
+  sed "1,${max_backups}d" |
+  while read fileprefix; do
+    rm $fileprefix*
+  done
+fi
+
+exit 0

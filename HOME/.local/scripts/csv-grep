@@ -1,5 +1,0 @@
-#!/bin/sh
-tmpFile=$(mktemp)
-cat /dev/stdin > $tmpFile
-head -n1 $tmpFile
-sed '1d' $tmpFile | grep $@

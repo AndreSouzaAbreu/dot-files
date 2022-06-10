@@ -1,0 +1,12 @@
+#!/bin/sh
+
+folder=$1
+folder_id=$(gdrive list -q "name = '$folder'" --no-header | awk '{print $1}')
+[[ -z $folder_id ]] && (echo "folder does not exist" && exit 1)
+
+shift
+while [[ -n $1 ]]; do
+    file=$1
+    shift
+    gdrive upload -p "$folder_id" "$file"
+done

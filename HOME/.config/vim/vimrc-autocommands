@@ -1,63 +1,53 @@
 " ---------------------------------------------------------------------------
-" AUTO COMMANS
+" AUTO COMMANDS
 " ---------------------------------------------------------------------------
 
-augroup editorconfig
+augroup lisp_highlight
   au!
-  au FileType gitcommit let b:EditorConfig_disable=1
-augroup end
-
-augroup coc
-  au!
-  au FileType gitcommit let b:coc_enabled=0
-  au BufRead **/qutebrowser/config.py let b:coc_enabled=0
-  au BufRead **/dwm/* let b:coc_enabled=0
-  au BufRead **/dvtm/* let b:coc_enabled=0
-augroup END
-
-augroup colored
-  au!
-  au BufEnter config set filetype=toml
-augroup END
-
-augroup emmet
-  au!
-  au FileType css imap <M-e> <plug>(emmet-expand-abbr)
-  au FileType html imap <M-e> <plug>(emmet-expand-abbr)
-  au FileType vue imap <M-e> <plug>(emmet-expand-abbr)
-augroup END
-
-augroup cpp
-    au!
-    au FileType cpp nnoremap <buffer> <space>o !!cout<CR>
-augroup END
-
-augroup mycolorscheme
-  au!
-  au FileType c colorscheme pop-punk
-  au FileType cpp colorscheme pop-punk
-  au FileType html colorscheme codedark
-  au FileType java colorscheme codedark
-  au FileType javascript colorscheme codedark
-  au FileType json colorscheme codedark
-  au FileType markdown colorscheme gruvbox
-  au FileType markdown.pandoc colorscheme gruvbox
-  au FileType php colorscheme codedark
-  au FileType python colorscheme onedark
-  au FileType snippets colorscheme codedark
-  au FileType tex colorscheme gruvbox
-  au FileType vue colorscheme codedark
-  au FileType vim colorscheme eldar
+  au BufEnter *.rkt silent call RainbowOn()
+  au BufEnter *.el silent call RainbowOn()
 augroup END
 
 augroup mysyntax
   au!
-  au BufEnter,BufRead .env.* set syntax=sh
-  au BufEnter,BufRead *.md set filetype=markdown syntax=markdown.pandoc
+  au BufEnter .env.* set syntax=sh
+  au FileType markdown set syntax=markdown.pandoc conceallevel=0
 augroup END
 
-augroup pencil
+augroup myfiletypes
   au!
-  au FileType mail Pencil
-  au FileType text Pencil
+  au BufEnter config set filetype=toml
 augroup END
+
+augroup mymappings
+  au!
+  au FileType cpp nnoremap <buffer> <space>o !!cout<CR>
+augroup END
+
+augroup mycoc
+  au!
+  au FileType text let b:coc_enabled=0
+  au BufRead *.org let b:coc_enabled=0
+  au BufRead **/qutebrowser/config.py let b:coc_enabled=0
+  au BufRead **/dwm/*,**/dwmblocks/*,**/dvtm/* let b:coc_enabled=0
+augroup END
+
+augroup mygitcommit
+  au!
+  au FileType gitcommit let b:EditorConfig_disable=1 | let b:coc_enabled=0
+augroup end
+
+augroup mywriting
+  au!
+  au FileType mail set spell
+  au BufRead diary*.txt set spell
+augroup END
+
+" augroup mycolorscheme
+"   au!
+"   au FileType c,cpp colorscheme pop-punk
+"   au FileType python colorscheme onedark
+"   au FileType perl,shell,vim colorscheme eldar
+"   au FileType markdown,markdown.pandoc,tex colorscheme gruvbox
+"   au FileType html,java,javascript,json,php,snippets,vue colorscheme codedark
+" augroup END

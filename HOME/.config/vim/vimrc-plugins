@@ -1,6 +1,6 @@
-" ---------------------------------------------------------------------------
-" PLUGINS
-" ---------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
+" PLUGINS                                                                      |
+" ------------------------------------------------------------------------------
 
 " turn on plugins
 filetype plugin on
@@ -8,143 +8,250 @@ filetype plugin on
 " download Vim Plug if not installed
 if empty(glob('~/.config/vim/autoload/plug.vim'))
   echo "downloading Vim Plug to manage plugins" 
-  silent !curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs \
-  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  silent !curl -fLo '~/.config/vim/autoload/plug.vim' --create-dirs \
+    'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $VIMRC
 endif
 
-" LIST OF PLUGINS -----------------------------------------------------------
+
+" ------------------------------------------------------------------------------
+" LOAD PLUGINS
 
 call plug#begin('~/.config/vim/plugged')
+  "-----------------------------------------------------------------------------
+  " colorschemes                                                               |
+  "-----------------------------------------------------------------------------
+ 
+  Plug 'ayu-theme/ayu-vim'             " ayu
+  Plug 'tomasiser/vim-code-dark'       " codedark
+  Plug 'agude/vim-eldar'               " eldar
+  Plug 'sainnhe/edge'                  " edge
+  Plug 'morhetz/gruvbox'               " gruvbox
+  Plug 'tomasr/molokai'                " molokai
+  Plug 'bluz71/vim-moonfly-colors'     " moonfly
+  Plug 'bluz71/vim-nightfly-guicolors' " nightfly
+  Plug 'joshdick/onedark.vim'          " onedark
+  Plug 'bignimbus/pop-punk.vim'        " pop-punk
+  Plug 'whatyouhide/vim-gotham'        " gotham
+  Plug 'NLKNguyen/papercolor-theme'    " papercolo
+  Plug 'christophermca/meta5'          " meta5
+  Plug 'kyoz/purify', { 'rtp': 'vim' } " purify
 
-  " themes
-  Plug 'ayu-theme/ayu-vim'         " theme ayu
-  Plug 'tomasiser/vim-code-dark'   " theme codedark
-  Plug 'agude/vim-eldar'           " theme eldar
-  Plug 'morhetz/gruvbox'           " theme gruvbox
-  Plug 'tomasr/molokai'            " theme molokai
-  Plug 'bluz71/vim-moonfly-colors' " theme moonfly
-  Plug 'joshdick/onedark.vim'      " theme onedark
-  Plug 'bignimbus/pop-punk.vim'    " theme pop-punk
+  "-----------------------------------------------------------------------------
+  " syntax highlight                                                           |
+  "-----------------------------------------------------------------------------
 
-  " Syntax Highlight
-  Plug 'ekalinin/dockerfile.vim'      " dockerfile
-  Plug 'uiiaoo/java-syntax.vim'       " java
-  Plug 'pangloss/vim-javascript'      " javascript
-  Plug 'chr4/nginx.vim'               " nginx
-  Plug 'jvirtanen/vim-octave'         " octave
-  Plug 'vim-pandoc/vim-pandoc-syntax' " pandoc
-  Plug 'wlangstroth/vim-racket'       " racket
-  Plug 'kien/rainbow_parentheses.vim' " rainbow parentheses
-  Plug 'cespare/vim-toml'             " toml
-  Plug 'posva/vim-vue'                " vue
-  
-  " junegunn plugins
+  Plug 'sheerun/vim-polyglot'             " all
+  Plug 'justinmk/vim-syntax-extra'        " c
+  Plug 'uiiaoo/java-syntax.vim'           " java
+  Plug 'vim-pandoc/vim-pandoc-syntax'     " pandoc
+  Plug 'shmup/vim-sql-syntax'             " sql
+  Plug 'petRUShka/vim-sage'               " sagemath
+  Plug 'kien/rainbow_parentheses.vim'     " rainbow parentheses
+
+  "-----------------------------------------------------------------------------
+  " junegunn                                                                   |
+  "-----------------------------------------------------------------------------
+
   Plug 'junegunn/vim-easy-align' " align text
   Plug 'junegunn/fzf.vim'        " fuzzy finder
 
-  " Tim Pope's plugins
+  "-----------------------------------------------------------------------------
+  " tim pope                                                                   |
+  "-----------------------------------------------------------------------------
+
   Plug 'tpope/vim-abolish'    " substitution
-  Plug 'tpope/vim-commentary' " toggle comments
   Plug 'tpope/vim-surround'   " surrouding motion
+  Plug 'tpope/vim-fugitive'   " fugitive
 
-  " text objects
-  Plug 'kana/vim-textobj-user'               " engine
-  Plug 'kana/vim-textobj-function'           " function
-  Plug 'kana/vim-textobj-indent'             " indentation
-  Plug 'jceb/vim-textobj-uri'                " uri
-  Plug 'Julian/vim-textobj-variable-segment' " variable segment
+  "-----------------------------------------------------------------------------
+  " text objects                                                               |
+  "-----------------------------------------------------------------------------
 
-  " Other plugins
-  Plug 'AndrewRadev/tagalong.vim'                 " automatically change html tags
-  Plug 'arthurxavierx/vim-caser'                  " change case
-  Plug 'chrisbra/Colorizer'                       " color colornames and colorcodes
-  Plug 'chrisbra/improvedft'                      " improved f and t commands
-  Plug 'christoomey/vim-sort-motion'              " sort motion
-  Plug 'editorconfig/editorconfig-vim'            " enforce editorconfig settings
-  Plug 'kassio/neoterm'                           " terminal REPL
-  Plug 'lervag/vimtex'                            " LaTeX
-  Plug 'liuchengxu/vim-which-key'                 " whichkey (like emacs)
+  Plug 'kana/vim-textobj-user'                               " engine
+  Plug 'kana/vim-textobj-entire'                             " entire buffer
+  Plug 'kana/vim-textobj-indent'                             " indentation
+  Plug 'kana/vim-textobj-function'                           " function
+  Plug 'kana/vim-textobj-line'                               " line
+  Plug 'jceb/vim-textobj-uri'                                " uri
+  Plug 'glts/vim-textobj-comment'                            " comment
+  Plug 'Julian/vim-textobj-variable-segment'                 " varname
+  Plug 'coachshea/vim-textobj-markdown', {'for': 'markdown'} " markdown
+  Plug 'bps/vim-textobj-python', {'for': 'python'}           " python
+
+  "-----------------------------------------------------------------------------
+  " other plugins                                                              |
+  "-----------------------------------------------------------------------------
+
+  Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
+  Plug 'arthurxavierx/vim-caser'                  " Change case
+  Plug 'Asheq/close-buffers.vim'                  " close multiple buffers
+  Plug 'chrisbra/Colorizer'                       " color colornames/colorcodes
   Plug 'mattn/emmet-vim'                          " emmet engine
-  Plug 'mg979/vim-visual-multi'                   " multi cursor
-  Plug 'mhinz/vim-startify'                       " home
-  Plug 'nanotee/zoxide.vim'                       " zoxide
-  Plug 'neoclide/coc.nvim', {'branch': 'release'} " coc
-  Plug 'preservim/tagbar'                         " tag panel
+  Plug 'editorconfig/editorconfig-vim'            " enforce editorconfig
   Plug 'preservim/vim-pencil'                     " free writing
-  Plug 'SirVer/ultisnips'                         " snippets engine
-  Plug 'tommcdo/vim-ninja-feet'                   " operations to start/end of motion
-  Plug 'vim-airline/vim-airline'                  " statusbar
-  Plug 'vim-airline/vim-airline-themes'           " statusbar themes
-  Plug 'vim-scripts/vis'                          " visual commands
+  Plug 'mbbill/undotree'                          " History management
+  Plug 'metakirby5/codi.vim'                      " Interactive shell
+  Plug 'ryanoasis/vim-devicons'                   " icons
+  Plug 'lervag/vimtex'                            " LaTeX
+  Plug 'mg979/vim-visual-multi'                   " multi cursor
+  Plug 'chrisbra/improvedft'                      " multiline f and t commands
+  Plug 'Xuyuanp/nerdtree-git-plugin'              " neerdtree git
+  Plug 'preservim/nerdtree'                       " nerdtree
+  Plug 'kevinhwang91/rnvimr'                      " Ranger file manager
+  Plug 'xolox/vim-session'                        " Session management
+  Plug 'xolox/vim-misc'                           " Session management helper
+  Plug 'SirVer/ultisnips'                         " Snippets engine
+  Plug 'christoomey/vim-sort-motion'              " sort motion
+  Plug 'mhinz/vim-startify'                       " start screen
+  Plug 'itchyny/lightline.vim'                    " statusbar 
+  Plug 'preservim/tagbar'                         " Tag Panel
+  Plug 'liuchengxu/vim-which-key'                 " whichkey (like emacs)
+  Plug 'nanotee/zoxide.vim'                       " zoxide
 
-  " below are some excelent plugins, but they have caused undesired behavior 
+  "-----------------------------------------------------------------------------
+  " the following plugins were replaced by more sofisticated nvim plugins
 
-  " Plug 'arthurxavierx/vim-unicoder'               " automatic insert unicode chars
-  " Plug 'chrisbra/csv.vim'                         " work with csv files
+  if !has('nvim')
+  Plug 'AndrewRadev/tagalong.vim'                 " automatically change tags
+  Plug 'vim-airline/vim-airline'                  " Statusbar
+  Plug 'vim-airline/vim-airline-themes'           " Statusbar themes
+  Plug 'tpope/vim-commentary'                     " toggle comments
+  endif
 
+  "-----------------------------------------------------------------------------
+  " neovim plugins (vim compatible)                                            |
+  "-----------------------------------------------------------------------------
+  Plug 'jbyuki/venn.nvim'
+  Plug 'kassio/neoterm'
+  Plug 'LudoPinelli/comment-box.nvim'
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+
+  "-----------------------------------------------------------------------------
+  " neovim plugins (incompatible with vim)                                     |
+  "-----------------------------------------------------------------------------
+  if has('nvim')
+
+  " colorschemes
+  Plug 'EdenEast/nightfox.nvim'
+  Plug 'folke/tokyonight.nvim'
+  Plug 'glepnir/zephyr-nvim'
+
+  " LSP + Treesitter
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+  " other plugins
+  Plug 'akinsho/toggleterm.nvim'
+  Plug 'anuvyklack/nvim-keymap-amend'
+  Plug 'anuvyklack/pretty-fold.nvim'
+  Plug 'famiu/bufdelete.nvim'
+  Plug 'folke/which-key.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'lewis6991/spellsitter.nvim'
+  Plug 'lukas-reineke/indent-blankline.nvim'
+  Plug 'lukas-reineke/virt-column.nvim'
+  Plug 'luukvbaal/stabilize.nvim'
+  Plug 'numToStr/Comment.nvim'
+  Plug 'p00f/nvim-ts-rainbow'
+  Plug 'romgrk/barbar.nvim'
+  Plug 'windwp/nvim-ts-autotag'
+
+  " Plug 'nvim-orgmode/orgmode'
+  " Plug 'nvim-lua/popup.nvim'
+  " Plug 'nvim-lua/plenary.nvim'
+  " Plug 'nvim-telescope/telescope.nvim'
+  " Plug 'nvim-lua/completion-nvim'
+  endif
 call plug#end()
 
-" ---------------------------------------------------------------------------
-" PLUGIN SETTINGS
-" ---------------------------------------------------------------------------
 
-" AIRLINE -------------------------------------------------------------------
+" ------------------------------------------------------------------------------
+" PLUGIN SETTINGS                                                              |
+" ------------------------------------------------------------------------------
 
+" This is the configuration for Vim plugins.
+" The configuration of Nvim plugins is at Nvim directory.
+
+" AIRLINE ----------------------------------------------------------------------
+
+if !has('nvim')
 let g:airline_powerline_fonts = 1
 let g:airline_statusline_ontop=0
 let g:airline_theme='base16_twilight'
 let g:airline_disable_statusline=1
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#ignore_bufadd_pat = 'startify|tagbar|term://|fugitive://|term:*|undotree|coc-explorer'
+endif
 
-" COC -----------------------------------------------------------------------
+" COC --------------------------------------------------------------------------
 
 let g:coc_global_extensions = [
   \ 'coc-clangd',
   \ 'coc-css',
   \ 'coc-cssmodules',
-  \ 'coc-emmet',
-  \ 'coc-explorer',
+  \ 'coc-docker',
   \ 'coc-eslint',
   \ 'coc-git',
   \ 'coc-html',
   \ 'coc-java',
   \ 'coc-json',
+  \ 'coc-perl',
   \ 'coc-phpls',
-  \ 'coc-python',
-  \ 'coc-sh',
+  \ 'coc-pyright',
+  \ 'coc-prettier',
+  \ 'coc-pairs',
+  \ 'coc-sql',
   \ 'coc-snippets',
   \ 'coc-tsserver',
+  \ 'coc-vetur',
 \ ]
 set updatetime=300
 
-" COLORIZER -----------------------------------------------------------------
+" COLORIZER --------------------------------------------------------------------
 
 let g:colorizer_auto_filetype='css,scss,yaml,toml'
 let g:colorizer_skip_comments=1
 let g:colorizer_colornames=0
 
-" EDITOR CONFIG -------------------------------------------------------------
+" EDITOR CONFIG ----------------------------------------------------------------
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
-" EMMET ---------------------------------------------------------------------
+" EMMET ------------------------------------------------------------------------
 
 let g:user_emmet_expandabbr_key = '<M-e>'
-let g:user_emmet_install_global = 0
+let g:user_emmet_leader_key = '<C-S-e>'
 
-" NEOTERM -------------------------------------------------------------------
+" NEOTERM ----------------------------------------------------------------------
 
 let g:neoterm_size = 40
 let g:neoterm_default_mod = 'botright vertical'
 let g:neoterm_autoscroll = 1
-let g:neoterm_automap_keys = "\\n"
+let g:neoterm_automap_keys = "<space>n"
 let g:neoterm_term_per_tab = 1
-let g:neoterm_repl_python = ['python']
 let g:neoterm_repl_octave_qt = 1
 
-" RAINBOW -------------------------------------------------------------------
+" RANGER -----------------------------------------------------------------------
+
+let g:rnvimr_enable_ex = 1
+let g:rnvimr_enable_picker = 1
+let g:rnvimr_edit_cmd = 'drop'
+let g:rnvimr_enable_bw = 1
+let g:rnvimr_layout_ex_index = 2
+let g:rnvimr_ranger_views = [
+  \ {'minwidth': 70, 'ratio': [1,1]},
+  \ {'minwidth': 80, 'ratio': [1,1]},
+  \ {'minwidth': 90, 'ratio': [1,1]},
+\ ]
+let g:rnvimr_presets = [
+  \ {'width': 0.700, 'height': 0.700},
+  \ {'width': 0.850, 'height': 0.850},
+  \ {'width': 1.000, 'height': 1.000},
+\ ]
+
+" RAINBOW ----------------------------------------------------------------------
 
 let g:rbpt_colorpairs = [
     \ ['gray',        'firebrick3'],
@@ -158,60 +265,77 @@ let g:rbpt_colorpairs = [
 let g:rbpt_max = 21
 let g:rbpt_loadcmd_toggle = 0
 
-augroup lisp
-  au!
-  au BufEnter *.rkt silent call RainbowOn()
-  au BufEnter *.el silent call RainbowOn()
-augroup END
-
-function RainbowOn()
+function! RainbowOn()
   execute 'RainbowParenthesesLoadRound'
   execute 'RainbowParenthesesLoadSquare'
   execute 'RainbowParenthesesLoadBraces'
   execute 'RainbowParenthesesActivate'
 endfunction
 
-" STARTIFY ------------------------------------------------------------------
+" SESSION ----------------------------------------------------------------------
 
+let g:session_autoload = 'no'
+let g:session_autosave = 'yes'
+let g:session_directory = '~/.config/vim/sessions/'
+let g:session_autosave_periodic = 2
+let g:session_autosave_silent = 1
+let g:session_command_aliases = 1
+
+" SYNTAX -----------------------------------------------------------------------
+
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_posix_standard = 1
+
+" STARTIFY ---------------------------------------------------------------------
+
+let g:startify_session_dir = '~/.config/vim/sessions/'
+let g:startify_session_sort = 1
+let g:startify_change_to_vcs_root = 0
 let g:startify_custom_header = []
 let g:startify_lists = [
-  \ { 'type': 'bookmarks', 'header': ["\tBookmarks"]},
+  \ { 'type': 'sessions',  'header': ["\tSessions"]},
   \ { 'type': 'files',     'header': ["\tFiles"]},
   \ { 'type': 'dir',       'header': ["\tFiles in " . getcwd()]},
-  \ { 'type': 'sessions',  'header': ["\tSessions"]},
+  \ { 'type': 'bookmarks', 'header': ["\tBookmarks"]},
   \ { 'type': 'commands',  'header': ["\tCommands"]},
 \ ]
 let g:startify_bookmarks = [
-  \ { 'vv': '~/.config/vim/vimrc' },
-  \ { 'uu': '~/.config/vim/ultisnips/' },
-  \ { 'nn': '~/.config/nvim/init.vim' },
-  \ { 'qq': '~/.config/qutebrowser/config.py' },
+  \ { 'pp': '~/documents/planning/' },
+  \ { 'dd': '~/documents/diary/' },
 \ ]
 
-" SNIPPETS ------------------------------------------------------------------
+" SNIPPETS ---------------------------------------------------------------------
 
 let g:UltiSnipsSnippetDirectories = [ '~/.config/vim/ultisnips' ]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
-" SORT MOTION ---------------------------------------------------------------
+" SORT MOTION ------------------------------------------------------------------
 
 let g:sort_motion_flags = "ui"
 
-" VIM CSS COLORS ------------------------------------------------------------
+" SURROUNDING ------------------------------------------------------------------
+
+" custom surrouding for LaTeX  environment
+let g:surround_{char2nr("1")} = "\\big(\r\\big)"
+let g:surround_{char2nr("2")} = "\\Big(\r\\Big)"
+let g:surround_{char2nr("3")} = "\\Bigg(\r\\Bigg)"
+let g:surround_{char2nr("4")} = "\\big[\r\\big]"
+let g:surround_{char2nr("5")} = "\\Big[\r\\Big]"
+let g:surround_{char2nr("6")} = "\\Bigg[\r\\Bigg]"
+
+" VIM CSS COLORS ---------------------------------------------------------------
 
 let g:cssColorVimDoNotMessMyUpdatetime = 1
 
-" VIM CASER -----------------------------------------------------------------
+" VIM CASER --------------------------------------------------------------------
 
 let g:caser_prefix = "\\k"
 
-" VIM SURROUDING ------------------------------------------------------------
-
-let g:surround_no_mappings=1 " make fucking plugin don't mess up keybindings
-
-" VIM TEX -------------------------------------------------------------------
+" VIM TEX ----------------------------------------------------------------------
 
 let g:tex_flavor='latex'
 let g:tex_conceal='abdmgs'
@@ -219,51 +343,45 @@ let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
 let g:vimtex_mappins_enabled=0
 
-" VIM UNICODER --------------------------------------------------------------
-
-let g:unicoder_command_abbreviations= 0
-let g:unicoder_exclude_filetypes = ['tex', 'latex', 'markdown', 'markdown.pandoc']
-
-" TEXT OBJECTS --------------------------------------------------------------
-
-call textobj#user#plugin('braces', {
-\   'angle': {
-\     'pattern': ['<<', '>>'],
-\     'select-a': 'aA',
-\     'select-i': 'iA',
-\   },
-\ })
-
-call textobj#user#plugin('line', {
-\  '-': {
-\    'select-a-function': 'CurrentLineA',
-\    'select-a': 'aL',
-\    'select-i-function': 'CurrentLineI',
-\    'select-i': 'iL',
-\  },
-\ })
-
-function! CurrentLineA()
-  normal! 0
-  let head_pos = getpos('.')
-  normal! $
-  let tail_pos = getpos('.')
-  return ['v', head_pos, tail_pos]
-endfunction
-
-function! CurrentLineI()
-  normal! ^
-  let head_pos = getpos('.')
-  normal! g_
-  let tail_pos = getpos('.')
-  let non_blank_char_exists_p = getline('.')[head_pos[2] - 1] !~# '\s'
-  return
-  \ non_blank_char_exists_p
-  \ ? ['v', head_pos, tail_pos]
-  \ : 0
-endfunction
-
-" THEMES --------------------------------------------------------------------
+" THEMES -----------------------------------------------------------------------
 
 " favorite themes: ayu, eldar, pop-punk, moonfly, codedark, molokai, onedark
-colorscheme eldar
+colorscheme moonfly
+
+" TEXT OBJECTS -----------------------------------------------------------------
+
+let g:textobj_comment_no_default_key_mappings = 1
+let g:textobj_entire_no_default_key_mappings = 1
+
+call textobj#user#map('comment', {
+\   '-': {
+\     'select-a': 'ac',
+\     'select-i': 'ic',
+\   }
+\ })
+
+call textobj#user#map('entire', {
+\   '-': {
+\     'select-a': 'aE',
+\     'select-i': 'iE',
+\   }
+\ })
+
+" call textobj#user#map('python', {
+" \   'class': {
+" \     'select-a': '<buffer>aC',
+" \     'select-i': '<buffer>iC',
+" \     'move-p': '<buffer>[c',
+" \     'move-n': '<buffer>]c',
+" \     'move-P': '<buffer>[C',
+" \     'move-N': '<buffer>]C',
+" \   },
+" \   'function': {
+" \     'select-a': '<buffer>af',
+" \     'select-i': '<buffer>if',
+" \     'move-p': '<buffer>[f',
+" \     'move-n': '<buffer>]f',
+" \     'move-P': '<buffer>[F',
+" \     'move-N': '<buffer>]F',
+" \   }
+" \ })

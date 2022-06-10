@@ -1,0 +1,7 @@
+#!/bin/sh
+if [[ "$1" == "--center" ]]; then
+  shift
+  alacritty --class termfloatcenter -e nvim-qt --nofork "$@"
+else
+  nvim-qt --nofork "$@"
+fi

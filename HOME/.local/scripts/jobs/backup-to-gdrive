@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# backup home
+local_backup_folder=/home/backups/HOME
+drive_backup_folder_id=$(gdrive list -q "name = 'backups-home'" --no-header | awk '{print $1}')
+
+function error_msg()
+{
+    msg="$@"
+    echo $msg >&2
+    exit 1
+}
+
+# check for errors
+[[ -n $drive_backup_folder_id ]] || error_msg "Drive backup folder does not exist"
+[[ -d $local_backup_folder ]] || error_msg "Local backup folder does not exist"
+
+# change dir to make things easier
+cd $local_backup_folder
+
+for file in *.gpg; do
+    # skip file if it was already uploaded
+    [[ -n $(gdrive list -q "name = '$file'" --no-header) ]] && continue
+
+    # upload the file
+    gdrive upload -p $drive_backup_folder_id $file
+done

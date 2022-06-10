@@ -1,0 +1,5 @@
+#!/bin/sh
+f=$1
+b=$(basename "$f")
+echo "i was called $(date) on ${f}" >> /tmp/mlog.txt
+sed -e 's;^\\begin{;\$\$&;' -e 's;^\\end{.*};&\$\$;' "$f" > /tmp/"$b"

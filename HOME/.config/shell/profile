@@ -23,7 +23,7 @@ SHELL_CONFIG=~/.config/shell
 source_files $SHELL_CONFIG/{login,env,aliases,functions}
 
 # load local scripts and local bin
-path_prepend ~/.local/{bin,scripts}
+path_prepend ~/.local/bin ~/.local/scripts/*
 
 ##### SHELL COMPLETION ######
 
@@ -38,3 +38,9 @@ source_files $SHELL_CONFIG/{keybindings,completion}/*.$shell
 
 # set tabsize to 2
 tabs -2
+
+# set keyboard rate
+[[ -n $(pgrep startx) ]] && xset r rate 300 100
+
+# startship
+fancyprompt

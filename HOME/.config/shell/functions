@@ -33,11 +33,11 @@ function path_prepend()
 # utility to add, edit, view, or sync shell aliases
 function aliases()
 {
-  aliases_file=${XDG_CONFIG_HOME}/shell/aliases
+  file=${XDG_CONFIG_HOME}/shell/aliases
   case "$1" in
-    edit|-e) $EDITOR $aliases_file ;;
-    file|-f) echo $aliases_file ;;
-    sync|-s) source $aliases_file ;;
+    edit|-e) $EDITOR $file ;;
+    path|-p) echo $file ;;
+    sync|-s) source $file ;;
     *)
       if [[ -z $1 ]]; then
         alias | sort -i
@@ -52,15 +52,34 @@ function aliases()
 # utility to edit, view, or sync shell profile
 function profile()
 {
-  profile_file=${XDG_CONFIG_HOME}/shell/profile
+  file=${XDG_CONFIG_HOME}/shell/profile
   case "$1" in
-    edit|-e) $EDITOR $profile_file ;;
-    file|-f) echo $profile_file ;;
-    sync|-s) source $profile_file ;;
-    *) $PAGER $profile_file ;;
+    edit|-e) $EDITOR $file ;;
+    path|-p) echo $file ;;
+    sync|-s) source $file ;;
+    *) $PAGER $file ;;
   esac
   return 0
 }
+
+# utility to edit, view, or sync shell history
+function hist()
+{
+  file=${HISTFILE}
+  case "$1" in
+    edit|-e) $EDITOR $file ;;
+    path|-p) echo $file ;;
+    *)
+      if [[ -z $1 ]]; then
+        $PAGER $file
+      else
+        grep -i -P "$1" < $file
+      fi
+    ;;
+  esac
+  return 0
+}
+
 
 # utility to edit, view, or sync shell functions
 function myfunctions()
@@ -146,4 +165,28 @@ function ranger
     fi
 
     command rm -f -- "$tempfile" 2>/dev/null
+}
+
+# translate to portuguese
+function pt()
+{
+    trans -t pt -f en "$@"
+}
+
+# translate to english
+function en()
+{
+    trans -t en -f pt "$@"
+}
+
+# run command and pass it to less
+function fit()
+{
+    "$@" | /bin/less -S
+}
+
+# init starship
+function fancyprompt()
+{
+  eval "$(starship init $shell)"
 }

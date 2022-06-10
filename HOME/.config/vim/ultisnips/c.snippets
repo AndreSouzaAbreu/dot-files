@@ -1,30 +1,34 @@
 extends brakets
 
-snippet stdio "incluide stdio" bA
+snippet stdio "incluide <stdio.h>" bA
 #include <stdio.h>
-$0
 endsnippet
 
-snippet stdlib "include stdlib" bA
+snippet stdlib "include <stdlib.h>" bA
 #include <stdlib.h>
-$0
+endsnippet
+
+snippet "^string" "include <string.h>" rA
+#include <string.h>
+endsnippet
+
+snippet def "define" b
+#define $0
 endsnippet
 
 snippet main "main function" b
 int main()
 {
-	$0
-
-	return 0;
+  $0
+  return 0;
 }
 endsnippet
 
 snippet maina "main function with args" b
 int main(int argc, char* argv[])
 {
-	$0
-
-	return 0;
+  $0
+  return 0;
 }
 endsnippet
 
@@ -32,16 +36,34 @@ snippet c "comment" w
 /* $1 */$0
 endsnippet
 
-snippet struct "struct" b
-struct $1
-{
-	$2
-}
-$0
+snippet cp "comment seperator" b
+/******************************************************************************/
+endsnippet
+
+snippet td "typedef" w
+typedef $1 $2;
+endsnippet
+
+snippet ts "typedef struct" w
+typedef struct {
+  $1
+} $2;$0
+endsnippet
+
+snippet struct "struct" w
+struct {
+  $2
+} $0
 endsnippet
 
 snippet inc "include" b
 #include $1
+endsnippet
+
+snippet fn "function" b
+${1:void} ${2:fname}($2) {
+  $0
+}
 endsnippet
 
 snippet free "free" wA

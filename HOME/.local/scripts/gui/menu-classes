@@ -1,0 +1,7 @@
+#!/bin/sh
+
+dir=${HOME}/studies/uni/bcc/4sm/
+cd $dir
+find -type f -name *.mp4 |
+    sed -e 's;^./;;' | sort -r | rofi -dmenu -multi-select |
+    sed -e "s;^;$dir;" | tac | xargs mpv

@@ -1,0 +1,9 @@
+#!/bin/sh
+cd ~/music
+music=$(find . -type f -not -name ".*" | sed 's;^./;;' | sort | rofi -dmenu)
+pid_file=/tmp/music.pid
+kill $(cat $pid_file)
+echo $$ > $pid_file
+if [[ -f $music ]]; then
+    exec mpv --no-video $music --loop
+fi

@@ -1,0 +1,71 @@
+" TABS ----------------------------------------------------------------------
+
+function! Tabs(tabs)
+  exec "set shiftwidth=".a:tabs." softtabstop=".a:tabs." tabstop=".a:tabs
+endfunction
+command -nargs=1 Tabs :call Tabs(<args>)
+
+" TOGGLE STATUSBAR ----------------------------------------------------------
+
+let s:hidden_all=1
+function! ToggleStatusBar()
+	if s:hidden_all == 0
+		let s:hidden_all=1
+		set laststatus=0
+	else
+		let s:hidden_all=0
+		set laststatus=2
+	endif
+endfunction
+command ToggleStatusBar call ToggleStatusBar()
+
+" MAN PAGER MODE ------------------------------------------------------------
+
+function! ManPager()
+  set scrolloff=0 laststatus=0 nonumber norelativenumber
+  silent execute CocDisable
+endfunction
+command ManPager silent call ManPager()
+
+" RSS PAGER MODE ------------------------------------------------------------
+
+function! RssPager()
+  set scrolloff=0 laststatus=0 nonumber norelativenumber
+  packadd justify
+  nunmap ,gq
+  xunmap ,gq
+  silent normal :%s/^\s\+$//ge
+  silent normal :%s/​\+//ge
+  silent normal gg/^Link:njVG{_j
+  nnoremap q :q!<CR>
+endfunction
+command RssPager silent call RssPager()
+
+" MARKDOWN -----------------------------------------------------------------
+
+function MyMarkdownPreview()
+  normal !markprev %:p
+  normal !echo %:p | entr -n markprev %:p &
+  let oldbuff=expand('%')
+  sleep 1
+  edit /tmp/%:t
+  MarkdownPreview
+  " set nobuflisted
+  " execute 'edit' oldbuff
+endfunction
+command MyMarkdownPreview silent call MyMarkdownPreview()
+
+
+" HELPERS FUNCTION ---------------------------------------------------------
+
+function! CustomFormatting()
+  :%s/\([^ ]\) \?{$/\1\r{/
+  :gg=G
+  %s/  / /ge<CR>:%s/ \+$//
+  :g/^$\n^$/
+endfunction
+
+function! IsCursorWithinComment()
+    let hg = join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'))
+    return hg =~? 'comment' ? 1 : 0
+endfunction

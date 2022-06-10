@@ -89,3 +89,5 @@ URxvt.resize-font.bigger: C-k
 !! Matcher
 URxvt.url-launcher: qutebrowser
 URxvt.matcher.button: 1
+
+!! Xft.dpi: 144

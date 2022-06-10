@@ -1,0 +1,192 @@
+" ---------------------------------------------------------------------------
+" VIMRC
+" ---------------------------------------------------------------------------
+
+" this file contains general settings for vim. The settings are divided into
+" categories, and are sorted alphabetically in each category.
+
+" first, set vim to not be compatible with vi,
+" which is required for some of vim's features
+set nocompatible
+
+" ---------------------------------------------------------------------------
+" INDENTATION
+" ---------------------------------------------------------------------------
+
+" automatic indentation
+set autoindent smartindent
+
+" width, in characters, for the indent operator > 
+set shiftwidth=2
+
+" amount of characters occupied by pressing <TAB>
+" (if the value is different than tabstop, vim will
+" insert a combination of tabs and spaces to simulate
+" the tab width).
+set softtabstop=2
+
+" width, in characters, of a <TAB>
+set tabstop=2
+
+" whether to convert tabs to space
+set expandtab
+
+" ---------------------------------------------------------------------------
+" SEARCH
+" ---------------------------------------------------------------------------
+
+" highlight search while typing
+set incsearch
+
+" highlight all strings matching the search pattern
+set hlsearch
+
+" make path include current dir, dir of current file, and subdirs
+set path=.,,**
+
+" ignore some directories when searching files
+set wildignore+=**/node_modules/** 
+set wildignore+=**/vendor/** 
+set wildignore+=**/__pycache__/** 
+set wildignore+=**/.cache/** 
+set wildignore+=**/.git/** 
+
+" ---------------------------------------------------------------------------
+" BUFFERS
+" ---------------------------------------------------------------------------
+
+" auto load file changes
+set autoread
+
+" enable backspace to delete char
+set backspace=indent,eol,start
+
+" text encoding
+set encoding=utf8
+
+" folding settings
+set foldmethod=indent foldlevel=10
+
+" prevent warnings when exiting modified buffer
+set hidden
+
+" do not redraw screen when using macros
+set lazyredraw
+
+" persistent undo, even if close and reopen vim
+set undofile
+
+" relative line numbers
+set number relativenumber
+
+" enable syntax highlighting
+syntax on
+
+" how many lines to show below/above the cursor
+set scrolloff=0
+
+" don't wrap lines!
+set wrap!
+
+" ---------------------------------------------------------------------------
+" AUTO COMPLETE
+" ---------------------------------------------------------------------------
+
+" include dictionary
+set complete+=kspell
+
+" show complete menu by pressing <C-P> (default), longest matches first.
+set completeopt=menuone,longest,preview
+
+" don't show notifications when showing completion suggestions
+set shortmess+=c
+
+" turn on/off spell to get completion for words in dictionary
+" set spell
+
+" spell language
+set spelllang=en_us,pt_br
+
+" ---------------------------------------------------------------------------
+" CURSOR
+" ---------------------------------------------------------------------------
+
+" highlight current cursor line
+set cursorline
+
+" activate mouse on all modes
+set mouse=a
+
+" ---------------------------------------------------------------------------
+" CMD LINE
+" ---------------------------------------------------------------------------
+
+" hide status line by default
+set laststatus=0
+
+" show suggestions for selection/commands
+set wildmenu
+
+" size of command history
+set history=5000
+
+" ---------------------------------------------------------------------------
+" CHARACTERS
+" ---------------------------------------------------------------------------
+
+" custom chars for invisible characters
+set listchars=eol:¬,tab:↳\ ,trail:~,extends:>,precedes:<,space:·
+
+" Char Unicode
+" ↲    u21b2
+" ↳    u21b3
+" →    u2192
+" •    u2022
+" ◦    u25e6
+" ‧    u2027
+" ▪    u25aa
+
+" more at: https://www.w3schools.com/charsets/ref_utf_punctuation.asp
+" press <C-v> in Insert Mode then type the unicode to insert UTF-8 char
+
+" ---------------------------------------------------------------------------
+" NETRW (DEFAULT FILE MANAGER)
+" ---------------------------------------------------------------------------
+
+" open files to the right
+let g:netrw_altv=1
+
+" turn off top banner
+let g:netrw_banner=0
+
+" set default style view
+let g:netrw_liststyle=3
+
+" n layout
+" 0 default
+" 1 details
+" 2 column
+" 3 tree
+
+" abide to xdg
+let g:netrw_home = $XDG_DATA_HOME."/vim"
+
+" open preview of files to the right
+let g:netrw_preview=1
+
+" initial size of the file menu (percentage of the window)
+let g:netrw_winsize=20
+
+" file handler
+let g:netrw_browsex_viewer="xdg-open"
+
+" ---------------------------------------------------------------------------
+" WINDOW
+" ---------------------------------------------------------------------------
+
+" more natural window splitting
+set splitbelow
+set splitright
+
+" default window diff split
+set diffopt=vertical

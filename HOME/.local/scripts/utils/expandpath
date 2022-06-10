@@ -1,0 +1,38 @@
+#!/bin/sh
+
+path=$1
+regex=$(echo ${path} | sed 's;/\([^/]\+\);/\[\^/\]*\1\[\^/\]*;g')
+if echo $path | grep '/$' >/dev/null; then
+  regex="^${regex}[^/]*\$"
+else
+  regex="^${regex}\$"
+fi
+
+if echo ${path} | grep '^/' >/dev/null; then
+  cd / > /dev/null
+fi
+
+function lsdirs()
+{
+  find -maxdepth 1 -type d | sed -e 's;^\./\?;;' -e '/^$/d'
+}
+
+while [ 1 ]; do
+  dir=$(echo ${path} | grep -o -P '^/?[^/]+' | sed 's;^/;;')
+  ndir=''
+  [[ -z $dir ]] && break
+
+  if [[ -d "${dir}" ]]; then
+    ndir="${dir}"
+  elif [[ $(lsdirs | grep --fixed-strings "${dir}" | wc -l) -eq 1 ]]; then
+    ndir=$(lsdirs | grep --fixed-strings "${dir}")
+  elif [[ $(lsdirs | grep "^${dir}" | wc -l) -eq 1 ]]; then
+    ndir=$(lsdirs | grep "^${dir}")
+  fi
+
+  [[ -d ${ndir} ]] || break
+  cd "${ndir}" > /dev/null
+  path=$(echo $path | sed "s;/\?[^/]\+;;")
+done
+
+find $PWD 2>/dev/null | grep -P "$regex"

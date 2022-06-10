@@ -1,21 +1,26 @@
 {
   "coc.preferences.formatOnSaveFiletypes": [
-    "json"
+    "css",
+    "html",
+    "java",
+    "javascript",
+    "json",
+    "vue"
   ],
   "explorer.quitOnOpen": false,
   "explorer.position": "left",
   "explorer.file.showHiddenFiles": true,
   "explorer.file.hiddenRules": {
-    "filenames": [
-      ".git"
-    ]
+    "filenames": [".git"]
   },
   "explorer.git.enable": false,
   "explorer.keyMappings.global": {
     "ad": "addDirectory",
     "af": "addFile",
-    "dd": "delete",
-    "dc": "cutFile",
+    "cc": "collapse",
+    "cC": "collapse:all",
+    "dD": "delete",
+    "dd": "cutFile",
     "f": "search",
     "F": "searchRecursive",
     "gb": "gotoSource:buffer",
@@ -24,39 +29,14 @@
     "gk": "expandablePrev",
     "gl": [
       "expandable?",
-      [
-        "expanded?",
-        "cd",
-        "expand"
-      ],
-      [
-        "expandablePrev",
-        "cd"
-      ]
+      ["expanded?", "cd", "expand"],
+      ["expandablePrev", "cd"]
     ],
-    "gh": [
-      "gotoParent"
-    ],
-    "h": [
-      "expandable?",
-      [
-        "expanded?",
-        "collapse",
-        "gotoParent"
-      ],
-      "gotoParent"
-    ],
-    "l": [
-      "expandable?",
-      [
-        "expanded?",
-        "cd",
-        "expand"
-      ],
-      "open"
-    ],
-    "<C-h>": "gotoParent",
-    "<C-l>": "open",
+    "gh": ["gotoParent"],
+    "gx": "systemExecute",
+    "x": "systemExecute",
+    "h": ["expandable?", ["expanded?", "collapse", "gotoParent"], "gotoParent"],
+    "l": ["expandable?", ["expanded?", "cd", "expand"], "open"],
     "os": "open:split",
     "ot": "open:tab",
     "ov": "open:vsplit",
@@ -73,33 +53,20 @@
     "zO": "expand:recursive",
     "!": "systemExecute",
     "?": "help",
+    "<C-h>": "gotoParent",
+    "<C-l>": "open",
     "<bs><bs>": "gotoParent",
     "<esc>": "esc",
-    "<cr>": [
-      "expandable?",
-      [
-        "expanded?",
-        "collapse",
-        "expand"
-      ],
-      "open"
-    ],
-    "<space>": [
-      "expandable?",
-      [
-        "expanded?",
-        "collapse",
-        "expand"
-      ],
-      "open"
-    ]
+    "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"],
+    "<space>": ["expandable?", ["expanded?", "collapse", "expand"], "open"]
   },
   "explorer.presets": {},
   "explorer.width": 30,
-  "java.project.referencedLibraries": [
-    "/home/andre/.local/share/algs4/algs4.jar"
-  ],
+  "java.project.referencedLibraries": ["/home/andre/.local/lib/java/*"],
   "suggest.detailField": "preview",
   "suggest.maxCompleteItemCount": 20,
-  "suggest.snippetsSupport": false
+  "suggest.snippetsSupport": true,
+  "suggest.noselect": false,
+  "vetur.ignoreProjectWarning": true,
+  "git.enableGutters": false
 }

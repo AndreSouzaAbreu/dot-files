@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# ------------------------------------------------
+# ------------------------------------------------------------------------------
 # ENVIRONMENT VARIABLES
-# ------------------------------------------------
+# ------------------------------------------------------------------------------
 
 # programs
 export BROWSER=qutebrowser
@@ -10,6 +10,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 export PAGER=less
 export MANPAGER=less
+export WM=dwm
 
 # history
 export SAVEHIST=25000
@@ -21,17 +22,23 @@ export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# CLEANING UP HOME DIRECTORY ---------------------
+# ------------------------------------------------------------------------------
+# CLEANING UP HOME DIRECTORY
 
 # xdg
 export XDG_CONFIG_HOME=${HOME}/.config
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_CACHE_HOME=${HOME}/.cache
 
-# PROGRAMS ---------------------------------------
+# xdg programs
+eval $(sed -e '/^#/d' -e '/^$/d' -e 's/^/export /' ~/.config/user-dirs.dirs)
+
+# ------------------------------------------------------------------------------
+# PROGRAMS
 
 # abduco session management
 export ABDUCO_SOCKET_DIR=${XDG_DATA_HOME}
+export ABDUCO_CMD=${EDITOR}
 
 # asymptote graphics
 export ASYMPTOTE_HOME=${XDG_CONFIG_HOME}/asymptote
@@ -46,40 +53,61 @@ export CM_MAX_CLIPS=50
 
 # commands
 export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
-export FZF_DEFAULT_COMMAND='fd --hidden --follow'
+export FZF_DEFAULT_COMMAND='fzfcmd'
 
 # crypto
 export ELECTRUMDIR=${XDG_DATA_HOME}/electrum
+
+# docker
+export DOCKER_CONFIG=${XDG_CONFIG_HOME}/docker
 
 # emacs
 export EMACSDIR=${XDG_CONFIG_HOME}/emacs
 
 # email
+export MUTT_DIR=${XDG_CONFIG_HOME}/mutt
 export MBSYNCRC=${XDG_CONFIG_HOME}/mbsync/mbsyncrc
 export NOTMUCH_CONFIG=${XDG_CONFIG_HOME}/notmuch/notmuchrc
 export NMBGIT=${XDG_DATA_HOME}/notmuch/nmbug
+
+# gdrive
+export GDRIVE_CONFIG_DIR=${XDG_CONFIG_HOME}/gdrive
 
 # gnupg
 export GNUPGHOME=${XDG_DATA_HOME}/gnupg
 export PASSWORD_STORE_DIR=${XDG_DATA_HOME}/pass
 
+# go
+export GOPATH=${XDG_DATA_HOME}/go
+
+# iceauthority
+export ICEAUTHORITY=${XDG_CACHE_HOME}/ICEauthority
+
+# java
+# export CLASSPATH=${HOME}/.local/lib/java
+export _JAVA_AWT_WM_NONREPARENTING=1
+export GRADLE_USER_HOME=${XDG_DATA_HOME}/gradle
+export GRADLE_HOME=${XDG_DATA_HOME}/gradle
+
 # javascript 
 export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME}/npm/npmrc
 export NODE_REPL_HISTORY=${XDG_CONFIG_HOME}/npm/node_hist
-
-# java algs4
-PRINCETON=$HOME/.local/share/algs4
-export LIFT_INSTALL=${PRINCETON}/lift
-export CLASSPATH=${PRINCETON}
 
 # julia
 export JULIA_DEPOT_PATH=${XDG_DATA_HOME}/julia
 
 # less
-export LESSHISTFILE=-
+export LESSHISTFILE=${XDG_DATA_HOME}/lesshist
+export LESS="-FRS"
+
+# ledger
+export LEDGER_FILE=${XDG_DOCUMENTS_DIR}/personal/finance/hledger.txt
 
 # maxima
 export MAXIMA_USERDIR=${XDG_CONFIG_HOME}/maxima
+
+# mysql
+export MYCLI_HISTFILE=${XDG_CACHE_HOME}/mycli/mycli-history
 
 # octave
 export OCTAVE_HISTFILE=${XDG_CACHE_HOME}/octave-hsts
@@ -98,6 +126,9 @@ export R_HISTFILE=${XDG_DATA_HOME}/r/.Rhistory
 # rust
 export CARGO_HOME=${XDG_DATA_HOME}/cargo
 
+# tree
+export TREE_CHARSET=ascii
+
 # sage math
 export DOT_SAGE=${XDG_CONFIG_HOME}/sage
 
@@ -114,4 +145,3 @@ export VIMINIT='let $vimrc = has("nvim") ? $NVIMRC : $VIMRC | source $vimrc'
 export XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority
 export XINITRC=${XDG_CONFIG_HOME}/X11/xinitrc
 export XSERVERRC=${XDG_CONFIG_HOME}/X11/xserverrc
-

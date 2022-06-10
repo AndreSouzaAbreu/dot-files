@@ -1,0 +1,8 @@
+#!/bin/sh
+while [[ -n $1 ]]; do
+    dir=$1
+    shift
+    [[ -d $dir ]] || break;
+    rm -rf "$dir"
+    mkdir $dir
+done

@@ -1,20 +1,29 @@
 #!/bin/zsh
 
-#####################
-# ZSH CONFIGURATION #
-#####################
+# ##############################################################################
+# ZSH CONFIGURATION
+#
+# ##############################################################################
 
-ZDOTDIR=~/.config/zsh
 
-## HISTORY #####################################################
+################################################################################
+# OPTIONS
 
+# enable comments
+setopt interactivecomments
+
+# Disable the bultin 'repeat' to overwrite it
+disable -r repeat
+
+# set history file options
 export HISTFILE="${XDG_DATA_HOME:-${HOME}/.local/share}/zsh/history"
 setopt extendedglob appendhistory hist_ignore_all_dups hist_ignore_space
 
-## PROMPT ######################################################
+################################################################################
+# PROMPT
 
 function p0() {
-	PROMPT="[%3d]$ "
+	PROMPT="$ "
 }
 
 function p1() {
@@ -22,37 +31,66 @@ function p1() {
 }
 
 function p2() {
-	PROMPT='%F{#0f0}%n%F{#fff}@%F{#0f0}%m %F{fff}[%~]%F{fff} '
+	PROMPT="[%3d]$ "
 }
 
 function p3() {
-	PROMPT="$ "
+	PROMPT="[%~]"$'\n'"$ "
+}
+
+function p4() {
+	PROMPT="[%d]"$'\n'"$ "
+}
+
+function p5() {
+	PROMPT='[%F{#0f0}%n%F{#fff}@%F{#0f0}%m %F{fff}%2d]%F{fff} '$'\n'"$ "
+}
+
+function p6() {
+	PROMPT='[%F{#0f0}%n%F{#fff}@%F{#0f0}%m %F{fff}%~]%F{fff} '$'\n'"$ "
 }
 
 # default prompt
-p0
+p5
 
-## AUTO COMPLETION #############################################
+################################################################################
+# AUTO COMPLETION
 
-# Basic auto/tab complete:
+# Basic tab complete:
 autoload -U compinit
 compinit
 
 # autocompletion of command line switches for aliases
 setopt COMPLETE_ALIASES
 
-# autocompletion with an arrow-key driven interface
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-
-# Include hidden files.
+# include hidden files in completion
 _comp_options+=(globdots)   
 
-## CACHE #######################################################
+# autocompletion with an arrow-key driven interface
+zmodload zsh/complist
+zstyle ':completion:*' menu select
 
+# load cache for completion
 compinit -d ${XDG_CACHE_HOME}/zsh/zcompdump-${ZSH_VERSION}
 
-## VIM #########################################################
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# preview directory's content with exa when completing cd or z
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'exa -1 --color=always $realpath'
+
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+
+################################################################################
+# VIM KEYBINDINGS
 
 bindkey -v
 export KEYTIMEOUT=1
@@ -68,30 +106,41 @@ bindkey -v '^?' backward-delete-char
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-## PLUGINS #####################################################
+################################################################################
+# PLUGINS
 
-zsh_plugin_dir=/usr/share/zsh/plugins
-zsh_plugin_suggestion=${zsh_plugin_dir}/zsh-autosuggestions/zsh-autosuggestions.zsh
-zsh_plugin_highlight=${zsh_plugin_dir}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+function load_plugin_by_name()
+{
+	local plugin_dir=/usr/share/zsh/plugins
+	while [[ -n $1 ]]; do
+		plugin_name=$1
+		plugin=${plugin_dir}/${plugin_name}/${plugin_name}.plugin.zsh
+		[[ -f $plugin ]] && source ${plugin}
+		shift
+	done
+}
 
-[[ -f $zsh_plugin_suggestion ]] && source $zsh_plugin_suggestion
-[[ -f $zsh_plugin_highlight ]] && source $zsh_plugin_highlight
+load_plugin_by_name zsh-autosuggestions fast-syntax-highlighting fzf-tab
 
-## HIGHLIGHT ###################################################
+################################################################################
+# HIGHLIGHT
 
-# override default values
+# this configuration is for the plugin zsh-syntax-highlighting
+# i'm using the fast-syntax-highlighting instead...
 
-ZSH_HIGHLIGHT_STYLES[alias]=fg=yellow
-ZSH_HIGHLIGHT_STYLES[builtin]=fg=magenta
-ZSH_HIGHLIGHT_STYLES[function]=fg=cyan
-ZSH_HIGHLIGHT_STYLES[command]=fg=green
-ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=magenta
-ZSH_HIGHLIGHT_STYLES[path]=fg=cyan
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=white
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=white
-ZSH_HIGHLIGHT_STYLES[comment]=fg=245
+# my custom colors:
 
-# default values are as follows
+# ZSH_HIGHLIGHT_STYLES[alias]=fg=yellow
+# ZSH_HIGHLIGHT_STYLES[builtin]=fg=magenta
+# ZSH_HIGHLIGHT_STYLES[function]=fg=cyan
+# ZSH_HIGHLIGHT_STYLES[command]=fg=green
+# ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=magenta
+# ZSH_HIGHLIGHT_STYLES[path]=fg=cyan
+# ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=white
+# ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=white
+# ZSH_HIGHLIGHT_STYLES[comment]=fg=245
+
+# default colors:
 
 # ZSH_HIGHLIGHT_STYLES[assign]=none
 # ZSH_HIGHLIGHT_STYLES[default]=none
@@ -115,10 +164,11 @@ ZSH_HIGHLIGHT_STYLES[comment]=fg=245
 # ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=009
 # ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=white,underline
 
-## KEY BINDINGS ################################################
+################################################################################
+# KEYMAPS
 
 # create a zkbd compatible hash
-# to add other keys to this hash, see: man 5 terminfo
+# to add other keys to this hash see: man 5 terminfo
 typeset -g -A key
 key[Home]="${terminfo[khome]}"
 key[End]="${terminfo[kend]}"
@@ -147,6 +197,12 @@ key[Shift-Tab]="${terminfo[kcbt]}"
 [[ -n "${key[PageDown]}"  ]] && bindkey -- "${key[PageDown]}"   end-of-buffer-or-history
 [[ -n "${key[Shift-Tab]}" ]] && bindkey -- "${key[Shift-Tab]}"  reverse-menu-complete
 
+# Shift, Alt, Ctrl and Meta modifiers
+key[Control-Left]="${terminfo[kLFT5]}"
+key[Control-Right]="${terminfo[kRIT5]}"
+[[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
+[[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
+
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
 if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
@@ -157,33 +213,21 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
   add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
-## HISTORY SEARCH ##############################################
+################################################################################
+# HISTORY SEARCH
 
 # only the past commands matching the current line up to the current
 # cursor position will be shown when Up or Down keys are pressed
+
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 [[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
-## COMMAND LINE NAVIGATION #####################################
+################################################################################
+# SHELL PROFILE
 
-# Shift, Alt, Ctrl and Meta modifiers
-key[Control-Left]="${terminfo[kLFT5]}"
-key[Control-Right]="${terminfo[kRIT5]}"
-[[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
-[[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
-
-## MIXED #######################################################
-
-setopt interactivecomments
-
-## SHELL PROFILE ###############################################
-
-# Disable the bultin 'repeat' to overwrite it
-disable -r repeat
-
-# load shell aliases, functions, and env vars
+# load shell profile, which has aliases, functions, and env vars
 shell_profile=~/.config/shell/profile
 [[ -f $shell_profile ]] && source $shell_profile

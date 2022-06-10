@@ -1,7 +1,7 @@
 extends tex
 
-#########################################
-### PYTHON HELPERS ######################
+################################################################################
+# PYTHON HELPERS
 
 global !p
 
@@ -61,8 +61,8 @@ def create_ordered_list_snippet(n):
 
 endglobal
 
-################################################
-### SNIPPETS ###################################
+################################################################################
+# SNIPPETS
 
 snippet l "link" w
 [$1]($2) $0
@@ -99,11 +99,11 @@ snippet "table([1-9]+x[1-9]+)" "automatic generated table" br
 `!p snip.rv = match.group(1)`
 endsnippet
 
-snippet  - "header" b
+snippet - "header" b
 ---
-author: ${1:André Souza Abreu}
+author: André Souza Abreu
 date: `date +%d/%m/%Y`
-title: $2
+title: `echo -n ${PWD} | grep -o -P 'ma[cet][0-9]+' | tr 'a-z' 'A-Z'` — LISTA `basename ${PWD} | grep -o -P '[1-9][0-9]?' | tr -d '\n'`
 ---
 
 $0

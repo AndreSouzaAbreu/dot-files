@@ -1,0 +1,11 @@
+xrdb -load ~/.config/X11/xresources
+xset r rate 300 50
+setxkbmap -layout br
+clipmenud &
+notification-daemon &
+start-pulseaudio-x11
+exec dwm
+exec i3
+exec startxfce4
+exec gnome-session
+exec qtile start

@@ -1,0 +1,3 @@
+#!/bin/sh
+title="cryptomarket"
+xfce4-terminal -T $title -e "coins -c"

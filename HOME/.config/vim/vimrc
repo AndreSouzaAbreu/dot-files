@@ -1,10 +1,10 @@
 " source the configuration files
-source $VIMRC-general
+source $VIMRC-options
 source $VIMRC-xdg
-source $VIMRC-gui
+source $VIMRC-gvim
 source $VIMRC-plugins
 source $VIMRC-bugfixes
-source $VIMRC-keybindings
+source $VIMRC-keymaps
 source $VIMRC-autocommands
 source $VIMRC-abbreviations
-source $VIMRC-userfunctions
+source $VIMRC-functions

@@ -1,0 +1,9 @@
+#!/bin/sh
+cd $PASSWORD_STORE_DIR
+folders="accounts|mail|ssh|wallet"
+account=$(find */ -type f | grep -P "(${folders})/" | sed 's/\.gpg$//' | sort | rofi -dmenu -window-title 'password')
+[[ ! -f "$account.gpg" ]] && exit 1
+clipctl disable
+pass show $account --clip
+clipctl enable
+exit 0

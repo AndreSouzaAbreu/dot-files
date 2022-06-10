@@ -102,6 +102,12 @@ snippet eq "equation" b
 \end{equation*}
 endsnippet
 
+snippet eqn "equation" b
+\begin{equation}
+	$0
+\end{equation}
+endsnippet
+
 snippet alignn "align" b
 \begin{align}
 	$0
@@ -133,6 +139,7 @@ snippet bs "sized square brackets" wA
 endsnippet
 
 context "math()"
+priority -10
 snippet "([^(\[{])x" "multiplication" wr
 `!p snip.rv = match.group(1)`\cdot $0
 endsnippet
@@ -158,11 +165,12 @@ snippet "([0-9]+)x([0-9]+)" "multiplication" wr
 endsnippet
 
 context "math()"
-snippet "(f|g|h|log)" "wrap function" wr
+snippet "(f|g|h)" "wrap function" wr
 `!p snip.rv = match.group(1)`($1)$0
 endsnippet
 
 context "math()"
+priority 10
 snippet "([fghp])([xy])" "wrap function" wr
 `!p snip.rv = match.group(1)`(`!p snip.rv = match.group(2)`)$0
 endsnippet
@@ -183,19 +191,24 @@ snippet "(a|b|c|t|x|y|z|f)([0-9]+) " "automatic subscript" wrA
 endsnippet
 
 context "math()"
-snippet "(a|b|c|t|x|y|z|f)([0-9]+)" "automatic subscript" wr
+snippet "(a|b|c|t|x|y|z|f)([ijknm][-+]?[0-9]*) " "automatic subscript" wrA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}$0
+endsnippet
+
+context "math()"
+snippet "(a|b|c|t|x|y|z|f)([0-9]+)" "superscript" wr
+`!p snip.rv = match.group(1)`^{`!p snip.rv = match.group(2)`}$0
 endsnippet
 
 priority 20
 context "math()"
-snippet ç "superscript (alt+k)" iA
+snippet ç "superscript" iA
 ^{$1}$0
 endsnippet
 
 priority 10
 context "math()"
-snippet Ç "subscript (alt+j)" iA
+snippet Ç "subscript" iA
 _{$1}$0
 endsnippet
 
@@ -264,18 +277,18 @@ snippet int "integral" w
 endsnippet
 
 context "math()"
-snippet exp "exponential" wA
+snippet exp "exponential" w
 e^{$1}$0
 endsnippet
 
 context "math()"
 snippet log2 "logaritmic" wA
-log_2($1)$0
+\log_2($1)$0
 endsnippet
 
 context "math()"
 snippet log10 "logaritmic" wA
-log_{10}($1)$0
+\log_{10}($1)$0
 endsnippet
 
 context "math()"
@@ -284,8 +297,8 @@ snippet binom "binomial" wA
 endsnippet
 
 context "math()"
-snippet "(a?sin|a?cos|ln|a?tan)" "common functions" wrA
-`!p snip.rv = match.group(1)`($1)$0
+snippet "(a?sin|a?cos|ln|log|a?tan)" "trig functions" wr
+\\`!p snip.rv = match.group(1)`($1)$0
 endsnippet
 
 ######################################################
@@ -297,18 +310,18 @@ eval $1 endeval$0
 endsnippet
 
 context "math()"
-snippet "eval (.*) endeval" "evaluate math expression symbocally" rw
+snippet "eval (.*) endeval" "evaluate math expression" rw
 `!p
 from sympy import *
 import re
 x, y, z, t = symbols('x y z t')
 k, m, n = symbols('k m n', integer=True)
 f, g, h = symbols('f g h', cls=Function)
-expression = match.group(1)
-expression = expression.replace("^", "**")
-expression = re.sub(r"([0-9]+)\s?([a-z])([^o]?[^r]?)", r"\1*\2\3", expression)
-expression = re.sub(r"([a-z0-9]+)!", r"factorial(\1)", expression)
-snip.rv = eval(f"latex({expression})")
+expr = match.group(1)
+expr = expr.replace("^", "**")
+expr = re.sub(r"([0-9]+)\s?([a-z])([^o]?[^r]?)", r"\1*\2\3", expr)
+expr = re.sub(r"([a-z0-9]+)!", r"factorial(\1)", expr)
+snip.rv = eval(f"latex({expr})")
 `
 endsnippet
 
@@ -318,17 +331,17 @@ neval $1 nendeval$0
 endsnippet
 
 context "math()"
-snippet "neval (.*) nendeval" "numerically evaluate a math expression" rw
+snippet "neval (.*) nendeval" "evaluate expression numerically" rw
 `!p
 from statistics import *
 from math import *
 import re
 ln = log
-expression = match.group(1)
-expression = expression.replace("^", "**")
-expression = re.sub(r"([0-9]+)\s?([a-z])([^o]?[^r]?)", r"\1*\2\3", expression)
-expression = re.sub(r"([a-z0-9]+)!", r"factorial(\1)", expression)
-snip.rv = eval(expression)
+expr = match.group(1)
+expr = expr.replace("^", "**")
+expr = re.sub(r"([0-9]+)\s?([a-z])([^o]?[^r]?)", r"\1*\2\3", expr)
+expr = re.sub(r"([a-z0-9]+)!", r"factorial(\1)", expr)
+snip.rv = eval(expr)
 `
 endsnippet
 

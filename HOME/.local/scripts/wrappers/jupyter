@@ -1,0 +1,2 @@
+#!/bin/sh
+HOME=${XDG_DATA_HOME} /usr/bin/jupyter "$@"

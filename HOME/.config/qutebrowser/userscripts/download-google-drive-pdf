@@ -1,0 +1,9 @@
+#!/bin/sh
+script=${HOME}/.config/qutebrowser/userscripts/js/download-google-drive-pdf.js
+tmpfile=/tmp/$RANDOM
+(
+  echo -n 'jseval ';
+  tr '\n' ' ' < ${script}
+) > $tmpfile
+cat $tmpfile >> "${QUTE_FIFO}"
+exit 0

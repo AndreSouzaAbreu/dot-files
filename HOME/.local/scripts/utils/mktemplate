@@ -1,0 +1,62 @@
+#!/bin/sh
+
+# default template dir
+dir=${XDG_TEMPLATES_DIR}
+
+# flags
+OPT_STDOUT=0
+OPT_COPY=1
+OPT_DESTDIR=${PWD}
+
+function error_msg() {
+  echo "ERROR: $@"
+  exit 1
+}
+
+# process flags
+while [[ -n $1 ]]; do
+  no_opt=0
+  case "$1" in
+    -p|--print)
+      OPT_STDOUT=1
+      ;;
+    -c|--copy)
+      OPT_COPY=1
+      ;;
+    -d|--dest-dir)
+      shift
+      OPT_DESTDIR=$1
+      if [[ ! -d $OPT_DESTDIR ]]; then
+        error_msg "Dir does not exist: $OPT_DESTDIR"
+      fi
+      ;;
+    *)
+      no_opt=1
+      ;;
+  esac
+  [[ $no_opt -eq 1 ]] && break
+  shift
+done
+
+# main
+while [[ -n $1 ]]; do
+  # get template
+  t=$1
+  if [[ -f "${dir}/$t" ]]; then
+    template="${dir}/$t"
+  elif [[ -f "${dir}/default.$t" ]]; then
+    template="${dir}/default.$t"
+  else
+    error_msg "template not found: $1"
+  fi
+
+  # copy or print template
+  if [[ $OPT_STDOUT -eq 1 ]]; then
+    cat $template
+  else
+    cp $template $OPT_DESTDIR
+  fi
+  shift;
+done
+
+exit 0

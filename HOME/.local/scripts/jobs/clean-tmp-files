@@ -1,0 +1,3 @@
+#!/bin/sh
+$HOME/.local/scripts/utils/rmkdir ~/.local/tmp/ ~/downloads/tmp/
+exit 0

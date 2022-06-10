@@ -1,0 +1,158 @@
+" ------------------------------------------------------------------------------
+" KEYBINDINGS                                                                  |
+" ------------------------------------------------------------------------------
+
+" the leader key
+let mapleader=" "
+
+" BUFFERS
+nnoremap <Bslash>bn :bn<CR>
+nnoremap <Bslash>bp :bp<CR>
+nnoremap <Bslash>bd :bd<CR>
+nnoremap <Bslash>bD :bd!<CR>
+nnoremap <M-1> :bp<CR>
+nnoremap <M-2> :bn<CR>
+
+" FILES
+nnoremap <leader>w :w<CR>
+nnoremap <leader>Q :q!<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>aq :qall<CR>
+nnoremap <leader>Aq :qall!<CR>
+
+" ------------------------------------------------------------------------------
+" WINDOW
+
+" window split
+nnoremap <leader>v <C-w>v
+nnoremap <leader>s <C-w>s
+
+" window resize
+nnoremap <silent> <M-S-j> <C-W>-
+nnoremap <silent> <M-S-k> <C-W>+
+nnoremap <silent> <M-S-h> <C-W><
+nnoremap <silent> <M-S-l> <C-W>>
+
+" window navigation
+nnoremap <M-h> <C-W>h
+nnoremap <M-j> <C-W>j
+nnoremap <M-k> <C-W>k
+nnoremap <M-l> <C-W>l
+
+" turn terminal window into a normal buffer
+tnoremap <silent> <A-e> <C-w><S-n>:set nonumber norelativenumber<CR>
+
+" ------------------------------------------------------------------------------
+" CLIPBOARD
+
+" paste from clipboard in insert mode
+inoremap <C-S-v> <Esc>"+pi
+
+" copy, pastel, and cut 
+vnoremap <Bslash>c "+y<CR>
+vnoremap <Bslash>x "+d<CR>
+vnoremap <Bslash>v "+p<CR>
+
+" ------------------------------------------------------------------------------
+" INSERT MODE
+
+imap <C-h> <Esc>lcb
+imap <C-l> <Esc>lcw
+
+" ------------------------------------------------------------------------------
+" MISCELLANEOUS                                                                |
+" ------------------------------------------------------------------------------
+
+" indent in visual mode
+vnoremap < <gv
+vnoremap > >gv
+
+" search and replace word under cursor
+nnoremap <Bslash>w :%s/<C-r><C-w>/
+
+" move lines up/down without using clipboard
+nnoremap <M-o> :m .-2<CR>==
+nnoremap <M-i> :m .+1<CR>==
+vnoremap <M-i> :m '>+1<CR>gv=gv
+vnoremap <M-o> :m '<-2<CR>gv=gv
+
+" navigate between methods of a class
+nnoremap <Bslash>, ]m
+nnoremap <Bslash>. [m
+
+" move between lines in wrap mode
+nmap <C-j> gj
+nmap <C-k> gk
+
+" toggle line wrap
+nnoremap <M-w> :set wrap!<CR>
+
+" toggle display of invisible chars
+nnoremap <silent> <leader>l :set list!<CR>
+
+" toggle automatic comments on new lines
+nnoremap <leader>c :set formatoptions=ql<CR>
+nnoremap <leader>C :set formatoptions=qlcro<CR>
+
+" spell 
+nnoremap <C-s> [s1z=<CR><C-o>
+nnoremap <C-S-s> ]s1z=<CR><C-o>
+inoremap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u
+inoremap <C-S-s> <C-g>u<Esc>]s1z=`]a<C-g>u
+
+" close / open tabs
+nnoremap <leader>t :tabnew<CR>
+nnoremap <leader>T :tabc<CR>
+
+" ------------------------------------------------------------------------------
+" PLUGIN KEYBINDINGS                                                           |
+" ------------------------------------------------------------------------------
+
+" AIRLINE
+nnoremap <Bslash>B :ToggleStatusBar<CR>
+
+" EASY ALIGN
+xmap gA <Plug>(EasyAlign)
+nmap gA <Plug>(EasyAlign)
+
+" FZF
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+nmap <Bslash>fu :call fzf#run({'sink': 'e', 'source': 'ls ~/.config/vim/ultisnips/*'})<CR>
+nmap <Bslash>fv :call fzf#run({'sink': 'e', 'source': 'ls ~/.config/vim/vimrc*'})<CR>
+nmap <Bslash>fn :call fzf#run({'sink': 'e', 'source': 'fd . -t f ~/.config/nvim/'})<CR>
+nmap <Bslash>ff :Files<CR>
+nmap <Bslash>fb :Buffers<CR>
+nmap <Bslash>fg :Rg<cr>
+nmap <leader>f :Files<CR>
+nmap <leader>b :Buffers<CR>
+
+" NETRW
+nmap gX <Plug>NetrwBrowseX
+xmap gX <Plug>NetrwBrowseXVis
+xno <silent> <Plug>NetrwBrowseXVis :<c-u>call netrw#BrowseXVis()<cr>
+nno <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))<cr>
+
+" NEOTERM
+xmap gx <Plug>(neoterm-repl-send)gv
+nmap gx <Plug>(neoterm-repl-send)
+nmap gxx :TREPLSendLine<CR>
+nmap gxX :TREPLSendFile<CR>
+
+" RANGER
+nnoremap <silent> <M-r> :RnvimrToggle<CR>
+tnoremap <silent> <M-r> <C-\><C-n>:RnvimrToggle<CR>
+tnoremap <silent> <M-p> <C-\><C-n>:RnvimrResize<CR>
+
+" STARTFIY
+nnoremap <Bslash>h :Startify<CR>
+
+" TAGBAR
+nnoremap <Bslash>t :TagbarToggle<CR>
+
+" UNDO TREE
+nnoremap <Bslash>u :UndotreeToggle<CR>
+
+" CONQUER OF COMPLETION
+source $VIMRC-plugins-coc

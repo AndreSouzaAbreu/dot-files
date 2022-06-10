@@ -10,10 +10,9 @@ alias a='aliases'
 alias b='$BROWSER'
 alias c='coins'
 alias e='envvars'
-alias d='doas'
 alias f='myfunctions'
 alias g='git'
-alias h='head'
+alias h='hist'
 alias m='neomutt'
 alias n='newsboat'
 alias o='open'
@@ -26,13 +25,10 @@ alias y='yay'
 
 # more shorctus ----------------------------------------------------------------
 
-alias al='tabbed -c alacritty --embed'
 alias oc='octave'
-alias off='doas poweroff'
-alias py='HOME=/tmp python'
+alias py='python'
 alias rr='ranger'
 alias s.='s .'
-alias sk='setxkbmap -layout br; xset r rate 300 100'
 alias v.='v .'
 alias vv='v ~/.config/vim'
 alias xx='startx'
@@ -50,18 +46,17 @@ alias l1='exa --color=never -1hgH --group-directories-first'
 
 alias open='xdg-open'
 alias rename='perl-rename'
+alias poweroff='loginctl poweroff'
+alias reboot='loginctl reboot'
+alias off='poweroff'
 
 # clipboard stuff ---------------------------------------------------------------
 
 alias xcopy='xclip -selection clipboard'
 alias xpaste='xclip -selection clipboard -out'
-alias curlx='xclip -o -selection clipboard | xargs curl'
-alias mpvx='xclip -o -selection clipboard | xargs mpv'
 
 # programms with default options -----------------------------------------------
 
-alias less='less -S'
-alias tree='tree --charset=ascii'
 alias python='python -q'
 alias octave='octave -q'
 alias R='R -q'
@@ -70,12 +65,6 @@ alias R='R -q'
 
 alias bash='SHELL=/bin/bash bash'
 alias zsh='SHELL=/bin/zsh zsh'
-
-# shell history ----------------------------------------------------------------
-
-alias hist='cat $HISTFILE'
-alias hgrep='cat $HISTFILE | grep'
-alias histedit='$EDTIOR $HISTFILE'
 
 # git --------------------------------------------------------------------------
 
@@ -103,6 +92,10 @@ alias dkeir='docker exec -it --user root'
 alias dup='docker-compose up -d'
 alias ddown='docker-compose down'
 
+# docker programs --------------------------------------------------------------
+
+alias erd='docker run -i erd'
+
 # Laravel ----------------------------------------------------------------------
 
 alias pa='php artisan'
@@ -110,7 +103,7 @@ alias pam='php artisan migrate'
 alias par='php artisan route:list --compact'
 alias tinker='php artisan tinker'
 
-# Java ------------------------------------------------------------------------
+# Java Algs4 ------------------------------------------------------------------
 
 alias ja='java-algs4'
 alias jac='javac-algs4'
@@ -140,9 +133,9 @@ alias nwatch-css='npm run watch-css'
 
 alias pqeq='pacman -Qeq'
 alias pss='pacman -Ss'
-alias ppr='doas pacman -Rsn'
-alias pS='doas pacman -S'
-alias pp='doas pacman -Syu'
+alias ppr='sudo pacman -Rsn'
+alias pS='sudo pacman -S'
+alias pp='sudo pacman -Syu'
 
 # yay --------------------------------------------------------------------------
 
@@ -154,15 +147,10 @@ alias yy='yay -Syu'
 
 # XDG dirs ---------------------------------------------------------------------
 
-# custom config for programms
-alias claws-mail='claws-mail --alternate-config-dir ${XDG_DATA_HOME}/claws-mail'
-alias mbsync='mbsync -c ${XDG_CONFIG_HOME}/mbsync/mbsyncrc'
 alias ssh='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
 alias scp='scp -F ${XDG_CONFIG_HOME}/ssh/config'
 alias startx='startx ${XINITRC} -- ${XSERVERRC} vt1'
 
-# hardcoded solutions
-alias jupyter='HOME=${XDG_DATA_HOME} jupyter'
-alias monerod='HOME=${XDG_DATA_HOME}/monero monerod'
-alias monero-wallet-gui='HOME=${XDG_DATA_HOME}/monero monero-wallet-gui'
-alias monero-wallet-cli='HOME=${XDG_DATA_HOME}/monero monero-wallet-cli'
+# mixed
+
+alias myip='curl -s https://api.ipify.org'

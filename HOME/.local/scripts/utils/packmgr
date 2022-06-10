@@ -1,0 +1,22 @@
+#!/bin/sh
+
+options=${1-"-i"}
+flags=
+
+case "$options" in
+    -a|all)
+        flags=-Qq
+        ;;
+    -l|--available)
+        flags=-Slq
+        ;;
+    -i|--installed)
+        flags=-Qeq
+        ;;
+    *)
+        echo "unkown option"
+        exit 0
+        ;;
+esac
+
+pacman $flags | fzf --preview 'pacman -Qi {1}' --preview-window 'right,75%'

@@ -1,12 +1,40 @@
-#############################
-# CONFIGURATION             #
-#############################
+from os import environ as env
+from user_agent import generate_user_agent as random_user_agent
+
+################################################################################
+# GLOBALS
+HOME = env['HOME']
+
+################################################################################
+# HELPERS
+
+def get_path(str):
+  return str.replace('~', HOME)
+
+# bind commands
+def bind(key, command):
+    config.bind(key, command)
+
+# bind many commands at once
+def bind_many(key, commands):
+    config.bind(key, ' ;; '.join(commands))
+
+# print the command that was executed
+def bind_show(key, command):
+    commands = [command, f'message-info "{command}"', "later 1000 clear-messages"]
+    bind_many(key, commands)
+
+################################################################################
+#          ╭──────────────────────────────────────────────────────────╮        #
+#          │                      CONFIGURATION                       │        #
+#          ╰──────────────────────────────────────────────────────────╯        #
+################################################################################
 
 # load default configuration
 config.load_autoconfig()
 
-# show status bar only if not in normal mode
-c.statusbar.show = 'in-mode'
+# how to show statusbar
+c.statusbar.show = 'always'
 
 # put status bar on the bottom of the screen
 c.statusbar.position = 'bottom'
@@ -18,31 +46,38 @@ c.tabs.show = 'multiple'
 c.content.pdfjs = False
 
 # show blank page when opening new page
-c.url.default_page = 'about:blank'
-c.url.start_pages = ['about:blank']
+initial_page = get_path('~/pictures/wallpapers/qutebrowser.jpg')
+
+c.url.default_page = initial_page
+c.url.start_pages = [initial_page]
 
 # add some search engines
 search_engines = {
-  'ak':   'https://wiki.archlinux.org/?search={}',
+  'amz':  'https://www.amazon.com.br/s?k={}',
+  'aw':   'https://wiki.archlinux.org/?search={}',
   'ar':   'https://archlinux.org/packages/?q={}',
   'aur':  'https://aur.archlinux.org/packages/?K={}',
   'cd':   'https://tube.cadence.moe/search?q={}',
   'ddg':  'https://duckduckgo.com/?q={}',
-  'ddgl': 'https://lite.duckduckgo.com/?q={}',
+  'ddgl': 'https://duckduckgo.com/html/?q={}',
   'doc':  'https://devdocs.io/#q={}',
   'gh':   'https://github.com/search?q={}',
+  'gd':   'https://drive.google.com/drive/search?q={}',
+  'go':   'https://www.google.com/search?q={}',
   'qw':   'https://qwant.com/?q={}',
   'qwl':  'https://lite.qwant.com/?q={}',
   'mo':   'https://www.mojeek.com/search?q={}',
+  'ml':   'https://lista.mercadolivre.com.br/{}',
   'sp':   'https://startpage.com/do/asearch?query={}',
-  'sx':   'https://searx.info/search?q={}&language=en-US',
-  'sw':   'https://swisscows.com/web?region=iv&query={}',
+  'sx':   'https://searx.info/search?q={}',
+  'sw':   'https://swisscows.com/web?query={}',
+  'ya':   'https://yandex.com/search/?text={}',
   'yt':   'https://yewtu.be/search?q={}',
   'wi':   'https://wiby.me/?q={}',
   'wk':   'https://en.wikipedia.org/w/index.php?search={}',
   'wkp':  'https://pt.wikipedia.org/w/index.php?search={}',
   'img':     'https://yandex.com/images/search?text={}',
-  'img-ddg': 'https://duckduckgo.com/?iar=images&iax=images&ia=images&q={}',
+  'img-ddg': 'https://duckduckgo.com/?ia=images&q={}',
   'img-qw':  'https://qwant.com/?t=images&q={}',
 }
 
@@ -75,8 +110,7 @@ c.content.cookies.accept = 'no-3rdparty'
 
 # command
 c.editor.command = [
-    'alacritty', '--class', 'termfloatcenter', '-e',
-    'nvim-qt', '--nofork', '--', '{file}', '+"normal {line}G{column}l"'
+    'alacritty', '--class', 'termfloatcenter', '-e', 'nvim', '{file}', '-c', 'normal {line}G{column}l'
 ]
 
 # file picker
@@ -100,30 +134,17 @@ c.aliases['javascript'] = 'set content.javascript.enabled'
 # aliases for user scripts
 c.aliases['untrack-url'] = 'spawn --userscript untrack-url'
 
-#############################
-# BINDINGS                  #
-#############################
-
-# bind commands
-def bind(key, command):
-    config.bind(key, command)
-
-# bind many commands at once
-def bind_many(key, commands):
-    config.bind(key, ' ;; '.join(commands))
-
-# print the command that was executed
-def bind_show(key, command):
-    commands = [command, f'message-info "{command}"', "later 1000 clear-messages"]
-    bind_many(key, commands)
+################################################################################
+# BINDINGS                                                                     #
+################################################################################
 
 # zoom
 bind('<ctrl-=>', 'zoom-in')
 bind('<ctrl-->', 'zoom-out')
 
 # open pages
-bind(',.', 'open about:blank')
-bind(',,', 'open -t about:blank')
+bind(',.', 'open ' + initial_page)
+bind(',,', 'open -t ' + initial_page)
 bind('\\h', 'open qute://history')
 
 # edit current url
@@ -170,5 +191,8 @@ bind_show('<alt-shift-j>', 'javascript true')
 #############################
 
 # load private config
-import config_private
-config_private.load_config(c, config)
+try:
+  import config_private
+  config_private.load_config(c, config)
+except:
+  print("Private config not found")

@@ -1,53 +1,47 @@
 global !p
-def comment(): 
-    return vim.eval('IsCursorWithinComment') == '1'
+def comment():
+  return vim.eval('IsCursorWithinComment') == '1'
 
 def code():
-    return vim.eval('IsCursorWithinComment()') == '0'
+  return vim.eval('IsCursorWithinComment()') == '0'
 endglobal
 
 ## IF STATEMENTS
 context "code()"
 snippet "if " "if statement" wrA
-if ($1) $0
+if ($1) $2
 endsnippet
 
 context "code()"
 snippet if "if statement" w
-if ($1)
-{
-	$2
+if ($1) {
+  $2
 }
-$0
 endsnippet
 
 context "code()"
 snippet sif "short if statement" w
 if ($1)
-	$2
-$0
+  $2
 endsnippet
 
 context "code()"
 snippet "iif " "inline if statement" wrA
 if ($1) $2
-$0
 endsnippet
 
 ## ELSE STATEMENTS
 context "code()"
 snippet "else" "else statement" w
 else {
-	$1
+  $1
 }
-$0
 endsnippet
 
 context "code()"
 snippet selse "short else statement" wA
 else
-	$1
-$0
+  $1
 endsnippet
 
 context "code()"
@@ -60,59 +54,52 @@ endsnippet
 context "code()"
 snippet ifelse "if-else statement" w
 if ($1) {
-	$2
+  $2
 } else {
-	$3
+  $3
 }
-$0
 endsnippet
 
 context "code()"
 snippet sifelse "short if-else statement" wA
 if ($1)
-	$2
+  $2
 else
-	$3
-$0
+  $3
 endsnippet
 
 context "code()"
 snippet iifelse "sinline if-else statement" wA
 if ($1) $2
 else $3
-$0
 endsnippet
 
 ## ELSE-IF STATEMENTS
 context "code()"
 snippet elif "if-else statement" wA
-else if ($1)
-{
-	$2
+else if ($1) {
+  $2
 }
-$0
 endsnippet
 
 context "code()"
 snippet selif "short if-else statement" wA
 else if ($1)
-	$2
-$0
+  $2
 endsnippet
 
 context "code()"
 snippet ielif "inline if-else statement" wA
 else if ($1) $2
-$0
 endsnippet
 
 ## IF-ELSE-IF STATEMENTS
 context "code()"
 snippet ifefi "if-else-if statement" wA
 if ($1) {
-	$2
+  $2
 } else if ($3) {
-	$4
+  $4
 }
 $0
 endsnippet
@@ -120,41 +107,37 @@ endsnippet
 context "code()"
 snippet sifefi "short if-else-if statement" wA
 if ($1)
-	$2
+  $2
 else if ($3)
-	$4
-$0
+  $4
 endsnippet
 
 context "code()"
 snippet iifefi "if-else-if statement" wA
 if ($1) $2
 else if ($3) $4
-$0
 endsnippet
 
 ## IF-ELSE-IF-ELSE statemente
 context "code()"
 snippet ifefe "if-else-if-else statement" wA
 if ($1) {
-	$2
+  $2
 } else if ($3) {
-	$4
+  $4
 } else {
-	$5
+  $5
 }
-$0
 endsnippet
 
 context "code()"
 snippet sifefe "short if-else-if-else statement" wA
 if ($1)
-	$2
+  $2
 else if ($3)
-	$4
+  $4
 else
-	$5
-$0
+  $5
 endsnippet
 
 context "code()"
@@ -162,59 +145,51 @@ snippet iifefe "short if-else-if-else statement" wA
 if ($1) $2
 else if ($3) $4
 else $5
-$0
 endsnippet
 
 ## FOR STATEMENTS
 
 ## FOR VAR=0 STATEMENTS
 context "code()"
-snippet "for([ijkn])" "for loop" rwA
-for (`!p snip.rv = match.group(1)` = ${1:0}; `!p snip.rv = match.group(1)` < ${2:length}; `!p snip.rv = match.group(1)`${3:+=1}) {
-	$4
+snippet "for([ijkn])" "for loop" rw
+for (int `!p snip.rv = match.group(1)` = ${1:0}; `!p snip.rv = match.group(1)` < ${2:n}; `!p snip.rv = match.group(1)`${3:+=1}) {
+  $4
 }
-$0
 endsnippet
 
 priority 20
 context "code()"
 snippet "sfor([ijkn])" "short for loop" rwA
-for (`!p snip.rv = match.group(1)` = ${1:0}; `!p snip.rv = match.group(1)` < ${2:length}; `!p snip.rv = match.group(1)`${3:+=1})
-	$4
-$0
+for (int `!p snip.rv = match.group(1)` = ${1:0}; `!p snip.rv = match.group(1)` < ${2:n}; `!p snip.rv = match.group(1)`${3:+=1})
+  $4
 endsnippet
 
 priority 20
 context "code()"
 snippet "ifor([ijkn])" "inline for loop" rwA
-for (`!p snip.rv = match.group(1)` = ${1:0}; `!p snip.rv = match.group(1)` < ${2:length}; `!p snip.rv = match.group(1)`${3:+=1}) $4
-$0
+for (int `!p snip.rv = match.group(1)` = ${1:0}; `!p snip.rv = match.group(1)` < ${2:n}; `!p snip.rv = match.group(1)`${3:+=1}) $4
 endsnippet
 
 ## WHILE STATEMENTS
 context "code()"
 snippet while "while loop" w
-while (${1:true})
-{
-	$2
+while (${1:true}) {
+  $2
 }
-$0
 endsnippet
 
 context "code()"
 snippet "while " "whie loop" wrA
-while ($1)$0
+while ($1) $2
 endsnippet
 
 context "code()"
 snippet swhile "short while loop" wA
 while (${1:true})
-	$2
-$0
+  $2
 endsnippet
 
 context "code()"
 snippet iwhile "inline while loop" wA
 while (${1:true})$2
-$0
 endsnippet

@@ -1,0 +1,15 @@
+#!/bin/sh
+battery_info=$(acpi | tail -n 1)
+battery_level=$(echo $battery_info | grep -o '[0-9]\+%')
+battery_time_remaining=$(echo $battery_info | grep -o '[0-9]\+:[0-9]\+:' | sed -e 's/:/h/' -e 's/:/m/')
+
+battery_status="BATTERY $battery_level"
+if [[ -n $battery_time_remaining ]]; then
+    battery_status="$battery_status ($battery_time_remaining remaining)"
+fi
+
+echo $battery_status
+
+~/.local/scripts/cron/battery-notification 2>/dev/null 1>/dev/null
+
+exit 0
