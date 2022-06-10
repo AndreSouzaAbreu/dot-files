@@ -9,7 +9,6 @@
 .config/gtk-3.0/gtk.css
 .config/i3/
 .config/mimeapps.list
-.config/npm/npmrc
 .config/nvim/
 .config/nvim/lua
 .config/octave/octaverc
@@ -35,3 +34,4 @@
 .local/scripts/utils/
 .local/scripts/wrappers/
 .local/share/applications/
+code/github/AndreSouzaAbreu/dot-files/HOME/.config/.
