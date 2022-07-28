@@ -23,5 +23,5 @@ while (( $# > 0)); do
   shift
 done
 
-untracked_url=$(untrack-url $args)
+untracked_url=$(untrack-url -u $args)
 echo $qute_cmd $untracked_url >> $QUTE_FIFO

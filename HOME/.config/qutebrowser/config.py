@@ -69,13 +69,13 @@ search_engines = {
   'mo':   'https://www.mojeek.com/search?q={}',
   'ml':   'https://lista.mercadolivre.com.br/{}',
   'sp':   'https://startpage.com/do/asearch?query={}',
-  'sx':   'https://searx.info/search?q={}',
+  'sx':   'https://searx.be/search?q={}',
   'sw':   'https://swisscows.com/web?query={}',
   'ya':   'https://yandex.com/search/?text={}',
   'yt':   'https://yewtu.be/search?q={}',
   'wi':   'https://wiby.me/?q={}',
-  'wk':   'https://en.wikipedia.org/w/index.php?search={}',
-  'wkp':  'https://pt.wikipedia.org/w/index.php?search={}',
+  'wk':   'https://wikiless.org/w/index.php?lang=en&search={}',
+  'wkp':  'https://wikiless.org/w/index.php?lang=pt&search={}',
   'img':     'https://yandex.com/images/search?text={}',
   'img-ddg': 'https://duckduckgo.com/?ia=images&q={}',
   'img-qw':  'https://qwant.com/?t=images&q={}',
@@ -128,7 +128,7 @@ c.aliases['echo'] = 'message-info'
 c.aliases['clear'] = 'clear-messages'
 c.aliases['print'] = 'message-info'
 c.aliases['proxy'] = 'set content.proxy'
-c.aliases['darkmode'] = 'set colors.webpage.darkmode.enabled'
+c.aliases['dark'] = 'set colors.webpage.darkmode.enabled'
 c.aliases['javascript'] = 'set content.javascript.enabled'
 
 # aliases for user scripts
