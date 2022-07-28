@@ -6,8 +6,10 @@
 .config/docker/config.json
 .config/dtm/tracked-files.txt
 .config/git/config
-.config/gtk-3.0/gtk.css
+.config/gtk-2.0/
+.config/gtk-3.0/
 .config/i3/
+.config/ipython/profile_default/ipython_config.py
 .config/mimeapps.list
 .config/nvim/
 .config/nvim/lua
@@ -15,7 +17,7 @@
 .config/qutebrowser/bookmarks/urls
 .config/qutebrowser/config.py
 .config/qutebrowser/userscripts
-.config/ranger/rc.conf
+.config/ranger
 .config/rtorrent/rtorrent.rc
 .config/shell/
 .config/shell/completion/
@@ -28,10 +30,8 @@
 .config/vim/
 .config/vim/ultisnips/
 .config/zathura/zathurarc
-.config/zsh/.zshrc
+.config/zsh/
 .local/scripts/gui/
-.local/scripts/jobs/
 .local/scripts/utils/
 .local/scripts/wrappers/
 .local/share/applications/
-code/github/AndreSouzaAbreu/dot-files/HOME/.config/.
