@@ -8,9 +8,6 @@ export TERM=xterm
 export EDITOR=vim
 export VISUAL=vim
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 # aliases
 alias v='vim'
 alias l='ls'
@@ -33,35 +30,36 @@ alias ddown='docker-compose down'
 alias dup='docker-compose up -d'
 
 # docker
-alias dk='docker'
-alias dkei='docker exec -it'
+alias  dkei='docker exec -it'
 alias dkeir='docker exec -it --user root'
-alias dkps='docker ps --format "{{.Names}} {{.Image}}"'
 
 ## functions
 
 # Go back to the parent directory n times
-function up() {
+up()
+{
   number="${1:-1}"
-  for i in $(seq $number); do
+  for i in $(seq "${number}"); do
     cd ..
   done
   return 0
 }
 
 # Run a command n times
-function repeat() {
+repeat()
+{
   number="${1:-1}"
   shift
   command=$@
-  for i in $(seq $number); do
+  for i in $(seq "${number}"); do
     $command
   done
   return 0
 }
 
 # Make a directory and cd into it
-function mkcd() {
+mkcd()
+{
   mkdir -p "$1" && cd "$1"
   return 0
 }
