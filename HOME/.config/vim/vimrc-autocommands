@@ -2,48 +2,50 @@
 " AUTO COMMANDS
 " ---------------------------------------------------------------------------
 
+augroup auto_save_folds
+  autocmd!
+  autocmd BufWinLeave *.* mkview
+  autocmd BufWinEnter *.* silent! loadview
+augroup END
+
 augroup lisp_highlight
-  au!
-  au BufEnter *.rkt silent call RainbowOn()
-  au BufEnter *.el silent call RainbowOn()
+  autocmd!
+  autocmd BufEnter *.rkt silent call RainbowOn()
+  autocmd BufEnter *.el silent call RainbowOn()
 augroup END
 
-augroup mysyntax
-  au!
-  au BufEnter .env.* set syntax=sh
-  au FileType markdown set syntax=markdown.pandoc conceallevel=0
+augroup disable_coc
+  autocmd!
+  autocmd FileType org let b:coc_enabled=0
+  autocmd FileType text let b:coc_enabled=0
+  autocmd FileType gitcommit let b:coc_enabled=0
+  autocmd BufRead **/qutebrowser/config.py let b:coc_enabled=0
+  autocmd BufRead **/dwm/*,**/dwmblocks/*,**/dvtm/* let b:coc_enabled=0
 augroup END
 
-augroup myfiletypes
-  au!
-  au BufEnter config set filetype=toml
-augroup END
-
-augroup mymappings
-  au!
-  au FileType cpp nnoremap <buffer> <space>o !!cout<CR>
-augroup END
-
-augroup mycoc
-  au!
-  au FileType text let b:coc_enabled=0
-  au BufRead *.org let b:coc_enabled=0
-  au BufRead **/qutebrowser/config.py let b:coc_enabled=0
-  au BufRead **/dwm/*,**/dwmblocks/*,**/dvtm/* let b:coc_enabled=0
-augroup END
-
-augroup mygitcommit
-  au!
-  au FileType gitcommit let b:EditorConfig_disable=1 | let b:coc_enabled=0
+augroup disable_editor_config
+  autocmd!
+  autocmd FileType gitcommit let b:EditorConfig_disable=1
 augroup end
 
-augroup mywriting
-  au!
-  au FileType mail set spell
-  au BufRead diary*.txt set spell
+augroup buffer_mappings
+  autocmd!
+  autocmd FileType cpp nnoremap <buffer> <space>o !!cout<CR>
 augroup END
 
-" augroup mycolorscheme
+augroup custom_syntax
+  autocmd!
+  autocmd BufEnter .env.* set syntax=sh
+  autocmd FileType markdown set syntax=markdown.pandoc conceallevel=0
+augroup END
+
+augroup enabled_spells
+  autocmd!
+  autocmd FileType mail set spell
+  autocmd BufRead  diary*.txt set spell
+augroup END
+
+" augroup dynamic_colorscheme
 "   au!
 "   au FileType c,cpp colorscheme pop-punk
 "   au FileType python colorscheme onedark

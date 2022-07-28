@@ -9,6 +9,12 @@ require("virt-column").setup()
 require("spellsitter").setup()
 require("nvim-ts-autotag").setup()
 
+-- terminal
+require("toggleterm").setup{
+  open_mapping = [[<M-s>]],
+  size = 7
+}
+
 -- fold preview
 require('pretty-fold').setup()
 require('pretty-fold.preview').setup()

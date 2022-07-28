@@ -92,12 +92,13 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'preservim/vim-pencil'                     " free writing
   Plug 'mbbill/undotree'                          " History management
   Plug 'metakirby5/codi.vim'                      " Interactive shell
-  Plug 'ryanoasis/vim-devicons'                   " icons
   Plug 'lervag/vimtex'                            " LaTeX
+  Plug 'yegappan/mru'                             " track most recently used files
   Plug 'mg979/vim-visual-multi'                   " multi cursor
   Plug 'chrisbra/improvedft'                      " multiline f and t commands
-  Plug 'Xuyuanp/nerdtree-git-plugin'              " neerdtree git
   Plug 'preservim/nerdtree'                       " nerdtree
+  Plug 'Xuyuanp/nerdtree-git-plugin'              " neerdtree git
+  Plug 'ryanoasis/vim-devicons'                   " icons
   Plug 'kevinhwang91/rnvimr'                      " Ranger file manager
   Plug 'xolox/vim-session'                        " Session management
   Plug 'xolox/vim-misc'                           " Session management helper
@@ -105,12 +106,14 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'christoomey/vim-sort-motion'              " sort motion
   Plug 'mhinz/vim-startify'                       " start screen
   Plug 'itchyny/lightline.vim'                    " statusbar 
+  Plug 'lambdalisue/suda.vim'                     " sudo
   Plug 'preservim/tagbar'                         " Tag Panel
   Plug 'liuchengxu/vim-which-key'                 " whichkey (like emacs)
   Plug 'nanotee/zoxide.vim'                       " zoxide
 
   "-----------------------------------------------------------------------------
-  " the following plugins were replaced by more sofisticated nvim plugins
+  " Vim-only plugins                                                           |
+  "-----------------------------------------------------------------------------
 
   if !has('nvim')
   Plug 'AndrewRadev/tagalong.vim'                 " automatically change tags
@@ -128,7 +131,7 @@ call plug#begin('~/.config/vim/plugged')
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
   "-----------------------------------------------------------------------------
-  " neovim plugins (incompatible with vim)                                     |
+  " NeoVim-only plugins                                                        |
   "-----------------------------------------------------------------------------
   if has('nvim')
 
@@ -206,7 +209,7 @@ let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-tsserver',
   \ 'coc-vetur',
-\ ]
+  \ ]
 set updatetime=300
 
 " COLORIZER --------------------------------------------------------------------
@@ -224,14 +227,26 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 let g:user_emmet_expandabbr_key = '<M-e>'
 let g:user_emmet_leader_key = '<C-S-e>'
 
+" MRU --------------------------------------------------------------------------
+
+let g:MRU_File=$HOME.'/.cache/vim/vim_mru_files'
+let g:MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*\|\.git/.*'
+let g:MRU_Max_Entries=1000
+
+" NERDTREE ---------------------------------------------------------------------
+
+let NERDTreeMapCWD = 'W'
+let NERDTreeMapChangeRoot = 'w'
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+
 " NEOTERM ----------------------------------------------------------------------
 
 let g:neoterm_size = 40
-let g:neoterm_default_mod = 'botright vertical'
 let g:neoterm_autoscroll = 1
 let g:neoterm_automap_keys = "<space>n"
 let g:neoterm_term_per_tab = 1
 let g:neoterm_repl_octave_qt = 1
+let g:neoterm_default_mod = 'botright vertical'
 
 " RANGER -----------------------------------------------------------------------
 
@@ -264,7 +279,6 @@ let g:rbpt_colorpairs = [
 \ ]
 let g:rbpt_max = 21
 let g:rbpt_loadcmd_toggle = 0
-
 function! RainbowOn()
   execute 'RainbowParenthesesLoadRound'
   execute 'RainbowParenthesesLoadSquare'
@@ -319,7 +333,6 @@ let g:sort_motion_flags = "ui"
 
 " SURROUNDING ------------------------------------------------------------------
 
-" custom surrouding for LaTeX  environment
 let g:surround_{char2nr("1")} = "\\big(\r\\big)"
 let g:surround_{char2nr("2")} = "\\Big(\r\\Big)"
 let g:surround_{char2nr("3")} = "\\Bigg(\r\\Bigg)"
@@ -345,28 +358,33 @@ let g:vimtex_mappins_enabled=0
 
 " THEMES -----------------------------------------------------------------------
 
-" favorite themes: ayu, eldar, pop-punk, moonfly, codedark, molokai, onedark
+
+" my favorite themes:
+" - ayu
+" - codedark
+" - eldar
+" - molokai
+" - moonfly
+" - onedark
+" - pop-punk
 colorscheme moonfly
 
 " TEXT OBJECTS -----------------------------------------------------------------
 
 let g:textobj_comment_no_default_key_mappings = 1
 let g:textobj_entire_no_default_key_mappings = 1
-
 call textobj#user#map('comment', {
 \   '-': {
 \     'select-a': 'ac',
 \     'select-i': 'ic',
 \   }
 \ })
-
 call textobj#user#map('entire', {
 \   '-': {
 \     'select-a': 'aE',
 \     'select-i': 'iE',
 \   }
 \ })
-
 " call textobj#user#map('python', {
 " \   'class': {
 " \     'select-a': '<buffer>aC',

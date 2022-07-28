@@ -23,10 +23,6 @@ nmap <leader>=  <Plug>(coc-format-selected)
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" EXPLORER
-nmap <silent> <leader><S-d> :CocCommand explorer --root-strategies cwd<cr>
-nmap <silent> <leader>d     :CocCommand explorer --root-strategies sourceBuffer<cr>
-
 " ------------------------------------------------------------------------------
 " COMPLETION
 

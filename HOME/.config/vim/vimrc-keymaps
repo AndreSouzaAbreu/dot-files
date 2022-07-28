@@ -39,9 +39,6 @@ nnoremap <M-j> <C-W>j
 nnoremap <M-k> <C-W>k
 nnoremap <M-l> <C-W>l
 
-" turn terminal window into a normal buffer
-tnoremap <silent> <A-e> <C-w><S-n>:set nonumber norelativenumber<CR>
-
 " ------------------------------------------------------------------------------
 " CLIPBOARD
 
@@ -100,10 +97,6 @@ nnoremap <C-S-s> ]s1z=<CR><C-o>
 inoremap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u
 inoremap <C-S-s> <C-g>u<Esc>]s1z=`]a<C-g>u
 
-" close / open tabs
-nnoremap <leader>t :tabnew<CR>
-nnoremap <leader>T :tabc<CR>
-
 " ------------------------------------------------------------------------------
 " PLUGIN KEYBINDINGS                                                           |
 " ------------------------------------------------------------------------------
@@ -127,6 +120,18 @@ nmap <Bslash>fb :Buffers<CR>
 nmap <Bslash>fg :Rg<cr>
 nmap <leader>f :Files<CR>
 nmap <leader>b :Buffers<CR>
+
+" NERDTREE
+function! ToggleNERDTree()        
+  if !exists('t:NERDTreeBufName') && filereadable(expand("%"))
+    NERDTreeFind
+  else
+    NERDTreeToggle
+  endif
+endfunction
+command ToggleNERDTree call ToggleNERDTree()
+nnoremap <silent> <leader>d :ToggleNERDTree<CR>
+nnoremap <silent> <leader>D :NERDTreeFind<CR>
 
 " NETRW
 nmap gX <Plug>NetrwBrowseX

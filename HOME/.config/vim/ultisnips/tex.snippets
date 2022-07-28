@@ -191,13 +191,18 @@ snippet "(a|b|c|t|x|y|z|f)([0-9]+) " "automatic subscript" wrA
 endsnippet
 
 context "math()"
-snippet "(a|b|c|t|x|y|z|f)([ijknm][-+]?[0-9]*) " "automatic subscript" wrA
+snippet "([a-z])([ijknm][-+]?[0-9]*) " "automatic subscript" wrA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}$0
 endsnippet
 
 context "math()"
 snippet "(a|b|c|t|x|y|z|f)([0-9]+)" "superscript" wr
 `!p snip.rv = match.group(1)`^{`!p snip.rv = match.group(2)`}$0
+endsnippet
+
+context "math()"
+snippet "([a-z]_\{?[0-9a-z]+\}?)([a-z0-9]+)" "superscript"  r
+`!p snip.rv = match.group(1)`^{`!p snip.rv = match.group(2)`$1}$0
 endsnippet
 
 priority 20
