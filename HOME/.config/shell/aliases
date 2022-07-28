@@ -20,39 +20,34 @@ alias p='profile'
 alias q='exit'
 alias s='sxiv'
 alias t='touch'
-alias v='nvim'
 alias y='yay'
 
 # more shorctus ----------------------------------------------------------------
 
 alias oc='octave'
-alias py='python'
+alias py='ipython'
 alias rr='ranger'
-alias s.='s .'
-alias v.='v .'
-alias vv='v ~/.config/vim'
-alias xx='startx'
 alias za='tabbed -c zathura -e'
+alias s.='sxiv .'
 
 # files ------------------------------------------------------------------------
 
-alias  l='exa --color=never'
-alias ls='exa --color=never'
-alias la='exa --color=never -lhgH --group-directories-first --all'
-alias ll='exa --color=never -lhgH --group-directories-first'
-alias l1='exa --color=never -1hgH --group-directories-first'
+alias ls='exa'
+alias la='exa --icons -lhgH --group-directories-first --all'
+alias ll='exa --icons -lhgH --group-directories-first'
+alias l1='exa --icons -1hgH --group-directories-first'
 
 # long-name programms -----------------------------------------------------------
 
-alias open='xdg-open'
 alias rename='perl-rename'
-alias poweroff='loginctl poweroff'
+alias open='xdg-open'
+alias off='loginctl poweroff'
 alias reboot='loginctl reboot'
-alias off='poweroff'
+alias poweroff='loginctl poweroff'
 
 # clipboard stuff ---------------------------------------------------------------
 
-alias xcopy='xclip -selection clipboard'
+alias  xcopy='xclip -selection clipboard'
 alias xpaste='xclip -selection clipboard -out'
 
 # programms with default options -----------------------------------------------
@@ -92,21 +87,12 @@ alias dkeir='docker exec -it --user root'
 alias dup='docker-compose up -d'
 alias ddown='docker-compose down'
 
-# docker programs --------------------------------------------------------------
-
-alias erd='docker run -i erd'
-
 # Laravel ----------------------------------------------------------------------
 
 alias pa='php artisan'
 alias pam='php artisan migrate'
 alias par='php artisan route:list --compact'
 alias tinker='php artisan tinker'
-
-# Java Algs4 ------------------------------------------------------------------
-
-alias ja='java-algs4'
-alias jac='javac-algs4'
 
 # npm --------------------------------------------------------------------------
 
@@ -145,12 +131,6 @@ alias yyr='yay -Rsn'
 alias yS='yay -S'
 alias yy='yay -Syu'
 
-# XDG dirs ---------------------------------------------------------------------
-
-alias ssh='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
-alias scp='scp -F ${XDG_CONFIG_HOME}/ssh/config'
-alias startx='startx ${XINITRC} -- ${XSERVERRC} vt1'
-
 # mixed
-
+alias def='dict -d gcide'
 alias myip='curl -s https://api.ipify.org'

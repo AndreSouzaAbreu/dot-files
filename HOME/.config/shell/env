@@ -8,8 +8,8 @@
 export BROWSER=qutebrowser
 export EDITOR=nvim
 export VISUAL=nvim
-export PAGER=less
-export MANPAGER=less
+export PAGER=bat
+export MANPAGER=manpager
 export WM=dwm
 
 # history
@@ -52,7 +52,6 @@ export CM_OUTPUT_CLIP=0
 export CM_MAX_CLIPS=50
 
 # commands
-export GIT_SSH_COMMAND='ssh -F ${XDG_CONFIG_HOME}/ssh/config'
 export FZF_DEFAULT_COMMAND='fzfcmd'
 
 # crypto
@@ -84,7 +83,6 @@ export GOPATH=${XDG_DATA_HOME}/go
 export ICEAUTHORITY=${XDG_CACHE_HOME}/ICEauthority
 
 # java
-# export CLASSPATH=${HOME}/.local/lib/java
 export _JAVA_AWT_WM_NONREPARENTING=1
 export GRADLE_USER_HOME=${XDG_DATA_HOME}/gradle
 export GRADLE_HOME=${XDG_DATA_HOME}/gradle
@@ -98,7 +96,7 @@ export JULIA_DEPOT_PATH=${XDG_DATA_HOME}/julia
 
 # less
 export LESSHISTFILE=${XDG_DATA_HOME}/lesshist
-export LESS="-FRS"
+export LESS=-SR
 
 # ledger
 export LEDGER_FILE=${XDG_DOCUMENTS_DIR}/personal/finance/hledger.txt
@@ -115,13 +113,13 @@ export OCTAVE_SITE_INITFILE=${XDG_CONFIG_HOME}/octave/octaverc
 
 # python
 export PYLINTHOME=${XDG_CACHE_HOME}/pylint
-export IPYTHONDIR=${XDG_CONFIG_HOME}/jupyter
+export IPYTHONDIR=${XDG_CONFIG_HOME}/ipython
 export JUPYTER_CONFIG_DIR=${XDG_CONFIG_HOME}/jupyter
 
 # r
-export R_PROFILE_USER=${XDG_CONFIG_HOME}/r/.Rprofile
-export R_LIBS_USER=${XDG_DATA_HOME}/r/lib
-export R_HISTFILE=${XDG_DATA_HOME}/r/.Rhistory
+export R_PROFILE_USER=${XDG_CONFIG_HOME}/R/Rprofile
+export R_LIBS_USER=${XDG_DATA_HOME}/R/lib
+export R_HISTFILE=${XDG_DATA_HOME}/R/Rhistory
 
 # rust
 export CARGO_HOME=${XDG_DATA_HOME}/cargo

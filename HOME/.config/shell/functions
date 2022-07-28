@@ -5,7 +5,7 @@
 #############################
 
 # append directory to path if not included already
-function path_append()
+path_append()
 {
   while [[ -n $1 ]]; do
     dir=$1
@@ -18,7 +18,7 @@ function path_append()
 }
 
 # prepend directory to path if not included already
-function path_prepend()
+path_prepend()
 {
   while [[ -n $1 ]]; do
     dir=$1
@@ -31,7 +31,7 @@ function path_prepend()
 }
 
 # utility to add, edit, view, or sync shell aliases
-function aliases()
+aliases()
 {
   file=${XDG_CONFIG_HOME}/shell/aliases
   case "$1" in
@@ -50,7 +50,7 @@ function aliases()
 }
 
 # utility to edit, view, or sync shell profile
-function profile()
+profile()
 {
   file=${XDG_CONFIG_HOME}/shell/profile
   case "$1" in
@@ -63,7 +63,7 @@ function profile()
 }
 
 # utility to edit, view, or sync shell history
-function hist()
+hist()
 {
   file=${HISTFILE}
   case "$1" in
@@ -82,7 +82,7 @@ function hist()
 
 
 # utility to edit, view, or sync shell functions
-function myfunctions()
+myfunctions()
 {
   file=${XDG_CONFIG_HOME}/shell/functions
   case "$1" in
@@ -95,7 +95,7 @@ function myfunctions()
 }
 
 # utility to edit, view, or syn environment variables
-function envvars()
+envvars()
 {
   env_file=${XDG_CONFIG_HOME}/shell/env
   case "$1" in
@@ -115,78 +115,107 @@ function envvars()
 }
 
 # Go back to the parent directory n times
-function up()
-{
-  number="${1:-1}"
-  for i in $(seq $number); do
-    cd ..
-  done
-  return 0
-}
+# function up()
+# {
+#   number="${1:-1}"
+#   for i in $(seq $number); do
+#     cd ..
+#   done
+#   return 0
+# }
 
 # Make a directory and cd into it
-function mkcd()
+mkcd()
 {
   mkdir -p "$1" && cd "$1"
   return 0
 }
 
-function extract()
+extract()
 {
-  [[ ! -f $1 ]] && echo "No such file: $1" && return 1
-  case $1 in
-    *.tar.bz2) tar xvjf $1   ;;
-    *.tar.gz)  tar xvzf $1   ;;
-    *.bz2)     bunzip2 $1    ;;
-    *.rar)     unrar x $1    ;;
-    *.gz)      gunzip $1     ;;
-    *.tar)     tar xvf $1    ;;
-    *.tbz2)    tar xvjf $1   ;;
-    *.tgz)     tar xvzf $1   ;;
-    *.zip)     unzip $1      ;;
-    *.Z)       uncompress $1 ;;
-    *.7z)      7z x $1       ;;
+  [ ! -f "${1}" ] && echo "No such file: ${1}" && return 1
+  case "${1}" in
+    *.tar.bz2) tar xvjf "${1}"   ;;
+    *.tar.gz)  tar xvzf "${1}"   ;;
+    *.bz2)     bunzip2 "${1}"    ;;
+    *.rar)     unrar x "${1}"    ;;
+    *.gz)      gunzip "${1}"     ;;
+    *.tar)     tar xvf "${1}"    ;;
+    *.tbz2)    tar xvjf "${1}"   ;;
+    *.tgz)     tar xvzf "${1}"   ;;
+    *.zip)     unzip "${1}"      ;;
+    *.Z)       uncompress "${1}" ;;
+    *.7z)      7z x "${1}"       ;;
     *)        echo "Cannot extract it";;
   esac
   return 0
 }
 
 # ranger wrapper
-function ranger
+ranger()
 {
-    local IFS=$'\t\n'
-    local tempfile="$(mktemp -t tmp.XXXXXX)"
+  local IFS=$'\t\n'
+  local tempfile="$(mktemp -t tmp.XXXXXX)"
 
-    command ranger --cmd="map q chain shell echo %d > "$tempfile"; quitall" $@
+  command ranger --cmd="map q chain shell echo %d > "${tempfile}"; quitall" $@
 
-    if [[ -f "$tempfile" ]] && [[ "$(head -n 1 "$tempfile")" != "$(pwd)" ]]; then
-        destdir=$(head -n1 "$tempfile")
-        cd $destdir || return
-    fi
+  if [ -f "${tempfile}" ] && [ "$(head -n 1 "${tempfile}")" != "$(pwd)" ]; then
+    destdir=$(head -n1 "${tempfile}")
+    cd "${destdir}" || return
+  fi
 
-    command rm -f -- "$tempfile" 2>/dev/null
+  rm -f -- "${tempfile}" 2>/dev/null
 }
 
 # translate to portuguese
-function pt()
+pt()
 {
-    trans -t pt -f en "$@"
+  trans -t pt -f en "$@"
 }
 
 # translate to english
-function en()
+en()
 {
-    trans -t en -f pt "$@"
+  trans -t en -f pt "$@"
 }
 
 # run command and pass it to less
-function fit()
+fit()
 {
-    "$@" | /bin/less -S
+  "$@" | /bin/less -S
 }
 
 # init starship
-function fancyprompt()
+fancyprompt()
 {
   eval "$(starship init $shell)"
+}
+
+iplot() {
+  cat <<EOF | gnuplot
+  set terminal pngcairo enhanced font 'Fira Sans,10'
+  set autoscale
+  set samples 1000
+  set output '|kitty +kitten icat --stdin yes'
+  set object 1 rectangle from screen 0,0 to screen 1,1 fillcolor rgb"#fdf6e3" behind
+  plot $@
+  set output '/dev/null'
+EOF
+}
+
+watchless() {
+  tmpfile=$(mktemp)
+  [ ! -f "${tmpfile}" ] && exit 1
+
+  # @see https://stackoverflow.com/questions/360201/
+  # trap "exit" INT TERM
+  # trap "kill 0" EXIT
+
+  # execute command
+  echo -e "$@\n\n" > "${tmpfile}"
+  $@ >> "${tmpfile}" &
+  command less "${tmpfile}"
+
+  # remove file then exit
+  rm "${tmpfile}"
 }

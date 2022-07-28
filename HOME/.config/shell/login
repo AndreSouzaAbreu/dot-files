@@ -1,11 +1,9 @@
 #!/bin/sh
 
-if [[ -z $(pidof ssh-agent) ]]; then
-	echo ssh-agent started
-	[[ -f /usr/bin/ssh-agent ]] && eval "$(ssh-agent)"
+if [ -z "$(pidof ssh-agent)" ]; then
+	[ -f /usr/bin/ssh-agent ] && eval "$(ssh-agent)" && echo ssh-agent started
 fi
 
-if [[ -z ${DBUS_SESSION_BUS_PID} ]]; then
-	echo dbus launched
-	export $(dbus-launch)
+if [ -z "${DBUS_SESSION_BUS_PID}" ]; then
+	export $(dbus-launch) && echo dbus launched
 fi
