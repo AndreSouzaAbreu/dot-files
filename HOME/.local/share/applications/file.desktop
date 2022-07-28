@@ -2,4 +2,4 @@
 Type=Application
 Terminal=true
 Name=File Manager
-Exec=/usr/bin/alacritty --class Ranger -e ranger %u
+Exec=/usr/bin/kitty --class Ranger -e ranger %u
