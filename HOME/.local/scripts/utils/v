@@ -1,0 +1,50 @@
+#!/bin/sh
+set -e
+
+MRU_FILE=${XDG_CACHE_HOME}/vim/vim_mru_files
+IGNORE_LIST='node_modules|py_cache|vendor|/tmp'
+
+# if list of files or args is null, then evoke $EDITOR
+if [ ! -f "${MRU_FILE}" ] || [ "$#" -eq 0 ]; then
+   exec "${EDITOR}" "$@"
+fi
+
+# create temp file
+tmp=$(mktemp)
+[ ! -f "${tmp}" ] && echo "file to create tmp file" && exit 1
+sed '1d' "${MRU_FILE}" | grep -vE "($IGNORE_LIST)" > "${tmp}"
+
+# edit the file, changing dir to it
+edit_file()
+{
+   if [ -f "${FILE}" ]; then
+      rm "${tmp}"
+      cd "$(dirname "${FILE}")"
+      filename=$(basename "${FILE}")
+      exec "${EDITOR}" "${filename}"
+   fi
+   if [ -d "${FILE}" ]; then
+      rm "${tmp}"
+      cd "${FILE}"
+      exec ${EDITOR} "${FILE}"
+   fi
+}
+
+# if there is only one argument, try some clever euristics
+if [ "$#" -eq 1 ]; then
+   FILE="${1}"
+   edit_file
+
+   FILE=$(sed 's;.*/;;g' "${tmp}" | grep "${1}" | head -n1)
+   FILE=$(grep -e "${FILE}\$" "${tmp}" | head -n1)
+   edit_file
+
+   FILE=$(grep "${1}" "${tmp}" | head -n1)
+   edit_file
+else
+   pattern=$(echo "$@" | sed 's; ;.*;g')
+   FILE=$(grep "${pattern}" "${tmp}" | head -n1)
+   edit_file
+fi
+
+# exec ${EDITOR} "$@"

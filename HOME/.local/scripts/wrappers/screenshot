@@ -2,4 +2,4 @@
 screenshot_dir=${HOME}/pictures/screenshots
 filename=$(date '+ %Y-%m-%d_%H:%M:%S.jpg')
 path=${screenshot_dir}/${filename}
-flameshot "$@" --path "$path"
+exec flameshot "$@" --path "$path"

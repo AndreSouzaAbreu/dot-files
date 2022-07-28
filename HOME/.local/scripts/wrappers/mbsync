@@ -1,2 +1,2 @@
 #!/bin/sh
-/usr/bin/mbsync -c ${HOME}/.config/mbsync/mbsyncrc "$@"
+exec /usr/bin/mbsync -c ${HOME}/.config/mbsync/mbsyncrc "$@"

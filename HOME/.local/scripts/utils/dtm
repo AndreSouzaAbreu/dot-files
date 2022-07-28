@@ -1,6 +1,6 @@
 #!/bin/sh
 
-function show_help() {
+show_help() {
 	cat <<EOF
 DTWM - DOT FILES MANAGER
 
@@ -44,7 +44,7 @@ COMMANDS
   -s, sync DIR (-c)
     Sync dot files from DIR to the HOME directory.  If  flag  --copy  or  -c  is
     present, the files will be copied.  If flag --symbolic or -s is present,  it
-    will  create  symbolic  links.   Otherwise,  it  will  create  hard   links.
+		will create symbolic links. Otherwise, it will create hard links.
 
 	-S, sync-dirs TARGET DEST FLAGS
     Sync dot files from TARGET to DEST.  Syntax is the same as for  the  command
@@ -105,7 +105,7 @@ ENVIRONMENT VARIABLES
 
   DTM_GIT_DIR
     The path of the default git directory.  This is used as a fallback if DIR is
-    not   specified   for   the   dtm's   commands    ln,    cp,    and    sync.
+		not specified for the dtm's commands ln, cp, and sync.
 
 LICENSE
 	Do whatever you wish with the code of dtm.
@@ -116,40 +116,40 @@ EOF
 }
 
 # variables
-if [[ -z $DTM_CONFIG_HOME  ]]; then
-	if [[ -n ${XDG_CONFIG_HOME} ]]; then
-		DTM_CONFIG_HOME=${XDG_CONFIG_HOME}/dtm
+if [ -z "${DTM_CONFIG_HOME}"  ]; then
+	if [ -n "${XDG_CONFIG_HOME}" ]; then
+		DTM_CONFIG_HOME="${XDG_CONFIG_HOME}/dtm"
 	else
-		DTM_CONFIG_HOME=${HOME}/.config/dtm
+		DTM_CONFIG_HOME="${HOME}/.config/dtm"
 	fi
 fi
 
-DTM_TRACKED_FILES_LIST=${DTM_CONFIG_HOME}/tracked-files.txt
+DTM_TRACKED_FILES_LIST="${DTM_CONFIG_HOME}/tracked-files.txt"
 
 # create files that DTM will use to track dot files
-function create_data_files()
+create_data_files()
 {
-	mkdir -p ${DTM_CONFIG_HOME}
-	touch $DTM_TRACKED_FILES_LIST
+	mkdir -p "${DTM_CONFIG_HOME}"
+	touch "${DTM_TRACKED_FILES_LIST}"
 }
 
 # get the path of a file/directory relative to the home directory
-function get_path_relative_to_home()
+get_path_relative_to_home()
 {
-	path=$1
-	path=${path#$HOME/}
-	if [[ "$path" == "$1" ]]; then
-		path=$(pwd)/$path
-		path=${path#$HOME/}
+	path="${1}"
+	path="${path#"${HOME}"/}"
+	if [ "$path" = "${1}" ]; then
+		path="$(pwd)/${path}"
+		path="${path#"${HOME}"/}"
 	fi
-	echo $path
+	echo "${path}"
 }
 
 # adds file to list of files being tracked
-function track_files()
+track_files()
 {
   # check for flag
-  if [[ "$1" == "--quiet" || "$1" == "-q" ]]; then
+  if [ "$1" = "--quiet" ] || [ "$1" = "-q" ]; then
     quiet=1
     shift
   fi
@@ -157,37 +157,38 @@ function track_files()
 	while [ -n "$1" ]; do
 		file_name=$1
 		shift
-    file_relative_path=$(get_path_relative_to_home $file_name)
-    file_full_path=$HOME/$file_relative_path
-		if [[ ! -f "$file_full_path" && ! -d "$file_full_path" ]]; then
-      [[ -z $quiet ]] && echo "file $file_relative_path does not exist, skipping it"
+    file_relative_path=$(get_path_relative_to_home "${file_name}")
+    file_full_path="${HOME}/${file_relative_path}"
+		if [ ! -f "${file_full_path}" ] && [ ! -d "${file}_full_path" ]; then
+      [ -z "${quiet}" ] && echo "file $file_relative_path does not exist, skipping it"
 			continue
 		fi
-    echo $file_relative_path >> ${DTM_TRACKED_FILES_LIST}
+    echo "${file_relative_path}" >> "${DTM_TRACKED_FILES_LIST}"
 	done
 
 	# remove duplicated files
-	LC_ALL=C sort -i $DTM_TRACKED_FILES_LIST | uniq > $DTM_TRACKED_FILES_LIST.tmp
-	mv $DTM_TRACKED_FILES_LIST.tmp $DTM_TRACKED_FILES_LIST
+	LC_ALL=C sort -i "${DTM_TRACKED_FILES_LIST}" | uniq > "${DTM_TRACKED_FILES_LIST}.tmp"
+	mv "${DTM_TRACKED_FILES_LIST}.tmp" "${DTM_TRACKED_FILES_LIST}"
 }
 
 # output the fiels being tracked
-function get_tracked_files()
+get_tracked_files()
 {
-	cat ${DTM_TRACKED_FILES_LIST}
+	cat "${DTM_TRACKED_FILES_LIST}"
 }
 
 # 
-function untrack_all()
+untrack_all()
 {
-	echo -n $NULL > $DTM_TRACKED_FILES_LIST
+	rm "${DTM_TRACKED_FILES_LIST}"
+	touch "${DTM_TRACKED_FILES_LIST}"
 	exit 0
 }
 
 # do not track the given file anymore
-function untrack_files()
+untrack_files()
 {
-	[[ "$1" == "--all" ]] && untrack_all
+	[ "$1" = "--all" ] && untrack_all
 
 	# we could use 'sed' to delete the line containing the name
 	# of the file to untrack. However, this would cause bugs with
@@ -195,51 +196,51 @@ function untrack_files()
 	# safer to do this manually using shell script.
 
 	# create a copy of files being tracked
-	tmpfile=${DTM_TRACKED_FILES_LIST}.tmp
-	cp $DTM_TRACKED_FILES_LIST $tmpfile
+	tmpfile="${DTM_TRACKED_FILES_LIST}.tmp"
+	cp "${DTM_TRACKED_FILES_LIST}" "${tmpfile}"
 
 	# create a new list of files being tracked
 	# ignoring the given files
-	rm $DTM_TRACKED_FILES_LIST
+	rm "${DTM_TRACKED_FILES_LIST}"
 	files=$@
-	while read line; do
+	while read -r line; do
 		track_this_file=1
-		for file in $files; do
-			if [ "$file" == "$line" ]; then
+		for file in ${files}; do
+			if [ "$file" = "$line" ]; then
 				track_this_file=
 				break
 			fi
 		done
-		[[ -n $track_this_file ]] && echo $line >> $DTM_TRACKED_FILES_LIST
-	done < $tmpfile
+		[ -n "${track_this_file}" ] && echo "${line}" >> "${DTM_TRACKED_FILES_LIST}"
+	done < "${tmpfile}"
 
 	# delete temporary file
-	rm $tmpfile
+	rm "${tmpfile}"
 }
 
-function throw_error()
+throw_error()
 {
-	echo "ERROR: $@"
+	echo "ERROR: $*"
 	exit 1
 }
 
-function sync_dot_files()
+sync_dot_files()
 {
   source_dir=$1
   target_dir=$2
-  [[ -z $source_dir ]] && throw_error 'source directory not specified'
-  [[ -z $target_dir ]] && throw_error 'target directory not specified'
-  [[ "$target_dir" == "." ]] && target_dir=$(pwd)
-  [[ "$source_dir" == "." ]] && source_dir=$(pwd)
-  [[ ! -d "$source_dir" ]] && throw_error 'invalid source directory'
-  [[ ! -d "$target_dir" ]] && throw_error 'invalid target directory'
+  [ -z "${source_dir}" ] && throw_error 'source directory not specified'
+  [ -z "${target_dir}" ] && throw_error 'target directory not specified'
+  [ "${target_dir}" = "." ] && target_dir=$(pwd)
+  [ "${source_dir}" = "." ] && source_dir=$(pwd)
+  [ ! -d "${source_dir}" ] && throw_error 'invalid source directory'
+  [ ! -d "${target_dir}" ] && throw_error 'invalid target directory'
   shift;
   shift;
 
   # collect flags
-  while [[ -n $1 ]]; do
+  while [ -n "${1}" ]; do
     case $1 in
-      -c|--simbolyc)
+      -c)
         flag=
         ;;
       -s|--simbolyc)
@@ -257,12 +258,12 @@ function sync_dot_files()
     shift
   done
 
-  while read file; do
+  while read -r file; do
     src_full_path=${source_dir}/$file
 
     # validate destitation path
-    if [[ ! -d "$src_full_path" && ! -f "$src_full_path" ]]; then
-      [[ -z "$quiet" ]] && echo "file $src_full_path does not exist, skipping it"
+    if ! [ -d "${src_full_path}" ] && ! [ -f "${src_full_path}" ]; then
+      [ -z "${quiet}" ] && echo "file ${src_full_path} does not exist, skipping it"
       continue
     fi
 
@@ -272,110 +273,110 @@ function sync_dot_files()
     src_full_path=${src_full_path%/}
 
     # handler for when $file has no parent dir
-    if [[ "$file" == "$dir" ]]; then
-      destination="$target_dir/$basename"
+    if [ "${file}" = "${dir}" ]; then
+      destination="${target_dir}/${basename}"
       dir=
     else
-      destination="$target_dir/$dir/$basename"
+      destination="${target_dir}/${dir}/${basename}"
     fi
     destination=${destination%/}
 
     # if file exists, skipt it or override it
-    if [[ -f "$destination" ]]; then
-      if [[ -n $force ]]; then
-        rm -f $destination
+    if [ -f "${destination}" ]; then
+      if [ -n "${force}" ]; then
+        rm -f "${destination}"
       else
-        [[ -z $quiet ]] && echo "$file exists, skipping it"
+        [ -z "${quiet}" ] && echo "${file} exists, skipping it"
         continue
       fi
     fi
 
-    if [[ -d $src_full_path ]]; then
-      mkdir -p $destination
-      find "$src_full_path" -type f -maxdepth 1 |
-        while read fname; do
+    if [ -d "${src_full_path}" ]; then
+      mkdir -p "${destination}"
+      find "${src_full_path}" -type f -maxdepth 1 |
+        while read -r fname; do
           fname=${fname##*/}
-          fdest="$destination/$fname"
-          if [[ -f "$fdest" ]]; then
-            if [[ -n $force ]]; then
-              rm -f $fdest
+          fdest="${destination}/${fname}"
+          if [ -f "${fdest}" ]; then
+            if [ -n "${force}" ]; then
+              rm -f "${fdest}"
             else
-              [[ -z $quiet ]] && echo "$file exists, skipping it"
+              [ -z "${quiet}" ] && echo "${file} exists, skipping it"
               continue
             fi
           fi
-          cp $flag "$src_full_path/$fname" "$destination/$fname"
+          cp $flag "${src_full_path}/${fname}" "${destination}/${fname}"
         done
     else
-      mkdir -p $(dirname "$destination")
-      cp $flag "$src_full_path" "$destination"
+			mkdir -p "$(dirname "${destination}")"
+      cp $flag "${src_full_path}" "${destination}"
     fi
 
-  done < $DTM_TRACKED_FILES_LIST
+  done < "${DTM_TRACKED_FILES_LIST}"
 }
 
-function main()
+main()
 {
   create_data_files
 
   # custom configuration file
-  if [[ "$1" == "--config" ]]; then
+  if [ "${1}" = "--config" ]; then
     shift
-    [[ ! -f $1 ]] && throw_error "config file $1 does not exist"
+    [ ! -f "${1}" ] && throw_error "config file ${1} does not exist"
     DTM_TRACKED_FILES_LIST=$1
     shift
   fi
 
   # if empty args, just display the list of files
-  if [[ -z $1 ]]; then
+  if [ -z "${1}" ]; then
     get_tracked_files
     exit 0
   fi
 
   # handle the option
-  option=$1
+  option="${1}"
   shift
-  case $option in
+  case "${option}" in
     list|ls|-l)
       get_tracked_files
       ;;
     add|-a)
-      track_files $@
+      track_files "$@"
       ;;
     edit|-e)
-      $EDITOR $DTM_TRACKED_FILES_LIST
+      $EDITOR "${DTM_TRACKED_FILES_LIST}"
       ;;
     grep|find|-g)
-      grep $@ < $DTM_TRACKED_FILES_LIST
+      grep "$@" < "${DTM_TRACKED_FILES_LIST}"
       ;;
     rm|-r)
-      untrack_files $@
+      untrack_files "$@"
       ;;
     link|ln|-L)
-      if [[ -n $1 ]]; then
-        dest=$1
+      if [ -n "${1}" ]; then
+        dest="${1}"
         shift
         flags=$@
       fi
-      sync_dot_files $HOME $dest -l $flags
+      sync_dot_files "${HOME}" "${dest}" -l ${flags}
       ;;
     copy|cp|-c)
-      if [[ -n $1 ]]; then
-        dest=$1
+      if [ -n "${1}" ]; then
+        dest="${1}"
         shift
       fi
-      sync_dot_files $HOME $dest
+      sync_dot_files "${HOME}" "${dest}"
       ;;
     sync|-s)
-      if [[ -n $1 ]]; then
+      if [ -n "${1}" ]; then
         dest=$1
         shift
         flags=$@
       fi
-      sync_dot_files $dest $HOME -l $flags
+      sync_dot_files "${dest}" "${HOME}" -l ${flags}
       ;;
     sync-dirs|-S)
-      sync_dot_files $@
+      sync_dot_files "$@"
       ;;
     help|-h|--help)
       show_help
@@ -386,4 +387,4 @@ function main()
   esac
 }
 
-main $@
+main "$@"

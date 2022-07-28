@@ -8,15 +8,15 @@ OPT_STDOUT=0
 OPT_COPY=1
 OPT_DESTDIR=${PWD}
 
-function error_msg() {
-  echo "ERROR: $@"
+error_msg() {
+  echo ERROR "$@"
   exit 1
 }
 
 # process flags
-while [[ -n $1 ]]; do
+while [ -n "${1}" ]; do
   no_opt=0
-  case "$1" in
+  case "${1}" in
     -p|--print)
       OPT_STDOUT=1
       ;;
@@ -26,35 +26,35 @@ while [[ -n $1 ]]; do
     -d|--dest-dir)
       shift
       OPT_DESTDIR=$1
-      if [[ ! -d $OPT_DESTDIR ]]; then
-        error_msg "Dir does not exist: $OPT_DESTDIR"
+      if [ ! -d "${OPT_DESTDIR}" ]; then
+        error_msg "Dir does not exist: ${OPT_DESTDIR}"
       fi
       ;;
     *)
       no_opt=1
       ;;
   esac
-  [[ $no_opt -eq 1 ]] && break
+  [ "${no_opt}" -eq 1 ] && break
   shift
 done
 
 # main
-while [[ -n $1 ]]; do
+while [ -n "${1}" ]; do
   # get template
-  t=$1
-  if [[ -f "${dir}/$t" ]]; then
+  t=${1}
+  if [ -f "${dir}/$t" ]; then
     template="${dir}/$t"
-  elif [[ -f "${dir}/default.$t" ]]; then
-    template="${dir}/default.$t"
+  elif [ -f "${dir}/default.${t}" ]; then
+    template="${dir}/default.${t}"
   else
-    error_msg "template not found: $1"
+    error_msg "template not found: ${1}"
   fi
 
   # copy or print template
-  if [[ $OPT_STDOUT -eq 1 ]]; then
-    cat $template
+  if [ "${OPT_STDOUT}" -eq 1 ]; then
+    cat "${template}"
   else
-    cp $template $OPT_DESTDIR
+    cp "${template}" "${OPT_DESTDIR}"
   fi
   shift;
 done

@@ -1,8 +1,0 @@
-#!/bin/sh
-file=$1
-folder_name=$(basename "$file")
-archive="backup_$(date +%Y-%m-%d)__${folder_name}.tgz"
-tar czf "$archive" "$file" >/dev/null
-pass pc/backups | gpg --batch --passphrase-fd 0 -c "$archive"
-rm "$archive"
-echo $archive.gpg

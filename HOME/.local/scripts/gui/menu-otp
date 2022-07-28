@@ -1,8 +1,8 @@
 #!/bin/sh
-cd $PASSWORD_STORE_DIR
-key=$(find totp -type f | sed 's/\.gpg$//' | sort | rofi -dmenu -window-title 'select account' )
-[[ ! -f "$key.gpg" ]] && exit 0
-pass $key |
+cd "${PASSWORD_STORE_DIR}" || exit 1
+key=$(find . totp -type f | sed 's/\.gpg$//' | sort | rofi -dmenu -window-title 'select account' )
+[ ! -f "$key.gpg" ] && exit 0
+pass "${key}" |
 xargs totp -s |
 xclip -in -selection clipboard
 exit 0

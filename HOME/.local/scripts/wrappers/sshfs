@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /usr/bin/sshfs -F ${XDG_CONFIG_HOME}/ssh/config "$@"

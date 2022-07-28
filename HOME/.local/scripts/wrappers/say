@@ -5,5 +5,4 @@
 	else
 		cat /dev/stdin
 	fi
-) | festival --tts -
-exit 0
+) | exec festival --tts -

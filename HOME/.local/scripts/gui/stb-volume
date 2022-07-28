@@ -1,5 +1,5 @@
 #!/bin/sh
-if [[ $(pamixer --get-mute) == "true" ]]; then
+if [ "$(pamixer --get-mute)" = "true" ]; then
 	echo 'MUTED'
 else
 	echo "VOL: $(pamixer --get-volume)%"

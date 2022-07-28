@@ -2,8 +2,8 @@
 # Run a command n times
 n="${1:-1}"
 shift
-command="$@"
-for i in $(seq $n); do
+command="$*"
+for _ in $(seq "${n}"); do
   sh -c "$command"
 done
 exit 0

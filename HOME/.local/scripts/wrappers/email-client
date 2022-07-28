@@ -1,2 +1,2 @@
 #!/bin/sh
-kitty -e neomutt
+exec kitty -e neomutt

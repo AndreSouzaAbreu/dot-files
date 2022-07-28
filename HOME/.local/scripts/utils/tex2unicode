@@ -1,6 +1,5 @@
 #!/bin/sh
-cat /dev/stdin |
-sd -s '\Zeta' 'Ζ' |
+(sd -s '\Zeta' 'Ζ' |
 sd -s '\zeta' 'ζ' |
 sd -s '\(Z)' 'Ⓩ' |
 sd -s '\^z' 'ᶻ' |
@@ -576,4 +575,4 @@ sd -s '\-^' '↑' |
 sd -s '\-\|' '⊣' |
 sd -s '\->' '→' |
 sd -s '\-!' '↑' |
-sd -s '\!=' '≠'
+sd -s '\!=' '≠') < /dev/stdin

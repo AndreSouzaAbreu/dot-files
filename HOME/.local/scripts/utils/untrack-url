@@ -62,6 +62,9 @@ DEST_DOMAINS = {
   ],
   "openstreetmap": [
     "www.openstreetmap.org",
+  ],
+  "wikiless": [
+    "wikiless.org"
   ]
 }
 
@@ -82,11 +85,19 @@ SRC_DOMAINS = {
   ],
   "reddit": [
     "www.reddit.com",
+    "old.reddit.com",
     "reddit.com",
   ],
   "googlemaps": [
     "maps.google.com",
+  ],
+  "wikipedia": [
+    "www.wikipedia.org",
+    "en.wikipedia.org",
+    "es.wikipedia.org",
+    "pt.wikipedia.org",
   ]
+
 }
 
 SRC_TO_DEST = {
@@ -95,6 +106,7 @@ SRC_TO_DEST = {
   "reddit": "teddit",
   "twitter": "nitter",
   "youtube": "invidious",
+  "wikipedia": "wikiless"
 }
 
 DEST_TO_SRC = {
@@ -155,7 +167,7 @@ def main(args):
     v = args.pop(0)
     if v == "-r":
       choice = "random"
-    elif v == "-p":
+    elif v == "-p" or v == "-u":
       choice = "user"
     elif v == "-d":
       choice = "user"

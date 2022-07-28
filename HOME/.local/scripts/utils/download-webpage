@@ -1,0 +1,20 @@
+#!/bin/python3
+import pyautogui
+from os import getcwd
+from sys import argv
+from selenium import webdriver
+from time import sleep
+
+argc = len(argv)
+if argc < 2:
+    print(f"Usage: {argv[0]} <url_1> <url_2> ...")
+    exit(1)
+
+driver = webdriver.Chrome()
+
+for url in argv[1:]:
+    driver.get(url)
+    pyautogui.hotkey('ctrl', 's')
+    sleep(1)
+    pyautogui.typewrite(driver.title)
+    pyautogui.hotkey('enter')

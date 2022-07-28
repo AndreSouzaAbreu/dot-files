@@ -1,38 +1,38 @@
 #!/bin/sh
 
 path=$1
-regex=$(echo ${path} | sed 's;/\([^/]\+\);/\[\^/\]*\1\[\^/\]*;g')
-if echo $path | grep '/$' >/dev/null; then
+regex=$(echo "${path}" | sed 's;/\([^/]\+\);/\[\^/\]*\1\[\^/\]*;g')
+if echo "${path}" | grep '/$' >/dev/null; then
   regex="^${regex}[^/]*\$"
 else
   regex="^${regex}\$"
 fi
 
-if echo ${path} | grep '^/' >/dev/null; then
-  cd / > /dev/null
+if echo "${path}" | grep '^/' >/dev/null; then
+  cd / > /dev/null || exit 1
 fi
 
-function lsdirs()
+lsdirs()
 {
-  find -maxdepth 1 -type d | sed -e 's;^\./\?;;' -e '/^$/d'
+  find . -maxdepth 1 -type d | sed -e 's;^\./\?;;' -e '/^$/d'
 }
 
-while [ 1 ]; do
-  dir=$(echo ${path} | grep -o -P '^/?[^/]+' | sed 's;^/;;')
+while true; do
+  dir=$(echo "${path}" | grep -o -P '^/?[^/]+' | sed 's;^/;;')
   ndir=''
-  [[ -z $dir ]] && break
+  [ -z "${dir}" ] && break
 
-  if [[ -d "${dir}" ]]; then
+  if [ -d "${dir}" ]; then
     ndir="${dir}"
-  elif [[ $(lsdirs | grep --fixed-strings "${dir}" | wc -l) -eq 1 ]]; then
-    ndir=$(lsdirs | grep --fixed-strings "${dir}")
-  elif [[ $(lsdirs | grep "^${dir}" | wc -l) -eq 1 ]]; then
+  elif [ "$(lsdirs | grep -c --fixed-strings -e "${dir}")" -eq 1 ]; then
+    ndir=$(lsdirs | grep --fixed-strings -e "${dir}")
+  elif [ "$(lsdirs | grep -c -e "^${dir}")" -eq 1 ]; then
     ndir=$(lsdirs | grep "^${dir}")
   fi
 
-  [[ -d ${ndir} ]] || break
-  cd "${ndir}" > /dev/null
-  path=$(echo $path | sed "s;/\?[^/]\+;;")
+  [ -d "${ndir}" ] || break
+  cd "${ndir}" > /dev/null || exit 1
+  path=$(echo "${path}" | sed "s;/\?[^/]\+;;")
 done
 
-find $PWD 2>/dev/null | grep -P "$regex"
+find "${PWD}" 2>/dev/null | grep -P "${regex}"

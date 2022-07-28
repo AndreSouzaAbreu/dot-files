@@ -1,2 +1,2 @@
 #!/bin/sh
-alacritty -e nvim "$@"
+exec alacritty -e nvim "$@"

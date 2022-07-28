@@ -1,0 +1,3 @@
+#!/bin/sh
+setxkbmap us,apl -option grp:caps_switch
+pkill --signal 10 dwmblocks

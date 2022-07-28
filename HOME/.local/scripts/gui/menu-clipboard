@@ -1,3 +1,2 @@
 #!/bin/sh
-clipmenu -fn 'monospace:size=13'
-exit 0
+exec clipmenu -fn 'monospace:size=13'

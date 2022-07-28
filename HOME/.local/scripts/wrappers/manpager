@@ -1,0 +1,2 @@
+#!/bin/sh
+col -bx < /dev/stdin | bat --language=man

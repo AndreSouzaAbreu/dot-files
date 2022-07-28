@@ -1,3 +1,0 @@
-#!/bin/sh
-$HOME/.local/scripts/utils/rmkdir ~/pictures/screenshots
-exit 0

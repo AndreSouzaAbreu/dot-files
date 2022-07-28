@@ -1,10 +1,10 @@
 #!/bin/sh
 (
-	if [[ -n $@ ]]; then
-		echo $@
-	else
-		cat /dev/stdin
-	fi
+    if [ "$#" -gt 0 ]; then
+        echo "$@"
+    else
+		cat cat /dev/stdin
+    fi
 ) |
 sed -e 's/[ \_]/-/g' \
     -e 's/\([a-z]\)\([A-Z]\)/\1-\2/g' \

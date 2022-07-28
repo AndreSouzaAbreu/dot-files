@@ -1,0 +1,2 @@
+#!/bin/sh
+exec feh --bg-fill --no-fehbg "$1"

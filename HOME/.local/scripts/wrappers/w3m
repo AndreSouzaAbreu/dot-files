@@ -1,3 +1,3 @@
 #!/bin/sh
-# wrapper for w3m
-HOME=${HOME}/.local/share /usr/bin/w3m "$@"
+export HOME=${HOME}/.local/share 
+exec /usr/bin/w3m "$@"

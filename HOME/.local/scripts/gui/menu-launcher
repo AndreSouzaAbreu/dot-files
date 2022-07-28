@@ -1,7 +1,13 @@
-#!/bin/sh
-applications_list=$HOME/.config/applications.list
-application_name=$(sed 's/:.*//' $applications_list | sort | rofi -dmenu -window-title 'application' | head -n1)
-[[ -z $application_name ]] && exit 0
-application_cmd=$(grep "$application_name" $applications_list | sed 's/.*://' )
-$SHELL -c "$application_cmd"
-exit 0
+#!/bin/bash
+applications_list=${HOME}/.config/applications.list
+tmp=${applications_list}.tmp
+
+while read line; do
+  application_name=$(echo "${line}" | sed 's/^[a-z\d_-]\+: //i' | awk '{print $1}')
+  builtin type -p "${application_name}" >/dev/null && echo ${line}
+done < "${applications_list}" > "${tmp}"
+
+application_name=$(sed 's/:.*//' "${tmp}" | rofi -dmenu -window-title 'application' | head -n 1)
+[ -z "${application_name}" ] && exit
+application_cmd=$(grep "^${application_name}" "${tmp}" | sed 's/.*: //' )
+exec $application_cmd
