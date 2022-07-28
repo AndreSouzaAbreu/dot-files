@@ -1,73 +1,102 @@
 #!/bin/sh
 
 # rotate an image by specified degrees
-function rotate() {
+rotate()
+{
   degrees=$1
   img="$2"
-  mogrify -rotate $degrees "$img"
+  mogrify -rotate "${degrees}" "${img}"
 }
 
 # flop image
-function flop() {
+flop()
+{
   img="$1"
-  convert -flop "$img"
+  convert -flop "${img}"
 }
 
 # open a dialog to ask
-function ask() {
+ask()
+{
   rofi -dmenu -location 2 -window-title
 }
 
 # notify
-function notify() {
-  notify-send "$1" "$2" --icon dialog-information -t 1000
+notify()
+{
+  notify-send "${1}" "${2}" --icon dialog-information -t 1000
 }
 
 # crop images actually opens a graphical display to crop them
-function crop() {
-  display "$1"
+crop()
+{
+  display "${1}"
 }
 
 # opens a dialog to move img to
-function move() {
-  path=$(find $HOME/pictures -type d | ask "move to" | sed "s#^~#$HOME#")
+move()
+{
+  path=$(find "${HOME}/pictures" -type d | ask "move to" | sed "s#^~#${HOME}#")
   files=$@
-  if [[ -d $path && -n $path ]]; then
-    mv $files "$path"
-    notify "Images moved" "$files moved to $path."
+  if [ -d "${path}" ] && [ -n "${path}" ]; then
+    mv ${files} "${path}"
+    notify "Images moved" "${files} moved to ${path}."
+  fi
+}
+
+# opens a dialog to copy img to
+copy()
+{
+  path=$(find "${HOME}/pictures" -type d | ask "move to" | sed "s#^~#${HOME}#")
+  files=$@
+  if [ -d "${path}" ] &&  [ -n "${path}" ]; then
+    cp "${files}" "${path}"
+    notify "Images copied" "${files} copied to ${path}."
   fi
 }
 
 # runs an operation on each of the images from standard input
-function forEachImg() {
-  operation=$@
+forEachImg()
+{
   while read img; do
-    $operation $img
-  done < /dev/stdin
+    $@ "${img}"
+  done
 }
 
 key=$1
 case "$key" in
-  C-x|x) # delete
+  C-x|x)
+    # delete images
     mkdir -p /tmp/sxiv
-    mv $(cat /dev/stdin) /tmp/sxiv
+    while read line; do
+      mv "${line}" /tmp/sxiv;
+    done
     ;;
-  m) # move
+  m)
+    # move images
     move $(cat /dev/stdin)
     ;;
-  greater|period) # rotate right
+  greater|period)
+    # rotate right
     forEachImg rotate 90
     ;;
-  less|comma|C-comma) # rotate left
+  less|comma|C-comma)
+    # rotate left
     forEachImg rotate 270
     ;;
-  colon|semicolon|C-semicolon) # vertical flip
+  colon|semicolon|C-semicolon)
+    # vertical flip
     forEachImg rotate 180
     ;;
-  question|slash|C-slash) # horizontal flip
+  question|slash|C-slash)
+    # horizontal flip
     forEachImg flop
     ;;
   C-c|c)
-    forEachImg crop
+    # copy image
+    forEachImg copy
+    ;;
+  C-w|w)
+    wallpaper $(head -n1 /dev/stdin)
     ;;
 esac
